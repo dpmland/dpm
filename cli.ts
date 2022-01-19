@@ -2,6 +2,7 @@ import { APP } from 'mods/cli.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { dracoInfo } from 'mods/deps.ts';
+import { GetTheOptionsPrompt, WriteDpmFileJson } from 'files/init.ts';
 
 APP
   .command('dirs', 'Show the directories currently used')
@@ -26,6 +27,19 @@ APP
     LOGGER.info(`DENO VERSION: ${dracoInfo.DenoVersion}`);
     LOGGER.info(`DENO TYPESCRIPT: ${dracoInfo.DenoTypescript}`);
     LOGGER.info(`DENO V8: ${dracoInfo.DenoV8}`);
+  });
+
+APP
+  .command('init', 'Init the deno_packages.json file')
+  .alias('create', 'innit')
+  .option('-y, --yes', 'Create the deno_packages.json file without prompt')
+  .action(async () => {
+    if (APP.yes) {
+      WriteDpmFileJson({});
+      Deno.exit();
+    }
+    const app = await GetTheOptionsPrompt();
+    WriteDpmFileJson(app);
   });
 
 try {

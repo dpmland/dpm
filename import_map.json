@@ -1,5 +1,7 @@
 {
   "imports": {
-    "mods/": "./mods/"
+    "mods/": "./mods/",
+    "core/": "./core/",
+    "files/": "./core/files/"
   }
 }

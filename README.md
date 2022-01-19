@@ -16,7 +16,7 @@ libraries and code
 - Build with 100% Typescript
 - Deno Lint, Format command support
 - Config generator for _deno lint_ and _deno fmt_
-- Manage all in a `dpm.json` file with the `package.json` syntax
+- Manage all in a `package.json` file with the same syntax and more features
 - Import map generator.
 - Generate all dependencies from a `deps.ts` file
 
@@ -27,7 +27,7 @@ TODO!
 ## Roadmap :sparkles:
 
 - [ ] Add the main cli
-- [ ] Create the init command and create the `dpm.json` file
+- [ ] Create the init command and create the `package.json` file
 - [ ] Create the `deps.ts` file and the dependencies
 - [ ] Add the `format, format check, lint` commands
 - [ ] Create the `deno.json` config generator

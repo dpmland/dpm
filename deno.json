@@ -1,5 +1,12 @@
 {
   "$schema": "https://deno.land/x/deno@v1.17.2/cli/schemas/config-file.v1.json",
+  "lint": {
+    "rules": {
+      "exclude": [
+        "no-explicit-any"
+      ]
+    }
+  },
   "fmt": {
     "options": {
       "useTabs": false,
