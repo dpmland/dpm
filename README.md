@@ -2,13 +2,10 @@
 
 ## Dpm - CLI :sauropod:
 
-<!-- ![Github Workflow](https://img.shields.io/github/workflow/status/dpmland/draco/CI) -->
-<!-- [![GitHub license](https://img.shields.io/github/license/dpmland/draco?label=License)](./LICENSE) -->
-
 [![Discord](https://img.shields.io/discord/932381618851692565?label=Discord&logo=discord&logoColor=white)](https://discord.gg/Um27YPJKud)
-
-<!-- ![Lins of code](https://img.shields.io/tokei/lines/github/dpmland/draco?label=Lines) -->
-<!-- [![Last Commit](https://img.shields.io/github/last-commit/dpmland/draco)](https://github.com/dpmland/draco) -->
+[![Twitter](https://img.shields.io/twitter/follow/dpm_land?label=Dpm%20Land&style=social)](https://twitter.com/intent/follow?screen_name=dpm_land)
+[![GitHub license](https://img.shields.io/github/license/dpmland/cli?label=License)](./LICENSE)
+![Github Workflow](https://img.shields.io/github/workflow/status/dpmland/cli/CI)
 
 Dpm `Deno Package Manager` is a _simple_, _modern_ and _easy way_ to **manage
 the Deno Modules and dependencies** that help to write and manage the deno
