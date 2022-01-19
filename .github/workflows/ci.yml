@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: 1.17.1
+
+      - name: Check the formatting code
+        run: deno fmt -c deno.json --check
+        env:
+          NO_COLOR: true

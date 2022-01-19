@@ -1,0 +1,10 @@
+{
+  "$schema": "https://deno.land/x/deno@v1.17.2/cli/schemas/config-file.v1.json",
+  "fmt": {
+    "options": {
+      "useTabs": false,
+      "indentWidth": 2,
+      "singleQuote": true
+    }
+  }
+}
