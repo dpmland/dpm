@@ -38,8 +38,16 @@ APP
         break;
       }
 
+      case 'help': {
+        console.log(
+          'Exists many types for about: deno, authors etc, more information with dpm doc about.help',
+        );
+        break;
+      }
+
       default: {
         LOGGER.error('Type for about not found check the documentation');
+        break;
       }
     }
   });
