@@ -27,7 +27,7 @@ TODO!
 ## Roadmap :sparkles:
 
 - [x] Add the main cli
-- [x] Create the init command and create the `deno_packages.json` file
+- [x] Create the init command and create the `dpm.json` file
 - [ ] Create the `deps.ts` file and the dependencies
 - [ ] Add the `format, format check, lint` commands
 - [ ] Create the `deno.json` config generator

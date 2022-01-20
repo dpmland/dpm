@@ -80,5 +80,5 @@ export function WriteDpmFileJson(input_prompt: Record<string, unknown>) {
     LOGGER.error(e);
     Deno.exit(1);
   }
-  LOGGER.info('Writed succesfully the deno_packages.json file');
+  LOGGER.info('Writed succesfully the dpm.json file');
 }

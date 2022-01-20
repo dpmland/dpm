@@ -1,4 +1,5 @@
 import { APP } from 'mods/cli.ts';
+import { GetAuthors } from 'mods/authors.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { dracoInfo } from 'mods/deps.ts';
@@ -22,17 +23,31 @@ APP
   });
 
 APP
-  .command('about', 'Show the data about this project')
-  .action(() => {
-    LOGGER.info(`DENO VERSION: ${dracoInfo.DenoVersion}`);
-    LOGGER.info(`DENO TYPESCRIPT: ${dracoInfo.DenoTypescript}`);
-    LOGGER.info(`DENO V8: ${dracoInfo.DenoV8}`);
+  .command('about [type]', 'Show the data about this project')
+  .action(({ type }: any) => {
+    switch (type) {
+      case 'deno': {
+        LOGGER.info(`DENO VERSION: ${dracoInfo.DenoVersion}`);
+        LOGGER.info(`DENO TYPESCRIPT: ${dracoInfo.DenoTypescript}`);
+        LOGGER.info(`DENO V8: ${dracoInfo.DenoV8}`);
+        break;
+      }
+
+      case 'authors': {
+        GetAuthors();
+        break;
+      }
+
+      default: {
+        LOGGER.error('Type for about not found check the documentation');
+      }
+    }
   });
 
 APP
-  .command('init', 'Init the deno_packages.json file')
+  .command('init', 'Init the dpm.json file')
   .alias('create', 'innit')
-  .option('-y, --yes', 'Create the deno_packages.json file without prompt')
+  .option('-y, --yes', 'Create the dpm.json file without prompt')
   .action(async () => {
     if (APP.yes) {
       WriteDpmFileJson({});
