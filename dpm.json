@@ -1,0 +1,16 @@
+{
+  "name": "cli",
+  "version": "0.1.0",
+  "description": "A example dpm package",
+  "author": "A cool coder human",
+  "license": "ISC",
+  "main": "mod.ts",
+  "scripts": {
+    "build_in": {
+      "test": "deno test -A --unstable",
+      "fmt": "deno fmt -c deno.json",
+      "lint": "deno lint -c deno.json"
+    }
+  },
+  "dependencies": {}
+}

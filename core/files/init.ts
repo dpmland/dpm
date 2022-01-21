@@ -67,6 +67,7 @@ function generateJSONObject(
         lint: input.lint_cmd || 'deno lint -c deno.json',
       },
     },
+    dependencies: {},
   };
 }
 
@@ -81,4 +82,23 @@ export function WriteDpmFileJson(input_prompt: Record<string, unknown>) {
     Deno.exit(1);
   }
   LOGGER.info('Writed succesfully the dpm.json file');
+}
+
+export async function WriteImportMapJson() {
+  try {
+    await Deno.writeTextFile(
+      BASE_DIRECTORIES.IMPORT_MAPS,
+      JSON.stringify(
+        {
+          imports: {},
+        },
+        null,
+        '\t',
+      ),
+    );
+  } catch (e) {
+    LOGGER.error(e.message);
+    Deno.exit(1);
+  }
+  LOGGER.info('Writed succesfully import_map.json file');
 }
