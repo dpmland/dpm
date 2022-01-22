@@ -29,10 +29,10 @@ TODO!
 - [x] Add the main cli
 - [x] Create the init command and create the `dpm.json` file
 - [ ] Create the `deps.ts` file and the dependencies
-- [ ] Add the `format, format check, lint` commands
+- [x] Add the `format, format check, lint` commands
 - [ ] Create the `deno.json` config generator
 - [ ] Add the import map generator
-- [ ] Add the script command support
+- [x] Add the script command support
 - [ ] Add the `eggs.json` file generator
 - [ ] Add the aliases for run a deno app
 - [ ] Add the `README.md` and data generator.

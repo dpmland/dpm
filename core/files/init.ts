@@ -71,9 +71,9 @@ function generateJSONObject(
   };
 }
 
-export function WriteDpmFileJson(input_prompt: Record<string, unknown>) {
+export async function WriteDpmFileJson(input_prompt: Record<string, unknown>) {
   try {
-    Deno.writeTextFileSync(
+    await Deno.writeTextFile(
       BASE_DIRECTORIES.DPM_FILE,
       JSON.stringify(generateJSONObject(input_prompt), null, '\t'),
     );

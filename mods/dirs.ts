@@ -6,7 +6,7 @@ export const BASE_DIRECTORIES = {
   DOCS: join(dracoFiles.cacheDir('DPM')!, 'docs'),
   DPM_FILE: join(dracoFiles.currentDir(), 'dpm.json'),
   DENO_JSON_FILE: join(dracoFiles.currentDir(), 'deno.json'),
-  IMPORT_MAPS: join(dracoFiles.currentDir(), 'import_map.json'),
+  IMPORT_MAPS: join(dracoFiles.currentDir(), 'dpm_imports.json'),
   EGGS_FILE: join(dracoFiles.currentDir(), 'eggs.json'),
   DEPS_FILE_ONLY: join(dracoFiles.currentDir(), 'deps.ts'),
   DEPS_DIR: join(dracoFiles.currentDir(), 'dpm_deps', 'deps.ts'),

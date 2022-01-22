@@ -2,6 +2,8 @@
   "imports": {
     "mods/": "./mods/",
     "core/": "./core/",
-    "files/": "./core/files/"
+    "files/": "./core/files/",
+    "packages/": "./core/packages/",
+    "runner/": "./core/runner/"
   }
 }

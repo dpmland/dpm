@@ -1,10 +1,16 @@
 import { APP } from 'mods/cli.ts';
 import { GetAuthors } from 'mods/authors.ts';
 import { AppendModuleToDpm, ReadDpmFile } from 'files/read.ts';
+import { readAndRunScripts } from 'core/scripts/build-in.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { dracoInfo } from 'mods/deps.ts';
-import { GetTheOptionsPrompt, WriteDpmFileJson } from 'files/init.ts';
+import {
+  GetTheOptionsPrompt,
+  WriteDpmFileJson,
+  WriteImportMapJson,
+} from 'files/init.ts';
+import { FormatInternalJSON } from 'runner/format.ts';
 
 APP
   .command('about [type]', 'Show the data about this project')
@@ -64,20 +70,38 @@ APP
   .command('init', 'Init the dpm.json file')
   .alias('create', 'innit')
   .option('-y, --yes', 'Create the dpm.json file without prompt')
+  .option('--fmt', 'Format the json files')
   .action(async () => {
     if (APP.yes) {
-      WriteDpmFileJson({});
+      await WriteDpmFileJson({});
+      await WriteImportMapJson();
+      Deno.exit();
+    }
+    if (APP.fmt) {
+      await FormatInternalJSON();
       Deno.exit();
     }
     const app = await GetTheOptionsPrompt();
-    WriteDpmFileJson(app);
+    await WriteDpmFileJson(app);
+  });
+
+APP
+  .command('run [cmd]', 'Run the commands from the dpm file')
+  .option('--build', 'Run the build-in commands')
+  .action(async ({ cmd }: any) => {
+    if (APP.build) {
+      await readAndRunScripts(cmd, true);
+      Deno.exit();
+    }
+    await readAndRunScripts(cmd, false);
+    Deno.exit();
   });
 
 APP
   .command('add [deps...]', 'Add dependencies to the dpm file')
   .option('-h --host', 'Change from deno.land/x to other')
   .action(({ deps }: any) => {
-    AppendModuleToDpm(deps);
+    console.log(AppendModuleToDpm(deps));
   });
 
 try {
