@@ -1,10 +1,11 @@
 import { APP } from 'mods/cli.ts';
 import { GetAuthors } from 'mods/authors.ts';
-import { AppendModuleToDpm, ReadDpmFile } from 'files/read.ts';
+import { ReadDpmFile } from 'files/read.ts';
 import { readAndRunScripts } from 'core/scripts/build-in.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { dracoInfo } from 'mods/deps.ts';
+import { AppendModuleToDpm } from 'packages/add.ts';
 import {
   GetTheOptionsPrompt,
   WriteDpmFileJson,
@@ -99,8 +100,17 @@ APP
 
 APP
   .command('add [deps...]', 'Add dependencies to the dpm file')
-  .option('-h --host', 'Change from deno.land/x to other')
+  .option('-r --remote', 'Change from deno.land/x to other')
+  .option('-s --std', 'Add a dependency form the std library')
   .action(({ deps }: any) => {
+    if (APP.remote != ' ') {
+      console.log(AppendModuleToDpm(deps, APP.remote));
+      Deno.exit();
+    }
+    if (APP.std) {
+      LOGGER.info('Working in this feature');
+      Deno.exit();
+    }
     console.log(AppendModuleToDpm(deps));
   });
 
