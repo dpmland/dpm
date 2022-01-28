@@ -1,18 +1,26 @@
 import { dirname } from 'mods/deps.ts';
+import { LOGGER } from 'mods/logger.ts';
 
-export function AppendModuleToDpm(
+// Types
+export interface appendOptions {
+  host?: string;
+  std?: boolean;
+}
+
+export function appendModuleToDpm(
   depName: Array<string>,
-  host?: string,
-  // TODO(Teo): Add the std setup
-  // std?: boolean,
+  options: appendOptions = {},
 ) {
   const url = [];
-  host = (typeof host == 'undefined' || typeof host == 'boolean')
+  if (typeof options.host == 'boolean') {
+    LOGGER.error('Host is necessary a value!');
+    Deno.exit();
+  }
+  options.host = (typeof options.host == 'undefined')
     ? 'deno.land/x'
-    : host;
-  console.log(host);
+    : options.host;
   for (const i of depName) {
-    const URL_COMPLETE = dirname(`https://${host}/${i}`);
+    const URL_COMPLETE = dirname(`https://${options.host}/${i}`);
     url.push(`${URL_COMPLETE}/`);
   }
   return url;

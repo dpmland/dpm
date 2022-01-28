@@ -5,7 +5,7 @@ import { readAndRunScripts } from 'core/scripts/build-in.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { dracoInfo } from 'mods/deps.ts';
-import { AppendModuleToDpm } from 'packages/add.ts';
+import { appendModuleToDpm } from 'packages/add.ts';
 import {
   GetTheOptionsPrompt,
   WriteDpmFileJson,
@@ -14,7 +14,30 @@ import {
 import { FormatInternalJSON } from 'runner/format.ts';
 
 APP
-  .command('about [type]', 'Show the data about this project')
+  .errorMessages({
+    INVALID_RULE: 'Invalid rule error on parsing',
+    OPTION_NOT_FOUND: 'Flag not found run << dpm -h >> for more information',
+    COMMAND_NOT_FOUND:
+      'Command not found run << dpm -h >> or << dpm doc help >> for more information',
+    REQUIRED_OPTION_NOT_FOUND:
+      'Flag necessary for use this command run << dpm -h >> or << dpm doc help >>',
+    REQUIRED_VALUE_NOT_FOUND:
+      'Required value for the command is necessary run << dpm -h >> or << dpm doc help >> for more information',
+    REQUIRED_COMMAND_VALUE_NOT_FOUND:
+      'Is necessary a value for use this command run << dpm -h >> or << dpm doc help >>',
+    TOO_MANY_PARAMS:
+      'Many parameters not necessary run << dpm -h >> or << dpm doc help >> for more information',
+    OPTION_CHOICE:
+      'Invalid choice for the flag for more information run << dpm -h >> or << dpm doc help >> for more information >>',
+    ONLY_ONE_COMMAND_ALLOWED: 'Only one command is allowed in default mode!',
+  });
+
+APP
+  .command('about [type]', 'Do you want know me use this command!')
+  .argDescription(
+    'type',
+    'Type about for show the information for help run << dpm about help >>',
+  )
   .action(async ({ type }: any) => {
     switch (type) {
       case 'deno': {
@@ -39,6 +62,12 @@ APP
         break;
       }
 
+      case 'dpmFile': {
+        const data = await ReadDpmFile();
+        console.log(data);
+        break;
+      }
+
       case 'authors': {
         GetAuthors();
         break;
@@ -46,14 +75,19 @@ APP
 
       case 'deps': {
         const data = await ReadDpmFile();
-        console.log(data);
-        console.log(typeof (data));
+        console.log(data.dependencies);
         break;
       }
 
       case 'help': {
         console.log(
-          'Exists many types for about: deno, authors etc, more information with dpm doc about.help',
+          `Types for use this command are:
+
+- deno: Show the deno version information
+- dirs: Show the directories used by dpm
+- dpmFile: Show the content on the dpm file
+- authors: Show the authors was created dpm
+- deps: Show the dependencies on the dpm file`,
         );
         break;
       }
@@ -100,18 +134,18 @@ APP
 
 APP
   .command('add [deps...]', 'Add dependencies to the dpm file')
-  .option('-r --remote', 'Change from deno.land/x to other')
+  .option('--host', 'Change from deno.land/x to other')
   .option('-s --std', 'Add a dependency form the std library')
-  .action(({ deps }: any) => {
-    if (APP.remote != ' ') {
-      console.log(AppendModuleToDpm(deps, APP.remote));
+  .action(({ deps }: any, { host, std }: any) => {
+    if (APP.host != ' ') {
+      console.log(appendModuleToDpm(deps, { host: host }));
       Deno.exit();
     }
-    if (APP.std) {
+    if (std) {
       LOGGER.info('Working in this feature');
       Deno.exit();
     }
-    console.log(AppendModuleToDpm(deps));
+    console.log(appendModuleToDpm(deps));
   });
 
 try {
