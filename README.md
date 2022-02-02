@@ -24,6 +24,11 @@ libraries and code
 
 TODO!
 
+## Contribution Guides :books:
+
+Thanks for want help to this project for contribute you can check the
+[contributing file](./CONTRIBUTING.md)
+
 ## Roadmap :sparkles:
 
 - [x] Add the main cli

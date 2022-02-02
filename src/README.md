@@ -30,3 +30,5 @@ Here you found the source code of Dpm.
 
 If you help or contribute to the dpm source you can add to the
 [authors file](./modules/authors.ts) for promote you :smiley:
+
+Made with :heart: in :earth_americas:
