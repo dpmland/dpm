@@ -1,9 +1,9 @@
 {
   "imports": {
-    "mods/": "./mods/",
-    "core/": "./core/",
-    "files/": "./core/files/",
-    "packages/": "./core/packages/",
-    "runner/": "./core/runner/"
+    "mods/": "./src/modules/",
+    "core/": "./src/core/",
+    "files/": "./src/core/files/",
+    "packages/": "./src/core/packages/",
+    "runner/": "./src/core/runner/"
   }
 }

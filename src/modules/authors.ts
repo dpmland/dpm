@@ -1,14 +1,16 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
+
 // Add here if you help to dpm
-export const AUTHORS_DPM = [
+const AUTHORS_DPM = [
   {
     name: 'TeoDev1611',
     social: 'https://twitter.com/TeoDev1611',
   },
 ];
 
+// NOTE: Don't touch this if you are adding to the credits
 // Table authors generator
-import { table } from 'https://deno.land/x/minitable@v1.0/mod.ts';
+import { table } from 'mods/deps.ts';
 
 export function GetAuthors() {
   const t = table(AUTHORS_DPM, ['name', 'social'], {

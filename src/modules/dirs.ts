@@ -1,3 +1,5 @@
+// Copyright © 2022 Dpm Land. All Rights Reserved.
+
 import { dracoFiles, join } from 'mods/deps.ts';
 
 export const BASE_DIRECTORIES = {

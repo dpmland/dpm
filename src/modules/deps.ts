@@ -1,3 +1,5 @@
+// Copyright © 2022 Dpm Land. All Rights Reserved.
+
 // Export the draco deps
 export { dracoFiles, dracoInfo } from 'https://deno.land/x/draco@0.1.3/mod.ts';
 
@@ -10,3 +12,6 @@ export {
   dirname,
   extname,
 } from 'https://deno.land/std@0.121.0/path/mod.ts';
+
+// Tables for the authors
+export { table } from 'https://deno.land/x/minitable@v1.0/mod.ts';

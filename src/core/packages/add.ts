@@ -1,3 +1,5 @@
+// Copyright © 2022 Dpm Land. All Rights Reserved.
+
 import { dirname } from 'mods/deps.ts';
 import { LOGGER } from 'mods/logger.ts';
 

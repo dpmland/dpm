@@ -1,3 +1,5 @@
+// Copyright © 2022 Dpm Land. All Rights Reserved.
+
 import { Run } from 'runner/main.ts';
 import { dracoFiles } from 'mods/deps.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';

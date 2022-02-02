@@ -1,3 +1,5 @@
+// Copyright © 2022 Dpm Land. All Rights Reserved.
+
 import Denomander from 'https://deno.land/x/denomander@0.9.1/mod.ts';
 
 // Export the base CLI

@@ -1,3 +1,5 @@
+// Copyright © 2022 Dpm Land. All Rights Reserved.
+
 import { APP } from 'mods/cli.ts';
 import { GetAuthors } from 'mods/authors.ts';
 import { ReadDpmFile } from 'files/read.ts';
