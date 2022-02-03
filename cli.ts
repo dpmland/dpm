@@ -13,6 +13,7 @@ import {
   WriteDpmFileJson,
   WriteImportMapJson,
 } from 'files/init.ts';
+import * as install from 'tools/install.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
 
 APP
@@ -124,6 +125,7 @@ APP
 
 APP
   .command('run [cmd]', 'Run the commands from the dpm file')
+  .alias('r', 'exec')
   .option('--build', 'Run the build-in commands')
   .action(async ({ cmd }: any) => {
     if (APP.build) {
@@ -132,6 +134,30 @@ APP
     }
     await readAndRunScripts(cmd, false);
     Deno.exit();
+  });
+
+APP
+  .command('tools [action]', 'Install and use the tools integrated')
+  .description(
+    'Some tools are necessary for complement the use with dpm well here are how install, list and use every tool with dpm help',
+  )
+  .action(({ action }: any) => {
+    switch (action) {
+      case 'list': {
+        install.getAllTools();
+        break;
+      }
+
+      case 'install': {
+        install.installTools();
+        break;
+      }
+
+      default: {
+        LOGGER.error('Action not found run << dpm doc tools >>');
+        break;
+      }
+    }
   });
 
 APP

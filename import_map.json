@@ -4,6 +4,7 @@
     "core/": "./src/core/",
     "files/": "./src/core/files/",
     "packages/": "./src/core/packages/",
-    "runner/": "./src/core/runner/"
+    "runner/": "./src/core/runner/",
+    "tools/": "./src/core/tools/"
   }
 }
