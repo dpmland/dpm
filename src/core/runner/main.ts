@@ -9,7 +9,7 @@ export async function Run(command: string) {
   });
   const { success } = await run.status();
   if (success == false) {
-    LOGGER.error('Command not runned successfully');
+    LOGGER.error(`The command was not executed correctly:\n${command}`);
     Deno.exit(1);
   }
 }
