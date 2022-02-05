@@ -109,13 +109,13 @@ APP
   .alias('create', 'innit')
   .option('-y, --yes', 'Create the dpm.json file without prompt')
   .option('--fmt', 'Format the json files')
-  .action(async () => {
-    if (APP.yes) {
+  .action(async ({ yes, fmt }: any) => {
+    if (yes) {
       await WriteDpmFileJson({});
       await WriteImportMapJson();
       Deno.exit();
     }
-    if (APP.fmt) {
+    if (fmt) {
       await FormatInternalJSON();
       Deno.exit();
     }
@@ -127,8 +127,8 @@ APP
   .command('run [cmd]', 'Run the commands from the dpm file')
   .alias('r', 'exec')
   .option('--build', 'Run the build-in commands')
-  .action(async ({ cmd }: any) => {
-    if (APP.build) {
+  .action(async ({ cmd }: any, { build }: any) => {
+    if (build) {
       await readAndRunScripts(cmd, true);
       Deno.exit();
     }
@@ -165,7 +165,7 @@ APP
   .option('--host', 'Change from deno.land/x to other')
   .option('-s --std', 'Add a dependency form the std library')
   .action(({ deps }: any, { host, std }: any) => {
-    if (APP.host != ' ') {
+    if (host != ' ') {
       console.log(appendModuleToDpm(deps, { host: host }));
       Deno.exit();
     }
