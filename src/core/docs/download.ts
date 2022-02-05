@@ -4,15 +4,28 @@ import { Run } from 'runner/main.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { Downloading } from 'mods/spinners.ts';
+import { dracoFiles } from 'mods/deps.ts';
 
 export const DOCS_DOWNLOAD_REPO = 'https://github.com/dpmland/docs.git';
 
 export async function downloadDocumentation() {
-  LOGGER.info('Downloading the documentation on the repo');
+  LOGGER.info('Downloading the documentation on the docs directory');
   const command =
     `git clone --depth 1 ${DOCS_DOWNLOAD_REPO} ${BASE_DIRECTORIES.DOCS}`;
   Downloading.start();
   await Run(command);
   Downloading.succeed('Done downloaded the local documentation');
   Downloading.stop();
+}
+
+export async function updateDocumentation() {
+  if (dracoFiles.exists(BASE_DIRECTORIES.DOCS)) {
+    LOGGER.warn('Removing the existing doc directory');
+    await Deno.remove(BASE_DIRECTORIES.DOCS, { recursive: true });
+    await downloadDocumentation();
+    LOGGER.info('Updated the documentation successfully');
+    Deno.exit();
+  }
+  await downloadDocumentation();
+  Deno.exit();
 }

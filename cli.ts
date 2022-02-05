@@ -182,10 +182,15 @@ APP
 APP
   .command('doc', 'Show documentation for a action or command')
   .alias('docs')
-  .option('-d --download', 'Download the documentation from the repo')
-  .action(async ({ download }: any) => {
+  .option('-d --download', 'Download the documentation!')
+  .option('-u --update', 'Update the documentation!')
+  .action(async ({ download, update }: any) => {
     if (download) {
       await docs.downloadDocumentation();
+      Deno.exit();
+    }
+    if (update) {
+      await docs.updateDocumentation();
       Deno.exit();
     }
   });
