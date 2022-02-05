@@ -5,25 +5,32 @@ Here you found the source code of Dpm.
 ### File structure
 
 ```
-├──  core ## All logic of the  internal file
-│  ├──  files ## The files operations like read write files
-│  │  ├── init.ts
-│  │  └── read.ts
-│  ├──  packages ## For the <<dependencies>> section on the dpm file
-│  │  └── add.ts
-│  ├──  runner ## Run the commands of the scripts section
-│  │  ├── format.ts
-│  │  └── main.ts
-│  └──  scripts ## Run the build-in commands
-│     └── build-in.ts
-├──  modules ## The simple modules for the cli like dependencies or the authors file
-│  ├── ask.ts
-│  ├── authors.ts
-│  ├── cli.ts
-│  ├── deps.ts
-│  ├── dirs.ts
-│  └── logger.ts
-└── README.md
+.
+├──  core
+│  ├──  docs
+│  │  ├──  download.ts
+│  │  └──  main.ts
+│  ├──  files
+│  │  ├──  init.ts
+│  │  └──  read.ts
+│  ├──  packages
+│  │  └──  add.ts
+│  ├──  runner
+│  │  ├──  format.ts
+│  │  └──  main.ts
+│  ├──  scripts
+│  │  └──  build_in.ts
+│  └──  tools
+│     └──  install.ts
+├──  modules
+│  ├──  ask.ts
+│  ├──  authors.ts
+│  ├──  cli.ts
+│  ├──  deps.ts
+│  ├──  dirs.ts
+│  ├──  logger.ts
+│  └──  spinners.ts
+└──  README.md
 ```
 
 ### For the contributors

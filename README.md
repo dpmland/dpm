@@ -33,11 +33,15 @@ Thanks for want help to this project for contribute you can check the
 
 - [x] Add the main cli
 - [x] Create the init command and create the `dpm.json` file
-- [ ] Create the `deps.ts` file and the dependencies
+- [x] Documentation offline
+- [x] About cli and directories help
+- [x] Format internal json files
+- [x] Add the script command support
 - [x] Add the `format, format check, lint` commands
+- [x] Tools installation for deno development
+- [ ] Create the `deps.ts` file and the dependencies
 - [ ] Create the `deno.json` config generator
 - [ ] Add the import map generator
-- [x] Add the script command support
 - [ ] Add the `eggs.json` file generator
 - [ ] Add the aliases for run a deno app
 - [ ] Add the `README.md` and data generator.
