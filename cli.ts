@@ -3,7 +3,7 @@
 import { APP } from 'mods/cli.ts';
 import { GetAuthors } from 'mods/authors.ts';
 import { ReadDpmFile } from 'files/read.ts';
-import { readAndRunScripts } from 'core/scripts/build-in.ts';
+import { readAndRunScripts } from 'core/scripts/build_in.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { dracoInfo } from 'mods/deps.ts';

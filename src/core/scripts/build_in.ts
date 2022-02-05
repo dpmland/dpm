@@ -1,8 +1,8 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { ReadDpmFile } from 'files/read.ts';
-import { LOGGER } from 'mods/logger.ts';
 import { Run } from 'runner/main.ts';
+import { LOGGER } from 'mods/logger.ts';
 
 export async function readAndRunScripts(script: string, buildIn: boolean) {
   const scripts = await ReadDpmFile();
