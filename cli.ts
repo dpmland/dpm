@@ -13,6 +13,7 @@ import {
   WriteDpmFileJson,
   WriteImportMapJson,
 } from 'files/init.ts';
+import * as docs from 'docs/download.ts';
 import * as install from 'tools/install.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
 
@@ -136,6 +137,7 @@ APP
     Deno.exit();
   });
 
+// TODO(Teo): Add the uninstall tools and the usage for the uud
 APP
   .command('tools [action]', 'Install and use the tools integrated')
   .description(
@@ -160,6 +162,7 @@ APP
     }
   });
 
+// TODO(Teo): Add the dependencies to the import map file
 APP
   .command('add [deps...]', 'Add dependencies to the dpm file')
   .option('--host', 'Change from deno.land/x to other')
@@ -174,6 +177,17 @@ APP
       Deno.exit();
     }
     console.log(appendModuleToDpm(deps));
+  });
+
+APP
+  .command('doc', 'Show documentation for a action or command')
+  .alias('docs')
+  .option('-d --download', 'Download the documentation from the repo')
+  .action(async ({ download }: any) => {
+    if (download) {
+      await docs.downloadDocumentation();
+      Deno.exit();
+    }
   });
 
 try {

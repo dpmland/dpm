@@ -16,3 +16,8 @@ export const Updating = new Kia({
   text: 'Updating...',
   color: 'green',
 });
+
+export const Downloading = new Kia({
+  text: 'Downloading...',
+  color: 'magenta',
+});
