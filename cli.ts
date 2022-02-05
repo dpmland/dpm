@@ -14,6 +14,7 @@ import {
   WriteImportMapJson,
 } from 'files/init.ts';
 import * as docs from 'docs/download.ts';
+import { getDocumentation } from 'docs/main.ts';
 import * as install from 'tools/install.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
 
@@ -180,17 +181,21 @@ APP
   });
 
 APP
-  .command('doc', 'Show documentation for a action or command')
+  .command('doc [action?]', 'Show documentation for a action or command')
   .alias('docs')
   .option('-d --download', 'Download the documentation!')
   .option('-u --update', 'Update the documentation!')
-  .action(async ({ download, update }: any) => {
+  .action(async ({ action, download, update }: any) => {
     if (download) {
       await docs.downloadDocumentation();
       Deno.exit();
     }
     if (update) {
       await docs.updateDocumentation();
+      Deno.exit();
+    }
+    if (action) {
+      await getDocumentation(action);
       Deno.exit();
     }
   });
