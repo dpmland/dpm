@@ -2,7 +2,7 @@
 
 import { ask } from 'mods/ask.ts';
 import { basename, dracoFiles } from 'mods/deps.ts';
-import { BASE_DIRECTORIES } from 'mods/dirs.ts';
+import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 
 export async function GetTheOptionsPrompt() {
@@ -77,13 +77,13 @@ export async function WriteDpmFileJson(input_prompt: Record<string, unknown>) {
   try {
     await Deno.writeTextFile(
       BASE_DIRECTORIES.DPM_FILE,
-      JSON.stringify(generateJSONObject(input_prompt), null, '\t'),
+      JSON.stringify(generateJSONObject(input_prompt), null, ' '),
     );
   } catch (e) {
     LOGGER.error(e);
     Deno.exit(1);
   }
-  LOGGER.info('Writed succesfully the dpm.json file');
+  LOGGER.info(`Writed succesfully the ${NAME_DIRECTORIES.DPM_FILE} file`);
 }
 
 export async function WriteImportMapJson() {
@@ -95,12 +95,12 @@ export async function WriteImportMapJson() {
           imports: {},
         },
         null,
-        '\t',
+        ' ',
       ),
     );
   } catch (e) {
     LOGGER.error(e.message);
     Deno.exit(1);
   }
-  LOGGER.info('Writed succesfully import_map.json file');
+  LOGGER.info(`Writed succesfully ${NAME_DIRECTORIES.IMPORT_MAPS} file`);
 }
