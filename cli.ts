@@ -177,7 +177,8 @@ APP
 
 // TODO(Teo): Add the dependencies to the import map file
 APP
-  .command('add [deps...]', 'Add dependencies to the dpm file')
+  .command('install [deps...]', 'Install dependencies to the dpm file')
+  .alias('i', 'add')
   .option('--host', 'Change from deno.land/x to other')
   .option('-s --std', 'Add a dependency form the std library')
   .action(({ deps }: any, { host, std }: any) => {
