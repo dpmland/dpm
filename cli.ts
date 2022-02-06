@@ -16,7 +16,7 @@ import { APP } from 'mods/cli.ts';
 import { dracoInfo } from 'mods/deps.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { appendModuleToDpm } from 'packages/add.ts';
+import { installDepsToImports } from 'packages/main.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
 import * as install from 'tools/install.ts';
 
@@ -114,8 +114,9 @@ APP
   .option('-y, --yes', 'Create the dpm.json file without prompt')
   .option('-d --deno', 'Create the deno config file for better development')
   .option('-r --readme', 'Generate a readme with the dpm.json file')
+  .option('--importMap', 'Generate the import map file!')
   .option('--fmt', 'Format the json files')
-  .action(async ({ yes, fmt, deno, readme }: any) => {
+  .action(async ({ yes, fmt, deno, readme, importMap }: any) => {
     if (yes) {
       await WriteDpmFileJson({});
       await WriteImportMapJson();
@@ -131,6 +132,10 @@ APP
     }
     if (readme) {
       await generateReadme();
+      Deno.exit();
+    }
+    if (importMap) {
+      await WriteImportMapJson();
       Deno.exit();
     }
     const app = await GetTheOptionsPrompt();
@@ -181,16 +186,16 @@ APP
   .alias('i', 'add')
   .option('--host', 'Change from deno.land/x to other')
   .option('-s --std', 'Add a dependency form the std library')
-  .action(({ deps }: any, { host, std }: any) => {
+  .action(async ({ deps }: any, { host, std }: any) => {
     if (host != ' ') {
-      console.log(appendModuleToDpm(deps, { host: host }));
+      await installDepsToImports(deps, { host: host });
       Deno.exit();
     }
     if (std) {
       LOGGER.info('Working in this feature');
       Deno.exit();
     }
-    console.log(appendModuleToDpm(deps));
+    await installDepsToImports(deps);
   });
 
 APP
