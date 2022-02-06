@@ -36,8 +36,7 @@ export const BASE_DIRECTORIES: directories = {
   EGGS_FILE: join(dracoFiles.currentDir(), 'eggs.json'),
   DEPS_FILE_ONLY: join(dracoFiles.currentDir(), 'deps.ts'),
   DEPS_DIR: join(dracoFiles.currentDir(), 'dpm_modules', 'deps.ts'),
-  // TODO: RENAME TO README
-  README: join(dracoFiles.currentDir(), 'README_GEN.md'),
+  README: join(dracoFiles.currentDir(), 'README.md'),
 };
 
 export const NAME_DIRECTORIES: names = {
