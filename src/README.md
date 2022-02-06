@@ -10,7 +10,7 @@ Here you found the source code of Dpm.
 │  ├──  docs
 │  │  ├──  download.ts
 │  │  └──  main.ts
-│  ├──  files
+│  ├──  dpm
 │  │  ├──  init.ts
 │  │  └──  read.ts
 │  ├──  packages

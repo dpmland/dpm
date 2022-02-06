@@ -1,4 +1,8 @@
 {
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.showSlider": "mouseover",
   "deno.enable": true,
   "deno.lint": true,
   "deno.config": "./deno.json",

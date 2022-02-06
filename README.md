@@ -40,7 +40,7 @@ Thanks for want help to this project for contribute you can check the
 - [x] Add the `format, format check, lint` commands
 - [x] Tools installation for deno development
 - [ ] Create the `deps.ts` file and the dependencies
-- [ ] Create the `deno.json` config generator
+- [x] Create the `deno.json` config generator
 - [ ] Add the import map generator
 - [ ] Add the `eggs.json` file generator
 - [ ] Add the aliases for run a deno app

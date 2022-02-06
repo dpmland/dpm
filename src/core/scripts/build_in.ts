@@ -1,6 +1,6 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { ReadDpmFile } from 'files/read.ts';
+import { ReadDpmFile } from 'dpm/read.ts';
 import { Run } from 'runner/main.ts';
 import { LOGGER } from 'mods/logger.ts';
 

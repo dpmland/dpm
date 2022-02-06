@@ -2,7 +2,7 @@
 
 import { APP } from 'mods/cli.ts';
 import { GetAuthors } from 'mods/authors.ts';
-import { ReadDpmFile } from 'files/read.ts';
+import { ReadDpmFile } from 'dpm/read.ts';
 import { readAndRunScripts } from 'core/scripts/build_in.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
@@ -12,11 +12,12 @@ import {
   GetTheOptionsPrompt,
   WriteDpmFileJson,
   WriteImportMapJson,
-} from 'files/init.ts';
+} from 'dpm/init.ts';
 import * as docs from 'docs/download.ts';
 import { getDocumentation } from 'docs/main.ts';
 import * as install from 'tools/install.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
+import { writeDenoConfigFile } from 'deno/init.ts';
 
 APP
   .errorMessages({
@@ -110,8 +111,9 @@ APP
   .command('init', 'Init the dpm.json file')
   .alias('create', 'innit')
   .option('-y, --yes', 'Create the dpm.json file without prompt')
+  .option('-d --deno', 'Create the deno config file for better development')
   .option('--fmt', 'Format the json files')
-  .action(async ({ yes, fmt }: any) => {
+  .action(async ({ yes, fmt, deno }: any) => {
     if (yes) {
       await WriteDpmFileJson({});
       await WriteImportMapJson();
@@ -119,6 +121,10 @@ APP
     }
     if (fmt) {
       await FormatInternalJSON();
+      Deno.exit();
+    }
+    if (deno) {
+      await writeDenoConfigFile();
       Deno.exit();
     }
     const app = await GetTheOptionsPrompt();
