@@ -1,23 +1,24 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { APP } from 'mods/cli.ts';
-import { GetAuthors } from 'mods/authors.ts';
-import { ReadDpmFile } from 'dpm/read.ts';
 import { readAndRunScripts } from 'core/scripts/build_in.ts';
-import { BASE_DIRECTORIES } from 'mods/dirs.ts';
-import { LOGGER } from 'mods/logger.ts';
-import { dracoInfo } from 'mods/deps.ts';
-import { appendModuleToDpm } from 'packages/add.ts';
+import * as docs from 'docs/download.ts';
+import { getDocumentation } from 'docs/main.ts';
+import { writeDenoConfigFile } from 'dpm/deno.ts';
+import { generateReadme } from 'dpm/readme.ts';
 import {
   GetTheOptionsPrompt,
   WriteDpmFileJson,
   WriteImportMapJson,
 } from 'dpm/init.ts';
-import * as docs from 'docs/download.ts';
-import { getDocumentation } from 'docs/main.ts';
-import * as install from 'tools/install.ts';
+import { ReadDpmFile } from 'dpm/read.ts';
+import { GetAuthors } from 'mods/authors.ts';
+import { APP } from 'mods/cli.ts';
+import { dracoInfo } from 'mods/deps.ts';
+import { BASE_DIRECTORIES } from 'mods/dirs.ts';
+import { LOGGER } from 'mods/logger.ts';
+import { appendModuleToDpm } from 'packages/add.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
-import { writeDenoConfigFile } from 'deno/init.ts';
+import * as install from 'tools/install.ts';
 
 APP
   .errorMessages({
@@ -112,8 +113,9 @@ APP
   .alias('create', 'innit')
   .option('-y, --yes', 'Create the dpm.json file without prompt')
   .option('-d --deno', 'Create the deno config file for better development')
+  .option('-r --readme', 'Generate a readme with the dpm.json file')
   .option('--fmt', 'Format the json files')
-  .action(async ({ yes, fmt, deno }: any) => {
+  .action(async ({ yes, fmt, deno, readme }: any) => {
     if (yes) {
       await WriteDpmFileJson({});
       await WriteImportMapJson();
@@ -125,6 +127,10 @@ APP
     }
     if (deno) {
       await writeDenoConfigFile();
+      Deno.exit();
+    }
+    if (readme) {
+      await generateReadme();
       Deno.exit();
     }
     const app = await GetTheOptionsPrompt();

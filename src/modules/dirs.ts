@@ -13,6 +13,7 @@ interface directories {
   EGGS_FILE: string;
   DEPS_FILE_ONLY: string;
   DEPS_DIR: string;
+  README: string;
 }
 
 interface names {
@@ -22,6 +23,7 @@ interface names {
   EGGS_FILE: string;
   DEPS_FILE_ONLY: string;
   DEPS_DIR: string;
+  README: string;
 }
 
 export const BASE_DIRECTORIES: directories = {
@@ -34,6 +36,8 @@ export const BASE_DIRECTORIES: directories = {
   EGGS_FILE: join(dracoFiles.currentDir(), 'eggs.json'),
   DEPS_FILE_ONLY: join(dracoFiles.currentDir(), 'deps.ts'),
   DEPS_DIR: join(dracoFiles.currentDir(), 'dpm_modules', 'deps.ts'),
+  // TODO: RENAME TO README
+  README: join(dracoFiles.currentDir(), 'README_GEN.md'),
 };
 
 export const NAME_DIRECTORIES: names = {
@@ -43,4 +47,5 @@ export const NAME_DIRECTORIES: names = {
   EGGS_FILE: 'eggs.json',
   DEPS_FILE_ONLY: 'deps.ts',
   DEPS_DIR: join('dpm_modules', 'deps.ts'),
+  README: 'README.md',
 };

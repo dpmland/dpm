@@ -44,7 +44,7 @@ Thanks for want help to this project for contribute you can check the
 - [ ] Add the import map generator
 - [ ] Add the `eggs.json` file generator
 - [ ] Add the aliases for run a deno app
-- [ ] Add the `README.md` and data generator.
+- [x] Add the `README.md` and data generator.
 
 ---
 
