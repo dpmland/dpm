@@ -11,6 +11,9 @@ export async function FormatInternalJSON() {
   if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
     FILES_TO_FMT.push(BASE_DIRECTORIES.DPM_FILE);
   }
+  if (dracoFiles.exists(BASE_DIRECTORIES.README)) {
+    FILES_TO_FMT.push(BASE_DIRECTORIES.README);
+  }
   if (dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS)) {
     FILES_TO_FMT.push(BASE_DIRECTORIES.IMPORT_MAPS);
   }

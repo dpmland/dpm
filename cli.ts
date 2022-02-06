@@ -115,8 +115,9 @@ APP
   .option('-d --deno', 'Create the deno config file for better development')
   .option('-r --readme', 'Generate a readme with the dpm.json file')
   .option('--importMap', 'Generate the import map file!')
+  .option('-A --all', 'Generate all files and format this using all tools!')
   .option('--fmt', 'Format the json files')
-  .action(async ({ yes, fmt, deno, readme, importMap }: any) => {
+  .action(async ({ yes, fmt, deno, readme, importMap, all }: any) => {
     if (yes) {
       await WriteDpmFileJson({});
       await WriteImportMapJson();
@@ -138,8 +139,18 @@ APP
       await WriteImportMapJson();
       Deno.exit();
     }
+    if (all) {
+      const app = await GetTheOptionsPrompt();
+      await WriteDpmFileJson(app);
+      await WriteImportMapJson();
+      await writeDenoConfigFile();
+      await generateReadme();
+      await FormatInternalJSON();
+      Deno.exit();
+    }
     const app = await GetTheOptionsPrompt();
     await WriteDpmFileJson(app);
+    await WriteImportMapJson();
   });
 
 APP

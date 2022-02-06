@@ -2,7 +2,7 @@
 
 import { appendModuleToDpm, appendOptions } from 'packages/add.ts';
 import { dracoFiles } from 'mods/deps.ts';
-import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
+import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { ReadImportMapFile } from 'dpm/read.ts';
 

@@ -1,12 +1,13 @@
 {
+  // Fix the Deno Syntax Fail
   "typescript.validate.enable": false,
   "javascript.validate.enable": false,
+  // Beautifull Min Map
   "editor.minimap.renderCharacters": false,
   "editor.minimap.showSlider": "mouseover",
+  // Deno Config
   "deno.enable": true,
-  "deno.lint": true,
   "deno.config": "./deno.json",
-  "deno.unstable": true,
   "deno.suggest.imports.hosts": {
     "https://deno.land": true,
     "https://cdn.nest.land": true,
