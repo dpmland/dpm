@@ -5,6 +5,7 @@ import { dracoFiles } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { ReadImportMapFile } from 'dpm/read.ts';
+import { WriteImportMapJson } from 'dpm/init.ts';
 
 export async function installDepsToImports(
   depName: Array<string>,
@@ -12,8 +13,7 @@ export async function installDepsToImports(
 ) {
   // TODO(Teo IDEA): Check if generate the import map and not show the error
   if (!(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))) {
-    LOGGER.error('Import maps file not found run dpm init --importMap');
-    Deno.exit(2);
+    await WriteImportMapJson();
   }
   const data = await ReadImportMapFile();
   const mods = appendModuleToDpm(depName, options);
@@ -24,7 +24,7 @@ export async function installDepsToImports(
   for (const i of mods) {
     const splited = i.replace(options.host, ' ');
     const pkg = splited.split('/');
-    imports[pkg[1]] = i;
+    imports[`${pkg[1]}/`] = i;
   }
   await Deno.writeTextFile(
     BASE_DIRECTORIES.IMPORT_MAPS,

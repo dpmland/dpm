@@ -17,6 +17,7 @@ import { dracoInfo } from 'mods/deps.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { installDepsToImports } from 'packages/main.ts';
+import * as update from 'packages/update.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
 import * as install from 'tools/install.ts';
 
@@ -226,6 +227,29 @@ APP
     if (action) {
       await getDocumentation(action);
       Deno.exit();
+    }
+  });
+
+APP
+  .command('update [file]', 'Update the dependencies from the files')
+  .action(async ({ file }: any) => {
+    switch (file) {
+      case 'imports': {
+        await update.updateImportMap();
+        break;
+      }
+
+      case 'files': {
+        LOGGER.warn('Working in this feature!');
+        break;
+      }
+
+      default: {
+        LOGGER.error(
+          'File not found run < dpm doc update.files > for more information',
+        );
+        Deno.exit(2);
+      }
     }
   });
 

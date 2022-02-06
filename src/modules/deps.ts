@@ -21,3 +21,6 @@ export { renderMarkdown } from 'https://deno.land/x/charmd@v0.0.1/mod.ts';
 
 // Opener for the urls
 export { open } from 'https://deno.land/x/open@v0.0.5/index.ts';
+
+// Version Checker Tool
+export { soxa } from 'https://deno.land/x/soxa@1.4/mod.ts';

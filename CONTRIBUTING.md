@@ -51,6 +51,28 @@ Made with :heart: in :earth_americas:
 
 And done thanks for contribute
 
+## Development Deno Package Manager Tool!
+
+Well for more easy and fast development I wrote [ddpm](./dev.ts) here you can
+check the code is a simple but more fast way to make some tasks and check if
+ready to contribute for install run!
+
+```sh
+deno install -A -f -n ddpm --unstable --import-map=import_map.json dev.ts ## LOCALLY
+```
+
+For remote usage run:
+
+```sh
+## REMOTE
+deno install -A -f -n ddpm --unstable --import-map=https://raw.githubusercontent.com/dpmland/dpm/dev/import_map.json https://raw.githubusercontent.com/dpmland/dpm/dev/dev.ts
+```
+
+Commands avaliable:
+
+- Clean: Remove the unused files and clean after the upload!
+- Upload: Check the lint and the format on the current directory!
+
 ---
 
 Made with :heart: in :earth_americas:
