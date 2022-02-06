@@ -19,19 +19,21 @@ export function appendModuleToDpm(
     Deno.exit();
   }
   options.host = (typeof options.host == 'undefined')
-    ? 'deno.land/x'
+    ? 'https://deno.land/x'
     : options.host;
   for (const i of depName) {
     const splited = i.split('/');
     if (splited.length > 2) {
-      LOGGER.error('Only supported 2 deps to install');
+      LOGGER.error(
+        'Only supported 2 deps to install syntax < packageName/packagefolder > or < packagename/file.ts > more info on < dpm doc install.syntax>',
+      );
       Deno.exit(1);
     }
     let URL_COMPLETE;
     if (i.endsWith('.ts') || i.endsWith('.js')) {
-      URL_COMPLETE = dirname(`https://${options.host}/${i}`);
+      URL_COMPLETE = dirname(`${options.host}/${i}`);
     } else {
-      URL_COMPLETE = `https://${options.host}/${i}/`;
+      URL_COMPLETE = `${options.host}/${i}/`;
     }
     if (URL_COMPLETE.endsWith('/') == false) {
       URL_COMPLETE += '/';
