@@ -5,6 +5,7 @@ import * as docs from 'docs/download.ts';
 import { getDocumentation } from 'docs/main.ts';
 import { writeDenoConfigFile } from 'dpm/deno.ts';
 import { generateReadme } from 'dpm/readme.ts';
+import { generateEggsFile } from 'dpm/eggs.ts';
 import {
   GetTheOptionsPrompt,
   WriteDpmFileJson,
@@ -116,9 +117,10 @@ APP
   .option('-d --deno', 'Create the deno config file for better development')
   .option('-r --readme', 'Generate a readme with the dpm.json file')
   .option('--importMap', 'Generate the import map file!')
+  .option('-e --eggs', 'Generate the eggs file for publish in nest.land')
   .option('-A --all', 'Generate all files and format this using all tools!')
   .option('--fmt', 'Format the json files')
-  .action(async ({ yes, fmt, deno, readme, importMap, all }: any) => {
+  .action(async ({ yes, fmt, deno, readme, importMap, all, eggs }: any) => {
     if (yes) {
       await WriteDpmFileJson({});
       await WriteImportMapJson();
@@ -140,12 +142,17 @@ APP
       await WriteImportMapJson();
       Deno.exit();
     }
+    if (eggs) {
+      await generateEggsFile();
+      Deno.exit();
+    }
     if (all) {
       const app = await GetTheOptionsPrompt();
       await WriteDpmFileJson(app);
       await WriteImportMapJson();
       await writeDenoConfigFile();
       await generateReadme();
+      await generateEggsFile();
       await FormatInternalJSON();
       Deno.exit();
     }
