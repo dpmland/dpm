@@ -2,6 +2,7 @@
 
 import { dependencyType } from 'checker/types/dependencyType.ts';
 import { soxa } from 'mods/deps.ts';
+import { LOGGER } from 'mods/logger.ts';
 
 export async function addLatestVersions(
   dependencies: dependencyType[],
@@ -21,7 +22,7 @@ async function getVersionFromUrl(
 ): Promise<dependencyType> {
   const versionsList = await soxa.get(url)
     .catch((error) => {
-      console.error('Error getting the latest dependency ', error);
+      LOGGER.error(`Error getting the latest dependency ${error}`);
     });
   if (versionsList.data) {
     dependency.latest = versionsList.data.latest;
