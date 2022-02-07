@@ -19,7 +19,7 @@ import { LOGGER } from 'mods/logger.ts';
 import { installDepsToImports } from 'packages/main.ts';
 import * as update from 'packages/update.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
-import * as install from 'tools/install.ts';
+import * as tools from 'tools/install.ts';
 
 APP
   .errorMessages({
@@ -167,21 +167,25 @@ APP
     Deno.exit();
   });
 
-// TODO(Teo): Add the uninstall tools and the usage for the uud
 APP
   .command('tools [action]', 'Install and use the tools integrated')
   .description(
     'Some tools are necessary for complement the use with dpm well here are how install, list and use every tool with dpm help',
   )
-  .action(({ action }: any) => {
+  .action(async ({ action }: any) => {
     switch (action) {
       case 'list': {
-        install.getAllTools();
+        tools.getAllTools();
         break;
       }
 
       case 'install': {
-        install.installTools();
+        await tools.installTools();
+        break;
+      }
+
+      case 'clean': {
+        await tools.cleanTools();
         break;
       }
 
@@ -192,7 +196,6 @@ APP
     }
   });
 
-// TODO(Teo): Add the dependencies to the import map file
 APP
   .command('install [deps...]', 'Install dependencies to the dpm file')
   .alias('i', 'add')

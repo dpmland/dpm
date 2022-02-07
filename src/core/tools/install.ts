@@ -9,7 +9,7 @@ const TOOLS_TO_INSTALL = [
   {
     name: 'uud',
     description: 'Update the deno dependencies',
-    url: 'https://deno.land/x/udd@0.7.2/main.ts',
+    url: 'https://deno.land/x/udd/main.ts',
   },
   {
     name: 'eggs',
@@ -19,14 +19,16 @@ const TOOLS_TO_INSTALL = [
   {
     name: 'land',
     description: 'Run deno x packages without installation like npx',
-    url: 'https://deno.land/x/land@v0.8.1/cli.ts',
+    url: 'https://deno.land/x/land/cli.ts',
   },
   {
     name: 'denon',
     description: 'Automatically restart for your Deno projects like nodemon',
-    url: 'https://deno.land/x/denon@2.4.10/denon.ts',
+    url: 'https://deno.land/x/denon/denon.ts',
   },
 ];
+
+const DenoPath = Deno.execPath();
 
 export function getAllTools() {
   LOGGER.info('All tools recommended for a better Deno development');
@@ -39,11 +41,19 @@ export function getAllTools() {
 }
 
 export async function installTools() {
-  const DenoPath = Deno.execPath();
   for (const i of TOOLS_TO_INSTALL) {
     const command = `${DenoPath} install -qAf --unstable -n ${i.name} ${i.url}`;
     spinners.Installing.start();
     await Run(command);
     spinners.Installing.succeed(`Successfully installed ${i.name}`);
+  }
+}
+
+export async function cleanTools() {
+  for (const i of TOOLS_TO_INSTALL) {
+    const command = `${DenoPath} uninstall --unstable ${i.name}`;
+    spinners.Deleting.start();
+    await Run(command);
+    spinners.Deleting.succeed('Uninstalled and cleaned all tools');
   }
 }
