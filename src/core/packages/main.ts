@@ -12,7 +12,6 @@ export async function installDepsToImports(
   depName: Array<string>,
   options: appendOptions = {},
 ) {
-  // TODO(Teo IDEA): Check if generate the import map and not show the error
   if (!(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))) {
     await WriteImportMapJson();
   }
@@ -25,7 +24,7 @@ export async function installDepsToImports(
   for (const i of mods) {
     const splited = i.replace(options.host, ' ');
     const pkg = splited.split('/');
-    const version = await getTheVersionOfDep(pkg[1]);
+    const version = await getTheVersionOfDep(pkg[1], options.host);
     if (version == '') {
       imports[`${pkg[1]}/`] = i;
     } else {
@@ -43,17 +42,20 @@ export async function installDepsToImports(
 
 async function getTheVersionOfDep(
   dep: string,
+  host: string,
 ): Promise<string> {
-  if (dep.includes('@')) {
-    return ``;
-  }
-  const url = `https://cdn.deno.land/${dep}/meta/versions.json`;
-  const versionList = await soxa.get(url)
-    .catch((err) => {
-      LOGGER.error(`ERROR Getting the version from deno.land host: ${err}`);
-    });
-  if (versionList.data) {
-    return versionList.data.latest;
+  if (host == 'https://deno.land/x') {
+    if (dep.includes('@')) {
+      return ``;
+    }
+    const url = `https://cdn.deno.land/${dep}/meta/versions.json`;
+    const versionList = await soxa.get(url)
+      .catch((err) => {
+        LOGGER.error(`ERROR Getting the version from deno.land host: ${err}`);
+      });
+    if (versionList.data) {
+      return versionList.data.latest;
+    }
   }
   return '';
 }

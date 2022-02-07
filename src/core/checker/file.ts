@@ -39,7 +39,6 @@ function extractDependencyAndVersion(
 ): dependencyType[] {
   const result: dependencyType[] = [];
   for (const [key, value] of Object.entries(imports)) {
-    // TODO find cleaner solution to extract version
     const substr = value.substring(value.indexOf('@') + 1);
     const exactVersion = (substr.indexOf('/') > -1)
       ? substr.substring(0, substr.indexOf('/'))
