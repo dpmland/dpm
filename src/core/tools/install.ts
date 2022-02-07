@@ -8,7 +8,8 @@ import * as spinners from 'mods/spinners.ts';
 const TOOLS_TO_INSTALL = [
   {
     name: 'uud',
-    description: 'Update the deno dependencies',
+    description:
+      'Update Deno Dependencies - update dependency urls to their latest published versions. ONLY TYPESCRIPT FILES!',
     url: 'https://deno.land/x/udd/main.ts',
   },
   {
@@ -18,13 +19,14 @@ const TOOLS_TO_INSTALL = [
   },
   {
     name: 'land',
-    description: 'Run deno x packages without installation like npx',
+    description: 'Run Deno X module without installation.',
     url: 'https://deno.land/x/land/cli.ts',
   },
   {
-    name: 'denon',
-    description: 'Automatically restart for your Deno projects like nodemon',
-    url: 'https://deno.land/x/denon/denon.ts',
+    name: 'vr',
+    description:
+      `Velociraptor is a script runner for Deno, inspired by npm's package.json scripts.`,
+    url: 'https://deno.land/x/velociraptor/cli.ts',
   },
 ];
 
