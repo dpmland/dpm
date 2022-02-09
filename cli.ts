@@ -223,14 +223,14 @@ APP
 APP
   .command('doc [action?]', 'Show documentation for a action or command')
   .alias('docs')
-  .option('-d --download', 'Download the documentation!')
-  .option('-u --update', 'Update the documentation!')
-  .action(async ({ action, download, update }: any) => {
-    if (download) {
+  // .option('-d --download', 'Download the documentation!')
+  // .option('-u --update', 'Update the documentation!')
+  .action(async ({ action }: any) => {
+    if (action == 'download') {
       await docs.downloadDocumentation();
       Deno.exit();
     }
-    if (update) {
+    if (action == 'update') {
       await docs.updateDocumentation();
       Deno.exit();
     }
