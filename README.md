@@ -28,7 +28,7 @@ If you want test dpm in the development version **NOT DOCUMENTATION PROVIDED**
 and **NO COMPLETE FEATURES** can you install with:
 
 ```sh
-deno install -A -f -n dpm --unstable --import-map=https://raw.githubusercontent.com/dpmland/dpm/dev/import_map.json https://raw.githubusercontent.com/dpmland/dpm/dev/cli.ts
+deno install -A -f -n dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/cli.ts
 ```
 
 > Stable version!
