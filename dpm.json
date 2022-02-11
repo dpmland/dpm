@@ -1,10 +1,10 @@
 {
-  "name": "cli",
-  "version": "0.1.0",
-  "description": "A example dpm package",
-  "author": "A cool coder human",
-  "license": "ISC",
-  "main": "mod.ts",
+  "name": "dpm",
+  "version": "1.0",
+  "description": "Dpm <Deno Package Manager> is a simple, modern and easy way to manage the Deno Modules and dependencies that help to write and manage the deno libraries and code",
+  "author": "DpmLand << Dpm Authors >>",
+  "license": "GPL 3.0",
+  "main": "cli.ts",
   "scripts": {
     "build_in": {
       "test": "deno test -A --unstable",
@@ -12,5 +12,8 @@
       "lint": "deno lint -c deno.json"
     }
   },
-  "dependencies": {}
+  "config": {
+    "importMap": true,
+    "depsFile": false
+  }
 }

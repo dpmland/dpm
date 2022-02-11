@@ -1,0 +1,17 @@
+{
+  "name": "dpm",
+  "entry": "cli.ts",
+  "description": "Dpm <Deno Package Manager> is a simple, modern and easy way to manage the Deno Modules and dependencies that help to write and manage the deno libraries and code",
+  "version": "1.0",
+  "homepage": "https://github.com/your_name/your_project",
+  "unstable": true,
+  "unlisted": false,
+  "version": "0.0.1",
+  "releaseType": "patch",
+  "files": ["./mod.ts", "./src/**/*", "./README.md"],
+  "ignore": [".git"],
+  "checkFormat": "deno fmt",
+  "checkTests": "deno test",
+  "checkInstallation": true,
+  "check": false
+}

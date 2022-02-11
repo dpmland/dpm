@@ -4,7 +4,7 @@ import { appendModuleToDpm, appendOptions } from 'packages/add.ts';
 import { dracoFiles } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { ReadImportMapFile } from 'dpm/read.ts';
+import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
 import { WriteImportMapJson } from 'dpm/init.ts';
 import { soxa } from 'mods/deps.ts';
 
@@ -16,8 +16,10 @@ export async function installDepsToImports(
     await WriteImportMapJson();
   }
   const data = await ReadImportMapFile();
+  const dpm = await ReadDpmFile();
   const mods = appendModuleToDpm(depName, options);
   const imports = data.imports;
+  const deps = dpm.dependencies;
   options.host = (typeof options.host == 'undefined')
     ? 'https://deno.land/x'
     : options.host;
@@ -30,13 +32,24 @@ export async function installDepsToImports(
     } else {
       imports[`${pkg[1]}/`] = `${options.host}/${pkg[1]}@${version}/`;
     }
+    if (dpm.config.importMap == true) {
+      if (version == '') {
+        deps[`${pkg[1]}`] = 'No Provided';
+      } else {
+        deps[`${pkg[1]}`] = `${version}`;
+      }
+    }
   }
   await Deno.writeTextFile(
     BASE_DIRECTORIES.IMPORT_MAPS,
     JSON.stringify(data, null, '  '),
   );
+  await Deno.writeTextFile(
+    BASE_DIRECTORIES.DPM_FILE,
+    JSON.stringify(dpm, null, '  '),
+  );
   LOGGER.info(
-    `Successfully installed the dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS}`,
+    `Successfully installed the dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
   );
 }
 

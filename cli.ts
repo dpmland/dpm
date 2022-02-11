@@ -42,13 +42,13 @@ APP
   });
 
 APP
-  .command('about [type]', 'Do you want know me use this command!')
+  .command('about [action]', 'Do you want know me use this command!')
   .argDescription(
-    'type',
-    'Type about for show the information for help run << dpm about help >>',
+    'action',
+    'action about for show the information for help run << dpm doc about.commands >>',
   )
-  .action(async ({ type }: any) => {
-    switch (type) {
+  .action(async ({ action }: any) => {
+    switch (action) {
       case 'deno': {
         LOGGER.info(`DENO VERSION: ${dracoInfo.DenoVersion}`);
         LOGGER.info(`DENO TYPESCRIPT: ${dracoInfo.DenoTypescript}`);
@@ -88,22 +88,9 @@ APP
         break;
       }
 
-      case 'help': {
-        console.log(
-          `Types for use this command are:
-
-- deno: Show the deno version information
-- dirs: Show the directories used by dpm
-- dpmFile: Show the content on the dpm file
-- authors: Show the authors was created dpm
-- deps: Show the dependencies on the dpm file`,
-        );
-        break;
-      }
-
       default: {
         LOGGER.error(
-          'Type for about not found check the documentation or run dpm about help',
+          'Type for about not found check the documentation or run dpm doc about',
         );
         break;
       }
@@ -163,8 +150,12 @@ APP
 
 APP
   .command('run [cmd]', 'Run the commands from the dpm file')
+  .argDescription(
+    'cmd',
+    'For use the commands defined in the scripts you need pass the name for the command like << dpm run fmt >>',
+  )
   .alias('r', 'exec')
-  .option('--build', 'Run the build-in commands')
+  .option('-b --build', 'Run the build-in commands')
   .action(async ({ cmd }: any, { build }: any) => {
     if (build) {
       await readAndRunScripts(cmd, true);
@@ -176,6 +167,10 @@ APP
 
 APP
   .command('tools [action]', 'Install and use the tools integrated')
+  .argDescription(
+    'action',
+    'Pass the correct argument for the actions the avaliable options are << list, install and clean >> the first show the tools to install the second install the tools to use and the third uninstall all tools',
+  )
   .description(
     'Some tools are necessary for complement the use with dpm well here are how install, list and use every tool with dpm help',
   )
@@ -206,8 +201,12 @@ APP
 APP
   .command('install [deps...]', 'Install dependencies to the dpm file')
   .alias('i', 'add')
+  .argDescription(
+    'deps...',
+    'The deps names can be one or many for more information run << dpm doc install.syntax >>',
+  )
   .option('--host', 'Change from deno.land/x to other')
-  .option('-s --std', 'Add a dependency form the std library')
+  .option('-s --std', 'Add a dependency from the std library')
   .action(async ({ deps }: any, { host, std }: any) => {
     if (host != ' ') {
       await installDepsToImports(deps, { host: host });
@@ -222,6 +221,10 @@ APP
 
 APP
   .command('doc [action?]', 'Show documentation for a action or command')
+  .argDescription(
+    'action',
+    'Pass the argument to search in documentation with the correct syntax like << dpm doc command.action >>',
+  )
   .alias('docs')
   .option('-d --download', 'Download the documentation!')
   .option('-u --update', 'Update the documentation!')
@@ -241,9 +244,16 @@ APP
   });
 
 APP
-  .command('update [file]', 'Update the dependencies from the files')
-  .action(async ({ file }: any) => {
-    switch (file) {
+  .command('update [action]', 'Update the dependencies from the files')
+  .argDescription(
+    'action',
+    'Pass the correct argument for update the files like: << imports >> for the import_map file and << files >> for the dep.ts file',
+  )
+  .description(
+    'You want update a import map file or a deps.ts file you need use this tool for the imports pass as action files and if want check updates for import maps you need pass as action imports',
+  )
+  .action(async ({ action }: any) => {
+    switch (action) {
       case 'imports': {
         await update.updateImportMap();
         break;

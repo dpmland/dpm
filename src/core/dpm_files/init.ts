@@ -70,6 +70,10 @@ function generateJSONObject(
       },
     },
     dependencies: {},
+    config: {
+      importMap: true,
+      depsFile: false,
+    },
   };
 }
 
