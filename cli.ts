@@ -101,52 +101,59 @@ APP
   .command('init', 'Init the dpm.json file')
   .alias('create', 'innit')
   .option('-y, --yes', 'Create the dpm.json file without prompt')
-  .option('-d --deno', 'Create the deno config file for better development')
-  .option('-r --readme', 'Generate a readme with the dpm.json file')
+  .option('--deno', 'Create the deno config file for better development')
+  .option('--readme', 'Generate a readme with the dpm.json file')
   .option('--importMap', 'Generate the import map file!')
-  .option('-e --eggs', 'Generate the eggs file for publish in nest.land')
+  .option('--eggs', 'Generate the eggs file for publish in nest.land')
   .option('-A --all', 'Generate all files and format this using all tools!')
+  .option('--dpm', 'Generate the dpm file without ask!')
   .option('--fmt', 'Format the json files')
-  .action(async ({ yes, fmt, deno, readme, importMap, all, eggs }: any) => {
-    if (yes) {
-      await WriteDpmFileJson({});
-      await WriteImportMapJson();
-      Deno.exit();
-    }
-    if (fmt) {
-      await FormatInternalJSON();
-      Deno.exit();
-    }
-    if (deno) {
-      await writeDenoConfigFile();
-      Deno.exit();
-    }
-    if (readme) {
-      await generateReadme();
-      Deno.exit();
-    }
-    if (importMap) {
-      await WriteImportMapJson();
-      Deno.exit();
-    }
-    if (eggs) {
-      await generateEggsFile();
-      Deno.exit();
-    }
-    if (all) {
+  .action(
+    async ({ yes, fmt, deno, readme, importMap, all, eggs, dpm }: any) => {
+      if (yes) {
+        await WriteDpmFileJson({});
+        await WriteImportMapJson();
+        Deno.exit();
+      }
+      if (fmt) {
+        await FormatInternalJSON();
+        Deno.exit();
+      }
+      if (deno) {
+        await writeDenoConfigFile();
+        Deno.exit();
+      }
+      if (readme) {
+        await generateReadme();
+        Deno.exit();
+      }
+      if (importMap) {
+        await WriteImportMapJson();
+        Deno.exit();
+      }
+      if (eggs) {
+        await generateEggsFile();
+        Deno.exit();
+      }
+      if (dpm) {
+        await WriteDpmFileJson({});
+        Deno.exit();
+      }
+      if (all) {
+        const app = await GetTheOptionsPrompt();
+        await WriteDpmFileJson(app);
+        await WriteImportMapJson();
+        await writeDenoConfigFile();
+        await generateReadme();
+        await generateEggsFile();
+        await FormatInternalJSON();
+        Deno.exit();
+      }
       const app = await GetTheOptionsPrompt();
       await WriteDpmFileJson(app);
       await WriteImportMapJson();
-      await writeDenoConfigFile();
-      await generateReadme();
-      await generateEggsFile();
-      await FormatInternalJSON();
-      Deno.exit();
-    }
-    const app = await GetTheOptionsPrompt();
-    await WriteDpmFileJson(app);
-    await WriteImportMapJson();
-  });
+    },
+  );
 
 APP
   .command('run [cmd]', 'Run the commands from the dpm file')

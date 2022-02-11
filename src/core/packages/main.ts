@@ -18,6 +18,18 @@ export async function installDepsToImports(
   const data = await ReadImportMapFile();
   const dpm = await ReadDpmFile();
   const mods = appendModuleToDpm(depName, options);
+  if (!('dependencies' in dpm)) {
+    LOGGER.error(
+      'Dependency key not found check the correct syntax of the file! More information on << dpm doc init.syntaxFile >> or run << dpm init --dpm for restart the dpm file >>',
+    );
+    Deno.exit(2);
+  }
+  if (!('imports' in data)) {
+    LOGGER.error(
+      'Imports key not found check the correct syntax of the file! More information on << dpmp doc init.syntaxFile >> or run << dpm init --dpm >> for restart the dpm file',
+    );
+    Deno.exit(2);
+  }
   const imports = data.imports;
   const deps = dpm.dependencies;
   options.host = (typeof options.host == 'undefined')

@@ -33,6 +33,14 @@ if (Deno.args[0] == 'clean') {
     await Deno.remove(BASE_DIRECTORIES.DEPS_DIR, { recursive: true });
     console.log(`Removed the ${NAME_DIRECTORIES.DEPS_DIR} dir!`);
   }
+  if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
+    await Deno.remove(BASE_DIRECTORIES.DPM_FILE);
+    console.log(`Removed the ${NAME_DIRECTORIES.DPM_FILE} file!`);
+  }
+  if (dracoFiles.exists(BASE_DIRECTORIES.EGGS_FILE)) {
+    await Deno.remove(BASE_DIRECTORIES.EGGS_FILE);
+    console.log(`Removed the ${NAME_DIRECTORIES.EGGS_FILE} file!`);
+  }
   console.log('Cleaned!');
   Deno.exit();
 }
