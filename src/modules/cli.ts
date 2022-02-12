@@ -8,4 +8,21 @@ export const APP = new Denomander({
   app_version: '0.1.0',
   app_description:
     'Dpm <Deno Package Manager> is a simple, modern and easy way to manage the Deno Modules and dependencies that help to write and manage the deno libraries and code',
+  errors: {
+    INVALID_RULE: 'Invalid rule error on parsing',
+    OPTION_NOT_FOUND: 'Flag not found run << dpm -h >> for more information',
+    COMMAND_NOT_FOUND:
+      'Command not found run << dpm -h >> or << dpm doc help >> for more information',
+    REQUIRED_OPTION_NOT_FOUND:
+      'Flag necessary for use this command run << dpm -h >> or << dpm doc help >>',
+    REQUIRED_VALUE_NOT_FOUND:
+      'Required value for the command is necessary run << dpm -h >> or << dpm doc help >> for more information',
+    REQUIRED_COMMAND_VALUE_NOT_FOUND:
+      'Is necessary a value for use this command run << dpm -h >> or << dpm doc help >>',
+    TOO_MANY_PARAMS:
+      'Many parameters not necessary run << dpm -h >> or << dpm doc help >> for more information',
+    OPTION_CHOICE:
+      'Invalid choice for the flag for more information run << dpm -h >> or << dpm doc help >> for more information >>',
+    ONLY_ONE_COMMAND_ALLOWED: 'Only one command is allowed in default mode!',
+  },
 });
