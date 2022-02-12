@@ -30,7 +30,7 @@ import { FormatInternalJSON } from 'runner/format.ts';
 import * as tools from 'tools/install.ts';
 
 APP
-  .command('init', 'Init the dpm.json file')
+  .command('init', 'Init the necessary files for better development with Deno')
   .alias('create', 'innit')
   .option('-y, --yes', 'Create the dpm.json file without prompt')
   .option('--deno', 'Create the deno config file for better development')
@@ -88,7 +88,10 @@ APP
   );
 
 APP
-  .command('install [deps...]', 'Install dependencies to the dpm file')
+  .command(
+    'install [deps...]',
+    'Install dependencies to the dpm file and the import map file!',
+  )
   .alias('i', 'add')
   .argDescription(
     'deps...',
@@ -128,13 +131,10 @@ APP
   });
 
 APP
-  .command('update [action]', 'Update the dependencies from the files')
+  .command('update [action]', 'Update the dependencies from the dpm files')
   .argDescription(
     'action',
     'Pass the correct argument for update the files like: << imports >> for the import_map file and << files >> for the dep.ts file',
-  )
-  .description(
-    'You want update a import map file or a deps.ts file you need use this tool for the imports pass as action files and if want check updates for import maps you need pass as action imports',
   )
   .action(async ({ action }: any) => {
     switch (action) {
@@ -158,7 +158,7 @@ APP
   });
 
 APP
-  .command('run [cmd]', 'Run the commands from the dpm file')
+  .command('run [cmd]', 'Run the commands from the dpm file!')
   .argDescription(
     'cmd',
     'For use the commands defined in the scripts you need pass the name for the command like << dpm run fmt >>',
@@ -199,7 +199,11 @@ APP
   });
 
 APP
-  .command('about [action]', 'Do you want know me use this command!')
+  .command(
+    'about [action]',
+    'Do you known some information or commands of dpm can you check more here!',
+  )
+  .alias('info')
   .argDescription(
     'action',
     'action about for show the information for help run << dpm doc about.commands >>',

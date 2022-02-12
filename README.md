@@ -15,10 +15,16 @@ libraries and code
 
 - Build with 100% Typescript
 - Deno Lint, Format command support
-- Config generator for _deno lint_ and _deno fmt_
-- Manage all in a `package.json` file with the same syntax and more features
-- Import map generator.
-- Generate all dependencies from a `deps.ts` file
+- Config generator for _deno lint_, _deno fmt_, _deno test_
+- Manage all in a `dpm.json` file with the same syntax of the `package.json` and
+  more features
+- Generate all dependencies from a `deps.ts` and a `import_map.json` file
+- Offline documentation manager
+- Tools helper manager, install all tools for a better Deno Development
+- Update the dependencies manager!
+- Information about some directories and versions!
+- Powerfull Logger sistem!
+- Open Source!
 
 ## Installation :rocket:
 
@@ -28,12 +34,12 @@ If you want test dpm in the development version **NOT DOCUMENTATION PROVIDED**
 and **NO COMPLETE FEATURES** can you install with:
 
 ```sh
-deno install -Afn dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/cli.ts
+deno install -Afn dpm --unstable --import-map=https://deno.land/x/dpm/import_map.json https://deno.land/x/dpm/cli.ts
 ```
 
 > Stable version!
 
-TODO!
+Working in this!
 
 ## Contribution Guides :books:
 
