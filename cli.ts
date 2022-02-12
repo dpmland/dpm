@@ -1,8 +1,9 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { readAndRunScripts } from 'core/scripts/build_in.ts';
+// Documentation manager
 import * as docs from 'docs/download.ts';
 import { getDocumentation } from 'docs/main.ts';
+// File manager
 import { writeDenoConfigFile } from 'dpm/deno.ts';
 import { generateReadme } from 'dpm/readme.ts';
 import { generateEggsFile } from 'dpm/eggs.ts';
@@ -12,14 +13,20 @@ import {
   WriteImportMapJson,
 } from 'dpm/init.ts';
 import { ReadDpmFile } from 'dpm/read.ts';
+// Module manager
 import { GetAuthors } from 'mods/authors.ts';
 import { APP } from 'mods/cli.ts';
 import { dracoInfo } from 'mods/deps.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
+// Package manager
 import { installDepsToImports } from 'packages/main.ts';
+import * as uninstall from 'packages/clean.ts';
 import * as update from 'packages/update.ts';
+// Script manager
+import { readAndRunScripts } from 'core/scripts/build_in.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
+// Tool manager
 import * as tools from 'tools/install.ts';
 
 APP
@@ -247,6 +254,25 @@ APP
     if (action) {
       await getDocumentation(action);
       Deno.exit();
+    }
+  });
+
+APP
+  .command(
+    'uninstall [deps?...]',
+    'Uninstall dependencies from the dpm file and the import file!',
+  )
+  .argDescription(
+    'deps...',
+    'Pass the argument the list or only one dependency for uninstall from the file!',
+  )
+  .alias('clean')
+  .option('-A --all', 'Remove all dependencies from the files!')
+  .action(async ({ _deps }: any, { all }: any) => {
+    if (typeof all == 'boolean') {
+      if (all == true) {
+        await uninstall.cleanAllDeps();
+      }
     }
   });
 

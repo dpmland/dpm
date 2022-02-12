@@ -5,7 +5,7 @@ import { dracoFiles } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
-import { WriteImportMapJson } from 'dpm/init.ts';
+import { WriteDpmFileJson, WriteImportMapJson } from 'dpm/init.ts';
 import { soxa } from 'mods/deps.ts';
 
 export async function installDepsToImports(
@@ -15,18 +15,21 @@ export async function installDepsToImports(
   if (!(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))) {
     await WriteImportMapJson();
   }
+  if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
+    await WriteDpmFileJson({});
+  }
   const data = await ReadImportMapFile();
   const dpm = await ReadDpmFile();
   const mods = appendModuleToDpm(depName, options);
   if (!('dependencies' in dpm)) {
     LOGGER.error(
-      'Dependency key not found check the correct syntax of the file! More information on << dpm doc init.syntaxFile >> or run << dpm init --dpm for restart the dpm file >>',
+      'Dependency key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm for restart the dpm file >>',
     );
     Deno.exit(2);
   }
   if (!('imports' in data)) {
     LOGGER.error(
-      'Imports key not found check the correct syntax of the file! More information on << dpmp doc init.syntaxFile >> or run << dpm init --dpm >> for restart the dpm file',
+      'Imports key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm >> for restart the dpm file',
     );
     Deno.exit(2);
   }

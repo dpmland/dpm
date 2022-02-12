@@ -44,6 +44,7 @@ Thanks for want help to this project for contribute you can check the
 
 - [x] Add the main cli
 - [x] Create the init command and create the `dpm.json` file
+- [x] Clean the dependencies ( all and one by one )
 - [x] Documentation offline
 - [x] About cli and directories help
 - [x] Format internal json files
