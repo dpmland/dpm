@@ -1,7 +1,8 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { ask } from 'mods/ask.ts';
-import { basename, dracoFiles } from 'mods/deps.ts';
+import { basename, dracoFiles, ensureFile } from 'mods/deps.ts';
+import { ReadDpmFile } from 'dpm/read.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 
@@ -29,6 +30,11 @@ export async function GetTheOptionsPrompt() {
     {
       name: 'license',
       message: 'License for the app',
+    },
+    {
+      name: 'directory',
+      message: 'Use the .dpm directory for the deps or import map file',
+      type: 'confirm',
     },
     {
       name: 'entry_point',
@@ -65,14 +71,20 @@ function generateJSONObject(
     scripts: {
       build_in: {
         test: input.test_cmd || 'deno test -A --unstable',
-        fmt: input.fmt_cmd || 'deno fmt -c deno.json',
-        lint: input.lint_cmd || 'deno lint -c deno.json',
+        fmt: input.fmt_cmd || 'deno fmt -c deno.jsonc',
+        lint: input.lint_cmd || 'deno lint -c deno.jsonc',
       },
     },
     dependencies: {},
     config: {
-      importMap: true,
-      depsFile: false,
+      importMap: {
+        enable: true,
+        directory: input.directory || false,
+      },
+      depsFile: {
+        enable: false,
+        directory: input.directory || false,
+      },
     },
   };
 }
@@ -91,20 +103,48 @@ export async function WriteDpmFileJson(input_prompt: Record<string, unknown>) {
 }
 
 export async function WriteImportMapJson() {
+  const file = await ReadDpmFile();
   try {
-    await Deno.writeTextFile(
-      BASE_DIRECTORIES.IMPORT_MAPS,
-      JSON.stringify(
-        {
-          imports: {},
-        },
-        null,
-        ' ',
-      ),
-    );
+    if (
+      file.config.importMap.directory == false &&
+      file.config.importMap.enable == true
+    ) {
+      await Deno.writeTextFile(
+        BASE_DIRECTORIES.IMPORT_MAPS,
+        JSON.stringify(
+          {
+            imports: {},
+          },
+          null,
+          '  ',
+        ),
+      );
+      LOGGER.info(
+        `Writed succesfully the ${NAME_DIRECTORIES.IMPORT_MAPS} file!`,
+      );
+    }
+
+    if (
+      file.config.importMap.directory == true &&
+      file.config.importMap.enable == true
+    ) {
+      await ensureFile(BASE_DIRECTORIES.IMPORT_MAPS_DIR);
+      await Deno.writeTextFile(
+        BASE_DIRECTORIES.IMPORT_MAPS_DIR,
+        JSON.stringify(
+          {
+            imports: {},
+          },
+          null,
+          '  ',
+        ),
+      );
+      LOGGER.info(
+        `Writed succesfully the ${NAME_DIRECTORIES.IMPORT_MAPS_DIR} folder and file!`,
+      );
+    }
   } catch (e) {
     LOGGER.error(e.message);
-    Deno.exit(1);
+    Deno.exit(2);
   }
-  LOGGER.info(`Writed succesfully ${NAME_DIRECTORIES.IMPORT_MAPS} file`);
 }

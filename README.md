@@ -33,8 +33,16 @@ libraries and code
 If you want test dpm in the development version **NOT DOCUMENTATION PROVIDED**
 and **NO COMPLETE FEATURES** can you install with:
 
+> Deno Stable not ultimate features!
+
 ```sh
 deno install -Afn dpm --unstable --import-map=https://deno.land/x/dpm/import_map.json https://deno.land/x/dpm/cli.ts
+```
+
+> Ultimate features
+
+```
+deno install -Afn dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json -c https://denopkg.com/dpmland/dpm@dev/tsconfig.json https://denopkg.com/dpmland/dpm@dev/cli.ts
 ```
 
 > Stable version!

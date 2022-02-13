@@ -9,9 +9,5 @@
     "https://crux.land": true
   },
   "deno.importMap": "./import_map.json",
-  "prettier.disableLanguages": [
-    "typescript",
-    "javascript"
-  ],
   "tsserver.enable": false
 }

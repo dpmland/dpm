@@ -68,6 +68,6 @@ export async function writeDenoConfigFile() {
   LOGGER.info(`Writed successfully the ${NAME_DIRECTORIES.DENO_JSON_FILE}!`);
   if (openManual.open) {
     await open(MANUAL_URL);
+    LOGGER.info('Opened the url of the Deno Manual');
   }
-  LOGGER.info('Opened the url of the Deno Manual');
 }

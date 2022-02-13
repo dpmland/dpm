@@ -7,6 +7,7 @@ import { getDocumentation } from 'docs/main.ts';
 import { writeDenoConfigFile } from 'dpm/deno.ts';
 import { generateReadme } from 'dpm/readme.ts';
 import { generateEggsFile } from 'dpm/eggs.ts';
+import { writeDepsTsFile } from 'dpm/deps.ts';
 import {
   GetTheOptionsPrompt,
   WriteDpmFileJson,
@@ -36,15 +37,23 @@ APP
   .option('--deno', 'Create the deno config file for better development')
   .option('--readme', 'Generate a readme with the dpm.json file')
   .option('--importMap', 'Generate the import map file!')
+  .option('--deps', 'Generate the deps.ts file for manage the dependencies')
   .option('--eggs', 'Generate the eggs file for publish in nest.land')
   .option('-A --all', 'Generate all files and format this using all tools!')
   .option('--dpm', 'Generate the dpm file without ask!')
   .option('--fmt', 'Format the json files')
   .action(
-    async ({ yes, fmt, deno, readme, importMap, all, eggs, dpm }: any) => {
+    async (
+      { yes, fmt, deno, readme, importMap, all, eggs, dpm, deps }: any,
+    ) => {
+      const file = await ReadDpmFile();
       if (yes) {
         await WriteDpmFileJson({});
-        await WriteImportMapJson();
+        if (file.config.importMap.enable == true) {
+          await WriteImportMapJson();
+        } else {
+          await writeDepsTsFile();
+        }
         Deno.exit();
       }
       if (fmt) {
@@ -53,6 +62,10 @@ APP
       }
       if (deno) {
         await writeDenoConfigFile();
+        Deno.exit();
+      }
+      if (deps) {
+        await writeDepsTsFile();
         Deno.exit();
       }
       if (readme) {
@@ -83,7 +96,11 @@ APP
       }
       const app = await GetTheOptionsPrompt();
       await WriteDpmFileJson(app);
-      await WriteImportMapJson();
+      if (file.config.importMap.enable == true) {
+        await WriteImportMapJson();
+      } else {
+        await writeDepsTsFile();
+      }
     },
   );
 
