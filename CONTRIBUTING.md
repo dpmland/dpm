@@ -65,7 +65,7 @@ For remote usage run:
 
 ```sh
 ## REMOTE
-deno install -A -f -n ddpm --unstable --import-map=https://raw.githubusercontent.com/dpmland/dpm/dev/import_map.json https://raw.githubusercontent.com/dpmland/dpm/dev/dev.ts
+deno install -A -f -n ddpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/dev.ts
 ```
 
 Commands avaliable:
