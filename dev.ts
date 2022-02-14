@@ -49,9 +49,11 @@ if (Deno.args[0] == 'clean') {
     await Deno.remove(BASE_DIRECTORIES.DEPS_FILE_ONLY);
     console.log(`Removed the ${NAME_DIRECTORIES.DEPS_FILE_ONLY} file!`);
   }
-  if (dracoFiles.exists(join(dracoFiles.currentDir(), '.dpm'))){
-    await Deno.remove(join(dracoFiles.currentDir(), '.dpm'), { recursive: true })
-    console.log(`Removed the .dpm dir!`)
+  if (dracoFiles.exists(join(dracoFiles.currentDir(), '.dpm'))) {
+    await Deno.remove(join(dracoFiles.currentDir(), '.dpm'), {
+      recursive: true,
+    });
+    console.log(`Removed the .dpm dir!`);
   }
   console.log('Cleaned!');
   Deno.exit();
