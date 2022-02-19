@@ -17,13 +17,14 @@ import { ReadDpmFile } from 'dpm/read.ts';
 // Module manager
 import { GetAuthors } from 'mods/authors.ts';
 import { APP } from 'mods/cli.ts';
-import { dracoInfo } from 'mods/deps.ts';
+import { dracoFiles, dracoInfo } from 'mods/deps.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 // Package manager
 import { installDepsToImports } from 'packages/main.ts';
 import * as uninstall from 'packages/clean.ts';
 import * as update from 'packages/update.ts';
+import * as depsInstall from 'packages/deps/add.ts';
 // Script manager
 import { readAndRunScripts } from 'core/scripts/build_in.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
@@ -117,15 +118,33 @@ APP
   .option('--host', 'Change from deno.land/x to other')
   .option('-s --std', 'Add a dependency from the std library')
   .action(async ({ deps }: any, { host, std }: any) => {
+    if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE) == false) {
+      await WriteDpmFileJson({});
+      LOGGER.info('Writing the default dpm file because not exists!');
+    }
+    let file;
+    if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
+      file = await ReadDpmFile();
+    }
     if (host != ' ') {
-      await installDepsToImports(deps, { host: host });
+      if (file.config.importMap.enable == true) {
+        await installDepsToImports(deps, { host: host });
+      }
+      if (file.config.depsFile.enable == true) {
+        await depsInstall.addToDepsFile();
+      }
       Deno.exit();
     }
     if (std) {
       LOGGER.info('Working in this feature');
       Deno.exit();
     }
-    await installDepsToImports(deps);
+    if (file.config.importMap.enable == true) {
+      await installDepsToImports(deps, { host: host });
+    }
+    if (file.config.depsFile.enable == true) {
+      await depsInstall.addToDepsFile();
+    }
   });
 
 APP
