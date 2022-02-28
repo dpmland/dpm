@@ -80,7 +80,7 @@ export async function installDepsToImports(
   );
 }
 
-async function getTheVersionOfDep(
+export async function getTheVersionOfDep(
   dep: string,
   host: string,
 ): Promise<string> {

@@ -34,15 +34,15 @@ import * as tools from 'tools/install.ts';
 APP
   .command('init', 'Init the necessary files for better development with Deno')
   .alias('create', 'innit')
+  .option('-A --all', 'Generate all files and format this using all tools!')
   .option('-y, --yes', 'Create the dpm.json file without prompt')
   .option('--deno', 'Create the deno config file for better development')
-  .option('--readme', 'Generate a readme with the dpm.json file')
-  .option('--importMap', 'Generate the import map file!')
+  .option('--dpm', 'Generate the dpm file without ask!')
   .option('--deps', 'Generate the deps.ts file for manage the dependencies')
   .option('--eggs', 'Generate the eggs file for publish in nest.land')
-  .option('-A --all', 'Generate all files and format this using all tools!')
-  .option('--dpm', 'Generate the dpm file without ask!')
   .option('--fmt', 'Format the json files')
+  .option('--importMap', 'Generate the import map file!')
+  .option('--readme', 'Generate a readme with the dpm.json file')
   .action(
     async (
       { yes, fmt, deno, readme, importMap, all, eggs, dpm, deps }: any,
@@ -131,7 +131,7 @@ APP
         await installDepsToImports(deps, { host: host });
       }
       if (file.config.depsFile.enable == true) {
-        await depsInstall.addToDepsFile();
+        await depsInstall.addToDepsFile(deps, { host: host });
       }
       Deno.exit();
     }
@@ -143,7 +143,7 @@ APP
       await installDepsToImports(deps, { host: host });
     }
     if (file.config.depsFile.enable == true) {
-      await depsInstall.addToDepsFile();
+      await depsInstall.addToDepsFile(deps, { host: host });
     }
   });
 
