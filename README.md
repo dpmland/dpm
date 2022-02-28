@@ -58,14 +58,13 @@ Thanks for want help to this project for contribute you can check the
 
 - [x] Add the main cli
 - [x] Create the init command and create the `dpm.json` file
-- [x] Clean the dependencies ( all and one by one )
+- [ ] Clean the dependencies ( all and one by one )
 - [x] Documentation offline
 - [x] About cli and directories help
 - [x] Format internal json files
 - [x] Add the script command support
 - [x] Add the `format, format check, lint` commands
 - [x] Tools installation for deno development
-- [ ] Create the `deps.ts` file and the dependencies
 - [x] Add the import modules to the dependencies into import field.
 - [x] Create the `deno.json` config generator
 - [x] Add the import map generator

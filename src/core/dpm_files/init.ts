@@ -78,11 +78,6 @@ function generateJSONObject(
     dependencies: {},
     config: {
       importMap: {
-        enable: true,
-        directory: input.directory || false,
-      },
-      depsFile: {
-        enable: false,
         directory: input.directory || false,
       },
     },
@@ -107,7 +102,7 @@ export async function WriteImportMapJson() {
   try {
     if (
       file.config.importMap.directory == false &&
-      file.config.importMap.enable == true
+      dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS) == false
     ) {
       await Deno.writeTextFile(
         BASE_DIRECTORIES.IMPORT_MAPS,
@@ -122,11 +117,12 @@ export async function WriteImportMapJson() {
       LOGGER.info(
         `Writed succesfully the ${NAME_DIRECTORIES.IMPORT_MAPS} file!`,
       );
+      Deno.exit();
     }
 
     if (
       file.config.importMap.directory == true &&
-      file.config.importMap.enable == true
+      dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS_DIR) == false
     ) {
       await ensureFile(BASE_DIRECTORIES.IMPORT_MAPS_DIR);
       await Deno.writeTextFile(
@@ -142,6 +138,7 @@ export async function WriteImportMapJson() {
       LOGGER.info(
         `Writed succesfully the ${NAME_DIRECTORIES.IMPORT_MAPS_DIR} folder and file!`,
       );
+      Deno.exit();
     }
   } catch (e) {
     LOGGER.error(e.message);

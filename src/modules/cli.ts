@@ -1,13 +1,13 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import Denomander from 'https://deno.land/x/denomander@0.9.1/mod.ts';
+import { DESCRIPTION, VERSION } from 'mods/info.ts';
 
 // Export the base CLI
 export const APP = new Denomander({
   app_name: 'dpm',
-  app_version: '0.1.0',
-  app_description:
-    'Dpm <Deno Package Manager> is a simple, modern and easy way to manage the Deno Modules and dependencies that help to write and manage the deno libraries and code',
+  app_version: VERSION,
+  app_description: DESCRIPTION,
   errors: {
     INVALID_RULE: 'Invalid rule error on parsing',
     OPTION_NOT_FOUND: 'Flag not found run << dpm -h >> for more information',

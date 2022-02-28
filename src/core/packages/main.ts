@@ -12,7 +12,10 @@ export async function installDepsToImports(
   depName: Array<string>,
   options: appendOptions = {},
 ) {
-  if (!(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))) {
+  if (
+    !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS) ||
+      !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS_DIR)))
+  ) {
     await WriteImportMapJson();
   }
   if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
@@ -47,12 +50,10 @@ export async function installDepsToImports(
     } else {
       imports[`${pkg[1]}/`] = `${options.host}/${pkg[1]}@${version}/`;
     }
-    if (dpm.config.importMap.enable == true) {
-      if (version == '') {
-        deps[`${pkg[1]}`] = 'No Provided';
-      } else {
-        deps[`${pkg[1]}`] = `${version}`;
-      }
+    if (version == '') {
+      deps[`${pkg[1]}`] = 'No Provided';
+    } else {
+      deps[`${pkg[1]}`] = `${version}`;
     }
   }
   if (dpm.config.importMap.directory == true) {
@@ -74,6 +75,7 @@ export async function installDepsToImports(
     LOGGER.info(
       `Successfully installed the dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
     );
+    Deno.exit();
   }
   LOGGER.info(
     `Successfully installed the dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS_DIR} and in the ${NAME_DIRECTORIES.DPM_FILE}`,

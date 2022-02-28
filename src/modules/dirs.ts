@@ -12,8 +12,6 @@ interface directories {
   IMPORT_MAPS: string;
   IMPORT_MAPS_DIR: string;
   EGGS_FILE: string;
-  DEPS_FILE_ONLY: string;
-  DEPS_DIR: string;
   README: string;
 }
 
@@ -23,8 +21,6 @@ interface names {
   IMPORT_MAPS: string;
   IMPORT_MAPS_DIR: string;
   EGGS_FILE: string;
-  DEPS_FILE_ONLY: string;
-  DEPS_DIR: string;
   README: string;
 }
 
@@ -37,8 +33,6 @@ export const BASE_DIRECTORIES: directories = {
   IMPORT_MAPS: join(dracoFiles.currentDir(), 'dpm_imports.json'),
   IMPORT_MAPS_DIR: join(dracoFiles.currentDir(), '.dpm', 'dpm_imports.json'),
   EGGS_FILE: join(dracoFiles.currentDir(), 'eggs.json'),
-  DEPS_FILE_ONLY: join(dracoFiles.currentDir(), 'deps.ts'),
-  DEPS_DIR: join(dracoFiles.currentDir(), '.dpm', 'deps.ts'),
   README: join(dracoFiles.currentDir(), 'README.md'),
 };
 
@@ -48,7 +42,5 @@ export const NAME_DIRECTORIES: names = {
   IMPORT_MAPS: 'dpm_imports.json',
   IMPORT_MAPS_DIR: join('.dpm', 'dpm_imports.json'),
   EGGS_FILE: 'eggs.json',
-  DEPS_FILE_ONLY: 'deps.ts',
-  DEPS_DIR: join('.dpm', 'deps.ts'),
   README: 'README.md',
 };

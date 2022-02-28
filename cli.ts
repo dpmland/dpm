@@ -7,7 +7,6 @@ import { getDocumentation } from 'docs/main.ts';
 import { writeDenoConfigFile } from 'dpm/deno.ts';
 import { generateReadme } from 'dpm/readme.ts';
 import { generateEggsFile } from 'dpm/eggs.ts';
-import { writeDepsTsFile } from 'dpm/deps.ts';
 import {
   GetTheOptionsPrompt,
   WriteDpmFileJson,
@@ -20,11 +19,12 @@ import { APP } from 'mods/cli.ts';
 import { dracoFiles, dracoInfo } from 'mods/deps.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
+import { table } from 'mods/deps.ts';
+import { VERSION } from 'mods/info.ts';
 // Package manager
 import { installDepsToImports } from 'packages/main.ts';
 import * as uninstall from 'packages/clean.ts';
 import * as update from 'packages/update.ts';
-import * as depsInstall from 'packages/deps/add.ts';
 // Script manager
 import { readAndRunScripts } from 'core/scripts/build_in.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
@@ -38,23 +38,17 @@ APP
   .option('-y, --yes', 'Create the dpm.json file without prompt')
   .option('--deno', 'Create the deno config file for better development')
   .option('--dpm', 'Generate the dpm file without ask!')
-  .option('--deps', 'Generate the deps.ts file for manage the dependencies')
   .option('--eggs', 'Generate the eggs file for publish in nest.land')
   .option('--fmt', 'Format the json files')
   .option('--importMap', 'Generate the import map file!')
   .option('--readme', 'Generate a readme with the dpm.json file')
   .action(
     async (
-      { yes, fmt, deno, readme, importMap, all, eggs, dpm, deps }: any,
+      { yes, fmt, deno, readme, importMap, all, eggs, dpm }: any,
     ) => {
-      const file = await ReadDpmFile();
       if (yes) {
         await WriteDpmFileJson({});
-        if (file.config.importMap.enable == true) {
-          await WriteImportMapJson();
-        } else {
-          await writeDepsTsFile();
-        }
+        await WriteImportMapJson();
         Deno.exit();
       }
       if (fmt) {
@@ -63,10 +57,6 @@ APP
       }
       if (deno) {
         await writeDenoConfigFile();
-        Deno.exit();
-      }
-      if (deps) {
-        await writeDepsTsFile();
         Deno.exit();
       }
       if (readme) {
@@ -97,11 +87,7 @@ APP
       }
       const app = await GetTheOptionsPrompt();
       await WriteDpmFileJson(app);
-      if (file.config.importMap.enable == true) {
-        await WriteImportMapJson();
-      } else {
-        await writeDepsTsFile();
-      }
+      await WriteImportMapJson();
     },
   );
 
@@ -118,32 +104,27 @@ APP
   .option('--host', 'Change from deno.land/x to other')
   .option('-s --std', 'Add a dependency from the std library')
   .action(async ({ deps }: any, { host, std }: any) => {
+    // const file = await ReadDpmFile();
     if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE) == false) {
       await WriteDpmFileJson({});
-      LOGGER.info('Writing the default dpm file because not exists!');
+      LOGGER.warn('Writing the default dpm file because not exists!');
     }
-    let file;
-    if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
-      file = await ReadDpmFile();
-    }
-    if (host != ' ') {
-      if (file.config.importMap.enable == true) {
-        await installDepsToImports(deps, { host: host });
-      }
-      if (file.config.depsFile.enable == true) {
-        await depsInstall.addToDepsFile(deps, { host: host });
-      }
-      Deno.exit();
-    }
+    // if (
+    //   dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS) == false &&
+    //   file.config.importMap.directory == false
+    // ) {
+    //   await WriteImportMapJson();
+    // }
+    // if (
+    //   dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS_DIR) == false &&
+    //   file.config.importMap.directory == true
+    // ) {
+    //   await WriteImportMapJson();
+    // }
+    await installDepsToImports(deps, { host: host });
     if (std) {
       LOGGER.info('Working in this feature');
       Deno.exit();
-    }
-    if (file.config.importMap.enable == true) {
-      await installDepsToImports(deps, { host: host });
-    }
-    if (file.config.depsFile.enable == true) {
-      await depsInstall.addToDepsFile(deps, { host: host });
     }
   });
 
@@ -176,11 +157,6 @@ APP
     switch (action) {
       case 'imports': {
         await update.updateImportMap();
-        break;
-      }
-
-      case 'files': {
-        LOGGER.warn('Working in this feature!');
         break;
       }
 
@@ -247,28 +223,115 @@ APP
   .action(async ({ action }: any) => {
     switch (action) {
       case 'deno': {
-        LOGGER.info(`DENO VERSION: ${dracoInfo.DenoVersion}`);
-        LOGGER.info(`DENO TYPESCRIPT: ${dracoInfo.DenoTypescript}`);
-        LOGGER.info(`DENO V8: ${dracoInfo.DenoV8}`);
+        const DENO_INFO = [
+          {
+            name: 'VERSION',
+            version: dracoInfo.DenoVersion,
+          },
+          {
+            name: 'TYPESCRIPT',
+            version: dracoInfo.DenoTypescript,
+          },
+          {
+            name: 'V8',
+            version: dracoInfo.DenoV8,
+          },
+        ];
+        const DPM_INFO = [
+          {
+            name: 'VERSION',
+            data: VERSION,
+          },
+          {
+            name: 'LICENSE',
+            data: 'GPL-3.0',
+          },
+          {
+            name: 'CODE SOURCE',
+            data: 'https://github.com/dpmland/dpm',
+          },
+          {
+            name: 'ISSUE REPORT',
+            data: 'https://github.com/dpmland/dpm/issues',
+          },
+        ];
+        const tDeno = table(DENO_INFO, ['tool', 'version'], {
+          upcaseHeader: true,
+          emptyReplacer: 'No field Provided',
+          padding: 4,
+        });
+        const tDpm = table(DPM_INFO, ['key', 'data'], {
+          upcaseHeader: true,
+          emptyReplacer: 'No field Provided',
+          padding: 4,
+        });
+        console.info('Deno Information build!');
+        console.log(tDeno);
+        console.info('Dpm Information build!');
+        console.log(tDpm);
         break;
       }
 
       case 'dirs': {
-        LOGGER.info(`CACHE AND LOGS DIRECTORY: ${BASE_DIRECTORIES.LOGS}`);
-        LOGGER.info(`DOCS OFFLINE DIRECTORY: ${BASE_DIRECTORIES.DOCS}`);
-        LOGGER.info(`CONFIG DIRECTORY: ${BASE_DIRECTORIES.CONFIG}`);
-        LOGGER.info(`IMPORT MAP PATH: ${BASE_DIRECTORIES.IMPORT_MAPS}`);
-        LOGGER.info(`DENO CONFIG: ${BASE_DIRECTORIES.DENO_JSON_FILE}`);
-        LOGGER.info(`DEPS ONLY FILE: ${BASE_DIRECTORIES.DEPS_FILE_ONLY}`);
-        LOGGER.info(`DEPS DIRECTORY AND FILE: ${BASE_DIRECTORIES.DEPS_DIR}`);
-        LOGGER.info(`EGGS FILE GENERATOR: ${BASE_DIRECTORIES.EGGS_FILE}`);
-        LOGGER.info(
-          `DIRECTORY TO GENERATE THE dpm.json: ${BASE_DIRECTORIES.DPM_FILE}`,
-        );
+        const DIRECTORIES_SHOW = [
+          {
+            name: 'CACHE AND LOGS',
+            dir: BASE_DIRECTORIES.LOGS,
+          },
+          {
+            name: 'CONFIG',
+            dir: BASE_DIRECTORIES.CONFIG,
+          },
+          {
+            name: 'DOCS',
+            dir: BASE_DIRECTORIES.DOCS,
+          },
+          {
+            name: 'IMPORT MAP WITH DIR',
+            dir: BASE_DIRECTORIES.IMPORT_MAPS_DIR,
+          },
+        ];
+        const FILE_SHOW = [
+          {
+            name: 'DPM FILE',
+            dir: BASE_DIRECTORIES.DPM_FILE,
+          },
+          {
+            name: 'DENO CONFIG FILE',
+            dir: BASE_DIRECTORIES.DENO_JSON_FILE,
+          },
+          {
+            name: 'IMPORT MAP FILE',
+            dir: BASE_DIRECTORIES.IMPORT_MAPS,
+          },
+          {
+            name: 'EGGS FILE',
+            dir: BASE_DIRECTORIES.EGGS_FILE,
+          },
+          {
+            name: 'README FILE',
+            dir: BASE_DIRECTORIES.README,
+          },
+        ];
+        const tDir = table(DIRECTORIES_SHOW, ['name', 'route'], {
+          upcaseHeader: true,
+          emptyReplacer: 'No field provided',
+          padding: 4,
+        });
+        const tFile = table(FILE_SHOW, ['name', 'route'], {
+          upcaseHeader: true,
+          emptyReplacer: 'No field provided',
+          padding: 4,
+        });
+        console.info('Directories table of routes');
+        console.log(tDir);
+        console.info('File table of routes');
+        console.log(tFile);
         break;
       }
 
-      case 'dpmFile': {
+      case 'dpm': {
+        console.log('Dpm File content');
         const data = await ReadDpmFile();
         console.log(data);
         break;

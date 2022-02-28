@@ -1,0 +1,27 @@
+{
+  "name": "dpm",
+  "version": "0.1.0",
+  "description": "A example dpm package",
+  "author": "A cool coder human",
+  "license": "ISC",
+  "main": "mod.ts",
+  "scripts": {
+    "build_in": {
+      "test": "deno test -A --unstable",
+      "fmt": "deno fmt -c deno.jsonc",
+      "lint": "deno lint -c deno.jsonc"
+    }
+  },
+  "dependencies": {
+    "draco": "0.1.3",
+    "dlog2": "1.1.2",
+    "soxa": "1.4",
+    "corejs": "v3.21.1",
+    "lodash": "4.17.19"
+  },
+  "config": {
+    "importMap": {
+      "directory": true
+    }
+  }
+}
