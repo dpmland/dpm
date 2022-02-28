@@ -1,7 +1,0 @@
-{
-  "imports": {
-    "soxa/": "https://deno.land/x/soxa@1.4/",
-    "corejs/": "https://deno.land/x/corejs@v3.21.1/",
-    "lodash/": "https://deno.land/x/lodash@4.17.19/"
-  }
-}
