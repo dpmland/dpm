@@ -52,13 +52,13 @@ deno install -Afn dpm --unstable --import-map=https://deno.land/x/dpm/import_map
 **Only the CLI Installation:** :star:
 
 ```
-deno install -Afn dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json -c https://denopkg.com/dpmland/dpm@dev/tsconfig.json https://denopkg.com/dpmland/dpm@dev/cli.ts
+deno install -Afn dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/cli.ts
 ```
 
 **Complete installation:** :fire:
 
 ```
-deno install -Afn dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json -c https://denopkg.com/dpmland/dpm@dev/tsconfig.json https://denopkg.com/dpmland/dpm@dev/cli.ts && dpm doc -d && dpm tools install
+deno install -Afn dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/cli.ts && dpm doc -d && dpm tools install
 ```
 
 ## Contribution Guides :books:
