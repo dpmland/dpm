@@ -6,31 +6,50 @@ Here you found the source code of Dpm.
 
 ```
 .
-├──  core
-│  ├──  docs
-│  │  ├──  download.ts
-│  │  └──  main.ts
-│  ├──  dpm
-│  │  ├──  init.ts
-│  │  └──  read.ts
-│  ├──  packages
-│  │  └──  add.ts
-│  ├──  runner
-│  │  ├──  format.ts
-│  │  └──  main.ts
-│  ├──  scripts
-│  │  └──  build_in.ts
-│  └──  tools
-│     └──  install.ts
-├──  modules
-│  ├──  ask.ts
-│  ├──  authors.ts
-│  ├──  cli.ts
-│  ├──  deps.ts
-│  ├──  dirs.ts
-│  ├──  logger.ts
-│  └──  spinners.ts
-└──  README.md
+├── core
+│   ├── checker
+│   │   ├── file.ts
+│   │   ├── main.ts
+│   │   ├── README.md
+│   │   ├── types
+│   │   │   ├── dependencyType.ts
+│   │   │   └── importType.ts
+│   │   └── version.ts
+│   ├── docs
+│   │   ├── download.ts
+│   │   └── main.ts
+│   ├── dpm_files
+│   │   ├── deno.ts
+│   │   ├── eggs.ts
+│   │   ├── init.ts
+│   │   ├── read.ts
+│   │   └── readme.ts
+│   ├── packages
+│   │   ├── add.ts
+│   │   ├── clean.ts
+│   │   ├── main.ts
+│   │   └── update.ts
+│   ├── runner
+│   │   ├── format.ts
+│   │   └── main.ts
+│   ├── scripts
+│   │   └── build_in.ts
+│   ├── tools
+│   │   └── install.ts
+│   └── upgrade
+│       ├── check.ts
+│       ├── main.ts
+│       └── util.ts
+├── modules
+│   ├── ask.ts
+│   ├── authors.ts
+│   ├── cli.ts
+│   ├── deps.ts
+│   ├── dirs.ts
+│   ├── info.ts
+│   ├── logger.ts
+│   └── spinners.ts
+└── README.md
 ```
 
 ### For the contributors
