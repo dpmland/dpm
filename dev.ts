@@ -29,10 +29,6 @@ if (Deno.args[0] == 'clean') {
     await Deno.remove(BASE_DIRECTORIES.DENO_JSON_FILE);
     console.log(`Removed the ${NAME_DIRECTORIES.DENO_JSON_FILE} file!`);
   }
-  if (dracoFiles.exists(BASE_DIRECTORIES.DEPS_DIR)) {
-    await Deno.remove(BASE_DIRECTORIES.DEPS_DIR, { recursive: true });
-    console.log(`Removed the ${NAME_DIRECTORIES.DEPS_DIR} dir!`);
-  }
   if (dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS_DIR)) {
     await Deno.remove(BASE_DIRECTORIES.IMPORT_MAPS_DIR, { recursive: true });
     console.log(`Removed the ${NAME_DIRECTORIES.IMPORT_MAPS_DIR} dir!`);
@@ -44,10 +40,6 @@ if (Deno.args[0] == 'clean') {
   if (dracoFiles.exists(BASE_DIRECTORIES.EGGS_FILE)) {
     await Deno.remove(BASE_DIRECTORIES.EGGS_FILE);
     console.log(`Removed the ${NAME_DIRECTORIES.EGGS_FILE} file!`);
-  }
-  if (dracoFiles.exists(BASE_DIRECTORIES.DEPS_FILE_ONLY)) {
-    await Deno.remove(BASE_DIRECTORIES.DEPS_FILE_ONLY);
-    console.log(`Removed the ${NAME_DIRECTORIES.DEPS_FILE_ONLY} file!`);
   }
   if (dracoFiles.exists(join(dracoFiles.currentDir(), '.dpm'))) {
     await Deno.remove(join(dracoFiles.currentDir(), '.dpm'), {

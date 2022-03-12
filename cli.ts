@@ -104,23 +104,10 @@ APP
   .option('--host', 'Change from deno.land/x to other')
   .option('-s --std', 'Add a dependency from the std library')
   .action(async ({ deps }: any, { host, std }: any) => {
-    // const file = await ReadDpmFile();
     if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE) == false) {
       await WriteDpmFileJson({});
       LOGGER.warn('Writing the default dpm file because not exists!');
     }
-    // if (
-    //   dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS) == false &&
-    //   file.config.importMap.directory == false
-    // ) {
-    //   await WriteImportMapJson();
-    // }
-    // if (
-    //   dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS_DIR) == false &&
-    //   file.config.importMap.directory == true
-    // ) {
-    //   await WriteImportMapJson();
-    // }
     await installDepsToImports(deps, { host: host });
     if (std) {
       LOGGER.info('Working in this feature');

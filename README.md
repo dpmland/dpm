@@ -18,7 +18,7 @@ libraries and code
 - Config generator for _deno lint_, _deno fmt_, _deno test_
 - Manage all in a `dpm.json` file with the same syntax of the `package.json` and
   more features
-- Generate all dependencies from a `deps.ts` and a `import_map.json` file
+- Generate all dependencies from a `import_map.json` file
 - Offline documentation manager
 - Tools helper manager, install all tools for a better Deno Development
 - Update the dependencies manager!
