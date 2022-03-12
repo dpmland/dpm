@@ -4,6 +4,7 @@
 
 import { spawn } from 'core/upgrade/util.ts';
 import { LOGGER } from 'mods/logger.ts';
+import { checkIfUpdated } from 'core/upgrade/check.ts';
 
 export const URL = {
   canary: {
@@ -66,9 +67,14 @@ IMPORT MAP File: ${URL.stable.importMap}
       break;
     }
 
+    case 'check': {
+      await checkIfUpdated();
+      break;
+    }
+
     default: {
       LOGGER.error(
-        'Version not found only supported 2 options more info on << dpm doc upgrade.versions >>',
+        'Option not found only supported 3 options for more information check << dpm doc upgrade.versions >>',
       );
       break;
     }
