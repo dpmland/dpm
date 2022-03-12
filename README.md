@@ -33,21 +33,33 @@ libraries and code
 If you want test dpm in the development version **NOT DOCUMENTATION PROVIDED**
 and **NO COMPLETE FEATURES** can you install with:
 
-> Deno Stable not ultimate features!
+> Stable not ultimate features! :alien:
+
+**Only the CLI Installation**: :star:
 
 ```sh
 deno install -Afn dpm --unstable --import-map=https://deno.land/x/dpm/import_map.json https://deno.land/x/dpm/cli.ts
 ```
 
-> Ultimate features
+**Complete installation**: :fire:
+
+```sh
+deno install -Afn dpm --unstable --import-map=https://deno.land/x/dpm/import_map.json https://deno.land/x/dpm/cli.ts && dpm doc -d && dpm tools install
+```
+
+> Canary ( Ultimate features ) :bird:
+
+**Only the CLI Installation:** :star:
 
 ```
 deno install -Afn dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json -c https://denopkg.com/dpmland/dpm@dev/tsconfig.json https://denopkg.com/dpmland/dpm@dev/cli.ts
 ```
 
-> Stable version!
+**Complete installation:** :fire:
 
-Working in this!
+```
+deno install -Afn dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json -c https://denopkg.com/dpmland/dpm@dev/tsconfig.json https://denopkg.com/dpmland/dpm@dev/cli.ts && dpm doc -d && dpm tools install
+```
 
 ## Contribution Guides :books:
 
@@ -70,6 +82,7 @@ Thanks for want help to this project for contribute you can check the
 - [x] Add the import map generator
 - [x] Add the `eggs.json` file generator
 - [ ] Add the aliases for run a deno app
+- [x] Add the check upgrade and the upgrade command for dpm
 - [x] Add the `README.md` and data generator.
 
 ---
