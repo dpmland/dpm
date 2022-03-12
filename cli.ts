@@ -30,6 +30,8 @@ import { readAndRunScripts } from 'core/scripts/build_in.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
 // Tool manager
 import * as tools from 'tools/install.ts';
+// Upgrade manager
+import { Upgrade } from 'core/upgrade/main.ts';
 
 APP
   .command('init', 'Init the necessary files for better development with Deno')
@@ -138,7 +140,7 @@ APP
   .command('update [action]', 'Update the dependencies from the dpm files')
   .argDescription(
     'action',
-    'Pass the correct argument for update the files like: << imports >> for the import_map file and << files >> for the dep.ts file',
+    'Pass the correct argument for update the dependencies << imports >> for the import_map.json',
   )
   .action(async ({ action }: any) => {
     switch (action) {
@@ -154,6 +156,17 @@ APP
         Deno.exit(2);
       }
     }
+  });
+
+APP
+  .command('upgrade [action]', 'Upgrade the version of the dpm tool!')
+  .argDescription(
+    'action',
+    'Pass the correct type of version for upgrade the tools like: << canary >> or << stable >> for every version check << dpm doc upgrade.version',
+  )
+  .action(async ({ action }: any) => {
+    await Upgrade(action);
+    Deno.exit();
   });
 
 APP
