@@ -70,7 +70,7 @@ Thanks for want help to this project for contribute you can check the
 
 - [x] Add the main cli
 - [x] Create the init command and create the `dpm.json` file
-- [ ] Clean the dependencies ( all and one by one )
+- [x] Clean the dependencies ( all and one by one )
 - [x] Documentation offline
 - [x] About cli and directories help
 - [x] Format internal json files
@@ -82,6 +82,8 @@ Thanks for want help to this project for contribute you can check the
 - [x] Add the import map generator
 - [x] Add the `eggs.json` file generator
 - [ ] Add the aliases for run a deno app
+- [ ] Template engine for use many starter kits more easy!
+- [ ] Documentation markdown complete!
 - [x] Add the check upgrade and the upgrade command for dpm
 - [x] Add the `README.md` and data generator.
 

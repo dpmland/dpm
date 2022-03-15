@@ -349,12 +349,13 @@ APP
   )
   .alias('clean')
   .option('-A --all', 'Remove all dependencies from the files!')
-  .action(async ({ _deps }: any, { all }: any) => {
+  .action(async ({ deps }: any, { all }: any) => {
     if (typeof all == 'boolean') {
       if (all == true) {
         await uninstall.cleanAllDeps();
       }
     }
+    await uninstall.cleanAnyDependency(deps);
   });
 
 APP
