@@ -6,7 +6,7 @@ import { DESCRIPTION, VERSION } from 'mods/info.ts';
 // Export the base CLI
 export const APP = new Denomander({
   app_name: 'dpm',
-  app_version: VERSION,
+  app_version: `${VERSION.substring(1)}`,
   app_description: DESCRIPTION,
   errors: {
     INVALID_RULE: 'Invalid rule error on parsing',
