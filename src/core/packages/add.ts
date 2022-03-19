@@ -2,12 +2,17 @@
 
 import { dirname } from 'mods/deps.ts';
 import { LOGGER } from 'mods/logger.ts';
+import { soxa } from 'mods/deps.ts';
 
 // Types
 export interface appendOptions {
   host?: string;
   std?: boolean;
 }
+
+// URLS
+const url = 'https://cdn.deno.land/std/meta/versions.json';
+const denoRegister = 'https://deno.land/x';
 
 export function appendModuleToDpm(
   depName: Array<string>,
@@ -41,4 +46,32 @@ export function appendModuleToDpm(
     url.push(URL_COMPLETE);
   }
   return url;
+}
+
+export async function appendStdToFile(
+  depName: Array<string>,
+) {
+  // Get the latest version of
+  const version = await soxa.get(url)
+    .catch((error) => {
+      LOGGER.error(`Error getting the latest dependency ${error}`);
+    });
+  // Helper Variable
+  let latest;
+  const std = [];
+  if (version.data) {
+    latest = version.data.latest;
+  } else {
+    latest = '';
+  }
+  for (const i of depName) {
+    let URL_COMPLETE = '';
+    if (latest == '') {
+      LOGGER.error(`Not found the latest version of the std!`);
+      Deno.exit(2);
+    }
+    URL_COMPLETE += `${denoRegister}/std@${latest}/${i}/`;
+    std.push(URL_COMPLETE);
+  }
+  return std;
 }

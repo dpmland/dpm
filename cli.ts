@@ -22,7 +22,7 @@ import { LOGGER } from 'mods/logger.ts';
 import { table } from 'mods/deps.ts';
 import { VERSION } from 'mods/info.ts';
 // Package manager
-import { installDepsToImports } from 'packages/main.ts';
+import { installDepsToImports, installStdToImports } from 'packages/main.ts';
 import * as uninstall from 'packages/clean.ts';
 import * as update from 'packages/update.ts';
 // Script manager
@@ -281,11 +281,11 @@ APP
       await WriteDpmFileJson({});
       LOGGER.warn('Writing the default dpm file because not exists!');
     }
-    await installDepsToImports(deps, { host: host });
     if (std) {
-      LOGGER.info('Working in this feature');
+      await installStdToImports(deps);
       Deno.exit();
     }
+    await installDepsToImports(deps, { host: host });
   });
 
 APP

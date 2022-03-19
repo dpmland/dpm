@@ -1,12 +1,16 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { appendModuleToDpm, appendOptions } from 'packages/add.ts';
+import { WriteDpmFileJson, WriteImportMapJson } from 'dpm/init.ts';
+import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
 import { dracoFiles } from 'mods/deps.ts';
+import { soxa } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
-import { WriteDpmFileJson, WriteImportMapJson } from 'dpm/init.ts';
-import { soxa } from 'mods/deps.ts';
+import {
+  appendModuleToDpm,
+  appendOptions,
+  appendStdToFile,
+} from 'packages/add.ts';
 
 export async function installDepsToImports(
   depName: Array<string>,
@@ -91,13 +95,80 @@ export async function getTheVersionOfDep(
       return ``;
     }
     const url = `https://cdn.deno.land/${dep}/meta/versions.json`;
-    const versionList = await soxa.get(url)
-      .catch((err) => {
-        LOGGER.error(`ERROR Getting the version from deno.land host: ${err}`);
-      });
+    const versionList = await soxa.get(url).catch((err) => {
+      LOGGER.error(`ERROR Getting the version from deno.land host: ${err}`);
+    });
     if (versionList.data) {
       return versionList.data.latest;
     }
   }
   return '';
+}
+
+export async function installStdToImports(
+  depName: Array<string>,
+) {
+  // Check if exists files!
+  if (
+    !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS) ||
+      !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS_DIR)))
+  ) {
+    await WriteImportMapJson();
+  }
+  if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
+    await WriteDpmFileJson({});
+  }
+  // Read the files!
+  const data = await ReadImportMapFile();
+  const dpm = await ReadDpmFile();
+  if (!('dependencies' in dpm)) {
+    LOGGER.error(
+      'Dependency key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm for restart the dpm file >>',
+    );
+    Deno.exit(2);
+  }
+  if (!('imports' in data)) {
+    LOGGER.error(
+      'Imports key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm >> for restart the dpm file',
+    );
+    Deno.exit(2);
+  }
+  // Helper constants
+  const imports = data.imports;
+  const deps = dpm.dependencies;
+
+  // Iterate and generate the dataaaaaaaa!
+
+  await appendStdToFile(depName).then((f) => {
+    for (const i of f) {
+      const pkg = i.split('/');
+      imports[`${pkg[5]}/`] = i;
+      deps[`${pkg[5]}`] = i;
+    }
+  });
+
+  if (dpm.config.importMap.directory == true) {
+    await Deno.writeTextFile(
+      BASE_DIRECTORIES.IMPORT_MAPS_DIR,
+      JSON.stringify(data, null, '  '),
+    );
+  } else {
+    await Deno.writeTextFile(
+      BASE_DIRECTORIES.IMPORT_MAPS,
+      JSON.stringify(data, null, '  '),
+    );
+  }
+  await Deno.writeTextFile(
+    BASE_DIRECTORIES.DPM_FILE,
+    JSON.stringify(dpm, null, '  '),
+  );
+  if (dpm.config.importMap.directory == false) {
+    LOGGER.info(
+      `Successfully installed the std dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
+    );
+    Deno.exit();
+  }
+  LOGGER.info(
+    `Successfully installed the std dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS_DIR} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
+  );
 }
