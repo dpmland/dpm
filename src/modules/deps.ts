@@ -4,17 +4,17 @@
 export { dracoFiles, dracoInfo } from 'https://deno.land/x/draco@0.1.3/mod.ts';
 
 // Export the join util
-export { join } from 'https://deno.land/std@0.125.0/path/mod.ts';
+export { join } from 'https://deno.land/std@0.130.0/path/mod.ts';
 
 // Export the base name util
 export {
   basename,
   dirname,
   extname,
-} from 'https://deno.land/std@0.125.0/path/mod.ts';
+} from 'https://deno.land/std@0.130.0/path/mod.ts';
 
 // Ensure exists file for the folder support!
-export { ensureDir, ensureFile } from 'https://deno.land/std@0.125.0/fs/mod.ts';
+export { ensureDir, ensureFile } from 'https://deno.land/std@0.130.0/fs/mod.ts';
 
 // Tables for the authors
 export { table } from 'https://deno.land/x/minitable@v1.0/mod.ts';

@@ -1,6 +1,6 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import Kia from 'https://deno.land/x/kia@v0.1.0/mod.ts';
+import Kia from 'https://deno.land/x/kia@0.4.1b/mod.ts';
 
 export const Installing = new Kia({
   text: 'Installing..',
