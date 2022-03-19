@@ -8,8 +8,8 @@ import { checkIfUpdated } from 'core/upgrade/check.ts';
 
 export const URL = {
   canary: {
-    importMap: 'https://denopkg.com/dpmland/dpm@dev/import_map.json',
-    cli: 'https://denopkg.com/dpmland/dpm@dev/cli.ts',
+    importMap: 'https://denopkg.com/dpmland/dpm@latest/import_map.json',
+    cli: 'https://denopkg.com/dpmland/dpm@latest/cli.ts',
   },
   stable: {
     importMap: 'https://deno.land/x/dpm/import_map.json',

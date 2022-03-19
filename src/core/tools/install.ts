@@ -3,7 +3,6 @@
 import { Run } from 'runner/main.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { table } from 'mods/deps.ts';
-import * as spinners from 'mods/spinners.ts';
 
 const TOOLS_TO_INSTALL = [
   {
@@ -45,17 +44,15 @@ export function getAllTools() {
 export async function installTools() {
   for (const i of TOOLS_TO_INSTALL) {
     const command = `${DenoPath} install -qAf --unstable -n ${i.name} ${i.url}`;
-    spinners.Installing.start();
     await Run(command);
-    spinners.Installing.succeed(`Successfully installed ${i.name}`);
+    LOGGER.done(`Successfully installed ${i.name}`);
   }
 }
 
 export async function cleanTools() {
   for (const i of TOOLS_TO_INSTALL) {
     const command = `${DenoPath} uninstall --unstable ${i.name}`;
-    spinners.Deleting.start();
     await Run(command);
-    spinners.Deleting.succeed('Uninstalled and cleaned all tools');
+    LOGGER.done('Uninstalled and cleaned all tools');
   }
 }

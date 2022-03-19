@@ -353,6 +353,7 @@ APP
     if (typeof all == 'boolean') {
       if (all == true) {
         await uninstall.cleanAllDeps();
+        Deno.exit();
       }
     }
     await uninstall.cleanAnyDependency(deps);
@@ -395,4 +396,5 @@ try {
   APP.parse(Deno.args);
 } catch (e) {
   LOGGER.error(`ERROR PARSING THE ARGS: ${e}`);
+  Deno.exit(2);
 }
