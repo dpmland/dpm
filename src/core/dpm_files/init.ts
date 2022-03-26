@@ -62,6 +62,7 @@ function generateJSONObject(
   input: Record<string, unknown>,
 ): Record<string, unknown> {
   return {
+    $schema: 'https://denopkg.com/dpmland/dpm@dev/schemas/dpm.json',
     name: input.name || basename(dracoFiles.currentDir()),
     version: input.version || '0.1.0',
     description: input.description || 'A example dpm package',
@@ -117,7 +118,6 @@ export async function WriteImportMapJson() {
       LOGGER.info(
         `Writed succesfully the ${NAME_DIRECTORIES.IMPORT_MAPS} file!`,
       );
-      Deno.exit();
     }
 
     if (

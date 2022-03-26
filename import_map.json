@@ -5,6 +5,7 @@
     "dpm/": "./src/core/dpm_files/",
     "packages/": "./src/core/packages/",
     "runner/": "./src/core/runner/",
+    "tasks/": "./src/core/task/",
     "tools/": "./src/core/tools/",
     "docs/": "./src/core/docs/",
     "checker/": "./src/core/checker/",

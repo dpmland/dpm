@@ -30,3 +30,12 @@ export async function ReadImportMapFile() {
     Deno.exit(2);
   }
 }
+
+export async function ReadDenoConfigFile() {
+  try {
+    return JSON.parse(await Deno.readTextFile(BASE_DIRECTORIES.DENO_JSON_FILE));
+  } catch (e) {
+    LOGGER.error(e.message);
+    Deno.exit(2);
+  }
+}

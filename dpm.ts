@@ -15,6 +15,7 @@ import { InstallCommand } from 'cmd/install.ts';
 import { ToolsCommand } from 'cmd/tools.ts';
 import { UninstallCommand } from 'cmd/uninstall.ts';
 import { UpdateCommand } from 'cmd/update.ts';
+import { TasksCommand } from 'cmd/tasks.ts';
 
 // Make the CLI!
 await new Command()
@@ -27,6 +28,7 @@ await new Command()
   .command('uninstall', new UninstallCommand())
   .command('install', new InstallCommand())
   .command('tools', new ToolsCommand())
+  .command('tasks', new TasksCommand())
   .command('update', new UpdateCommand())
   .command(
     'upgrade',

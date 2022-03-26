@@ -12,7 +12,7 @@ export class DocsCommand extends Command {
     this.#cmd = cmd;
 
     return this.description(
-      `Do you want know more about a command? ${emoji.get('thinking')}`,
+      `Do you want know more about one command? ${emoji.get('thinking')}`,
     )
       .alias('doc')
       .arguments('[action:string]')
