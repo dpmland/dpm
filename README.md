@@ -52,13 +52,13 @@ deno install -Afn dpm --unstable --import-map=https://deno.land/x/dpm/import_map
 **Only the CLI Installation:** :star:
 
 ```
-deno install -qAf --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/dpm.ts
+deno install -qAf --unstable --import-map=https://denopkg.com/dpmland/dpm@nightly/import_map.json https://denopkg.com/dpmland/dpm@nightly/dpm.ts
 ```
 
 **Complete installation:** :fire:
 
 ```
-deno install -qAf --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/dpm.ts && dpm doc -d && dpm tools install
+deno install -qAf --unstable --import-map=https://denopkg.com/dpmland/dpm@nightly/import_map.json https://denopkg.com/dpmland/dpm@nightly/dpm.ts && dpm doc -d && dpm tools install
 ```
 
 # Usage :alien:
