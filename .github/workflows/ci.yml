@@ -7,19 +7,14 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@3
 
       - name: Install Deno
         uses: denoland/setup-deno@v1
         with:
-          deno-version: 1.17.3
+          deno-version: 1.20.3
 
-      - name: Check the formatting code
-        run: deno fmt -c deno.json --check
-        env:
-          NO_COLOR: true
-
-      - name: Check the linter
-        run: deno lint -c deno.json
+      - name: Check the lint and the formatting tools
+        run: deno task fmt:check
         env:
           NO_COLOR: true
