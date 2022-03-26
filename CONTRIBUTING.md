@@ -73,6 +73,27 @@ Commands avaliable:
 - Clean: Remove the unused files and clean after the upload!
 - Upload: Check the lint and the format on the current directory!
 
+## Roadmap :sparkles:
+
+- [x] Add the main cli
+- [x] Create the init command and create the `dpm.json` file
+- [x] Clean the dependencies ( all and one by one )
+- [x] Documentation offline
+- [x] About cli and directories help
+- [x] Format internal json files
+- [x] Add the script command support
+- [x] Add the `format, format check, lint` commands
+- [x] Tools installation for deno development
+- [x] Add the import modules to the dependencies into import field.
+- [x] Create the `deno.json` config generator
+- [x] Add the import map generator
+- [x] Add the `eggs.json` file generator
+- [ ] Add the aliases for run a deno app
+- [ ] Template engine for use many starter kits more easy!
+- [ ] Documentation markdown complete!
+- [x] Add the check upgrade and the upgrade command for dpm
+- [x] Add the `README.md` and data generator.
+
 ---
 
 Made with :heart: in :earth_americas:

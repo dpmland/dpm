@@ -7,6 +7,7 @@
     "runner/": "./src/core/runner/",
     "tools/": "./src/core/tools/",
     "docs/": "./src/core/docs/",
-    "checker/": "./src/core/checker/"
+    "checker/": "./src/core/checker/",
+    "cmd/": "./src/commands/"
   }
 }

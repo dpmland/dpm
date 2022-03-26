@@ -52,40 +52,107 @@ deno install -Afn dpm --unstable --import-map=https://deno.land/x/dpm/import_map
 **Only the CLI Installation:** :star:
 
 ```
-deno install -Afn dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/cli.ts
+deno install -qAf --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/dpm.ts
 ```
 
 **Complete installation:** :fire:
 
 ```
-deno install -Afn dpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/cli.ts && dpm doc -d && dpm tools install
+deno install -qAf --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/dpm.ts && dpm doc -d && dpm tools install
 ```
+
+# Usage :alien:
+
+~~Well this is very dificult to use~~, no is a very usefull and easy to use tool
+for manage and write new Deno Projects actually is all necessary features done
+but is going some features now!
+
+## Start a basic Deno Project! :mega:
+
+For start a Deno project with all files you only need make this!
+
+```sh
+# Start a new folder!
+mkdir my_project && cd my_project
+# Start a all fully featured Dpm Project!
+dpm init -A
+# Answer the questions and Done!
+```
+
+If you need start only the _dpm_imports.json_ file and the _dpm.json_ file
+without questions you need only run:
+
+```sh
+# Start a new folder!
+mkdir my_project && cd my_project
+# Start only necessary files project
+dpm init -y
+```
+
+If you want restart or write only one file you need run
+
+```sh
+# Start a new folder!
+mkdir my_project && cd my_project
+# Start only one file!
+dpm init -f readme
+## Note:
+## Check the files avaliable on dpm docs init.actions
+## FOR START A FILE LIKE: readme, deno-config or eggs
+## You need start the dpm.json file!
+```
+
+## Install dependencies with DPM :package:
+
+DPM does not download files on the computer, only write the correct url on the
+_dpm_imports.json_ file and make a experience of development like **NodeJS** and
+**NPM or Yarn**
+
+For install dependencies from the [deno.land/x](https://deno.land/x/) register
+you need only write:
+
+```sh
+dpm install draco dlog2
+```
+
+For install dependencies from the [deno std](https://deno.land/std) register you
+need only use this!
+
+```sh
+dpm install flag async http path --std
+## You need put the name of the library and the flag -s or --std
+```
+
+For install dependencies from other host you need run:
+
+```sh
+dpm install example_dep --host nest.land
+```
+
+## Uninstall dependencies with DPM :star2:
+
+DPM doesn't delete any libraries from your computer, it just deletes the
+_dpm_imports.json_ file!
+
+For uninstall all dependencies from the _dpm_imports.json_ you need run:
+
+```sh
+dpm uninstall -A
+```
+
+For uninstall only one specific dependency you need run:
+
+```sh
+dpm uninstall draco dlog2
+```
+
+> Here are all basic features of dpm if you want :warning: but exists more
+> features you can check dpm doc help :white_check_mark:
 
 ## Contribution Guides :books:
 
 Thanks for want help to this project for contribute you can check the
 [contributing file](./CONTRIBUTING.md)
-
-## Roadmap :sparkles:
-
-- [x] Add the main cli
-- [x] Create the init command and create the `dpm.json` file
-- [x] Clean the dependencies ( all and one by one )
-- [x] Documentation offline
-- [x] About cli and directories help
-- [x] Format internal json files
-- [x] Add the script command support
-- [x] Add the `format, format check, lint` commands
-- [x] Tools installation for deno development
-- [x] Add the import modules to the dependencies into import field.
-- [x] Create the `deno.json` config generator
-- [x] Add the import map generator
-- [x] Add the `eggs.json` file generator
-- [ ] Add the aliases for run a deno app
-- [ ] Template engine for use many starter kits more easy!
-- [ ] Documentation markdown complete!
-- [x] Add the check upgrade and the upgrade command for dpm
-- [x] Add the `README.md` and data generator.
 
 ---
 
