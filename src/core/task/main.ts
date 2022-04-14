@@ -3,9 +3,10 @@
 import { ReadDenoConfigFile, ReadDpmFile } from 'dpm/read.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { dracoFiles } from 'mods/deps.ts';
+import { dracoFiles, Table } from 'mods/deps.ts';
 
-export async function UpdateTasks() {
+// Utils
+function checkFiles() {
   // Valid if exists
   if (!dracoFiles.exists(BASE_DIRECTORIES.DENO_JSON_FILE)) {
     LOGGER.error(
@@ -20,7 +21,11 @@ export async function UpdateTasks() {
     );
     Deno.exit(2);
   }
+}
 
+export async function UpdateTasks() {
+  // Valid if exists
+  checkFiles();
   // Read the files
   const dpm = await ReadDpmFile();
   const deno = await ReadDenoConfigFile();
@@ -51,4 +56,21 @@ export async function UpdateTasks() {
   LOGGER.done(
     `Updated successfully the ${NAME_DIRECTORIES.DPM_FILE} and the ${NAME_DIRECTORIES.DENO_JSON_FILE} file`,
   );
+}
+
+export async function listDenoTasks() {
+  if (!dracoFiles.exists(BASE_DIRECTORIES.DENO_JSON_FILE)) {
+    LOGGER.error(
+      `Not found the ${NAME_DIRECTORIES.DENO_JSON_FILE} file on the current directory! Please init this with << dpm init -f deno-config >> or with << dpm init -A >>`,
+    );
+    Deno.exit(2);
+  }
+
+  const deno = await ReadDenoConfigFile();
+  // Helpers!
+  const tasks = deno.tasks;
+  const table: Table = Table.from([]);
+  for (const i of Object.entries(tasks)) {
+    table.push(i);
+  }
 }

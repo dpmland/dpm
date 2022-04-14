@@ -9,6 +9,7 @@
   },
   "tasks": {
     "bye": "echo 'bye'",
-    "hello": "echo 'hello'"
+    "hello": "echo 'hello'",
+    "example": "echo 'example'"
   }
 }

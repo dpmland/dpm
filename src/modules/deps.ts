@@ -18,6 +18,7 @@ export { ensureDir, ensureFile } from 'https://deno.land/std@0.132.0/fs/mod.ts';
 
 // Tables for the authors
 export { table } from 'https://deno.land/x/minitable@v1.0/mod.ts';
+export { Table } from 'https://deno.land/x/cliffy@v0.23.0/mod.ts';
 
 // Charmd for the documentation
 export { renderMarkdown } from 'https://deno.land/x/charmd@v0.0.1/mod.ts';

@@ -1,7 +1,8 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { Command, emoji } from 'mods/deps.ts';
-import { UpdateTasks } from 'tasks/main.ts';
+import * as tasks from 'tasks/main.ts';
+import { LOGGER } from 'mods/logger.ts';
 
 export class TasksCommand extends Command {
   #cmd?: Command;
@@ -19,13 +20,28 @@ export class TasksCommand extends Command {
         '-u --update [update:boolean]',
         'Update the deno.json file for the new tasks of the dpm.json file!',
       )
+      .option(
+        '-l --list [list:string]',
+        'List all tasks on the dpm.json or on the deno.json file!',
+      )
       .stopEarly()
       .action(async (options, action: string) => {
-        console.log(options.update);
         console.log(action);
         if (options.update) {
-          await UpdateTasks();
+          await tasks.UpdateTasks();
           Deno.exit();
+        }
+
+        switch (options.list) {
+          case 'deno': {
+          }
+
+          default: {
+            LOGGER.error(
+              'Error action not value: Only valid -> all, dpm, deno',
+            );
+            Deno.exit(2);
+          }
         }
       });
   }

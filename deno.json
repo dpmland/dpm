@@ -7,6 +7,7 @@
       ]
     }
   },
+  "importMap": "./import_map.json",
   "fmt": {
     "options": {
       "useTabs": false,
@@ -16,7 +17,7 @@
   },
   "tasks": {
     "check": "deno fmt -c deno.json --check && deno lint -c deno.json",
-    "update": "deno run -A https://deno.land/x/udd/main.ts ./src/modules/deps.ts",
+    "update": "deno run -A https://deno.land/x/udd/main.ts ./src/modules/deps.ts ./src/modules/logger.ts ./src/modules/ask.ts",
     "fmt": "deno fmt -c deno.json ; deno lint -c deno.json",
     "fmt:check": "deno fmt -c deno.json --check ; deno lint -c deno.json",
     "clean": "deno run -A --unstable --import-map=./import_map.json ./dev.ts clean"

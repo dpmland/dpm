@@ -8,6 +8,5 @@
     "https://cdn.nest.land": true,
     "https://crux.land": true
   },
-  "deno.importMap": "./import_map.json",
-  "tsserver.enable": false
+  "deno.importMap": "./import_map.json"
 }
