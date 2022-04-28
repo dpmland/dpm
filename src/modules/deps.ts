@@ -35,11 +35,18 @@ export {
   CompletionsCommand,
 } from 'https://deno.land/x/cliffy@v0.22.2/command/mod.ts';
 
+// Update notifications!
 export {
   DenoLandProvider,
   GithubProvider,
   UpgradeCommand,
 } from 'https://deno.land/x/cliffy@v0.22.2/command/upgrade/mod.ts';
+
+export {
+  Github,
+  UpdateNotifier,
+} from 'https://x.nest.land/hatcher@0.10.2/mod.ts';
+
 // Emoji!
 export * as emoji from 'https://deno.land/x/emoji@0.1.2/mod.ts';
 

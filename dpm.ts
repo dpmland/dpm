@@ -4,7 +4,9 @@ import {
   Command,
   CompletionsCommand,
   DenoLandProvider,
+  Github,
   GithubProvider,
+  UpdateNotifier,
   UpgradeCommand,
 } from 'mods/deps.ts';
 import { DESCRIPTION, VERSION } from 'mods/info.ts';
@@ -16,6 +18,17 @@ import { ToolsCommand } from 'cmd/tools.ts';
 import { UninstallCommand } from 'cmd/uninstall.ts';
 import { UpdateCommand } from 'cmd/update.ts';
 import { TasksCommand } from 'cmd/tasks.ts';
+
+const notifier = new UpdateNotifier({
+  name: 'dpm',
+  owner: 'dpmland',
+  registry: Github,
+  currentVersion: `${VERSION.substring(1)}`,
+});
+
+await notifier.checkForUpdates();
+
+notifier.notify('dpm upgrade --version latest');
 
 // Make the CLI!
 await new Command()
