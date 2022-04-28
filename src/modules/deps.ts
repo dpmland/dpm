@@ -33,13 +33,13 @@ export { soxa } from 'https://deno.land/x/soxa@1.4/mod.ts';
 export {
   Command,
   CompletionsCommand,
-} from 'https://deno.land/x/cliffy@v0.23.0/command/mod.ts';
+} from 'https://deno.land/x/cliffy@v0.22.2/command/mod.ts';
 
 export {
   DenoLandProvider,
   GithubProvider,
   UpgradeCommand,
-} from 'https://deno.land/x/cliffy@v0.23.0/command/upgrade/mod.ts';
+} from 'https://deno.land/x/cliffy@v0.22.2/command/upgrade/mod.ts';
 // Emoji!
 export * as emoji from 'https://deno.land/x/emoji@0.1.2/mod.ts';
 

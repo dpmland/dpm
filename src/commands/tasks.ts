@@ -34,6 +34,21 @@ export class TasksCommand extends Command {
 
         switch (options.list) {
           case 'deno': {
+            await tasks.listDenoTasks();
+            break;
+          }
+
+          case 'dpm': {
+            await tasks.listDpmTasks();
+            break;
+          }
+
+          case 'all': {
+            LOGGER.info('Showing the content of the deno files!');
+            await tasks.listDenoTasks();
+            LOGGER.info('Showing the content of the dpm files!');
+            await tasks.listDpmTasks();
+            break;
           }
 
           default: {

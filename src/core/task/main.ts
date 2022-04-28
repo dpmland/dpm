@@ -71,6 +71,34 @@ export async function listDenoTasks() {
   const tasks = deno.tasks;
   const table: Table = Table.from([]);
   for (const i of Object.entries(tasks)) {
-    table.push(i);
+    const it = i as [string, string];
+    table.push(it);
   }
+  table.header(['Task Name', 'Command']);
+  table.sort();
+  table.border(true);
+  table.render();
+}
+
+export async function listDpmTasks() {
+  if (!dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
+    LOGGER.error(
+      `Not found the ${NAME_DIRECTORIES.DPM_FILE} file on the current directory! Please init this with << dpm init -f dpm >> or with << dpm init -A >>`,
+    );
+    Deno.exit(2);
+  }
+
+  const dpm = await ReadDpmFile();
+  // Helpers
+  delete dpm.scripts['build_in'];
+  const tasks = dpm.scripts;
+  const table: Table = Table.from([]);
+  for (const i of Object.entries(tasks)) {
+    const it = i as [string, string];
+    table.push(it);
+  }
+  table.header(['Task Name', 'Command']);
+  table.sort();
+  table.border(true);
+  table.render();
 }
