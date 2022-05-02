@@ -146,6 +146,36 @@ For uninstall only one specific dependency you need run:
 dpm uninstall draco dlog2
 ```
 
+## Automate commands with the [Deno Tasks](https://deno.land/manual/tools/task_runner) :robot:
+
+Many apps need some commands and you don't like write this many many times this
+command and here are the amazing and incredible **Deno tasks** well with this
+you can automate many things and are integrated with Deno but how can make this
+amazing tool better here are the _task command_ on dpm.
+
+For add a task to the files well you need only run:
+
+```sh
+dpm task -n
+```
+
+And this add the task on the deno.json and the dpm.json file well but if I add a
+new task on the dpm.json file how can update this. You need run only this
+command
+
+```sh
+dpm task -u
+```
+
+You want see what commands you have y this files here are the list in a
+beautifull table.
+
+```
+dpm task -l deno # For the deno.json file
+dpm task -l dpm # For the dpm.json file
+dpm task -l all # For the dpm and deno.json files!
+```
+
 > Here are all basic features of dpm if you want :warning: but exists more
 > features you can check dpm doc help :white_check_mark:
 
