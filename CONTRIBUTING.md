@@ -24,8 +24,7 @@ Before the contribution you need check the file structure on the
 - Ensure check the lint and the format before the commit with this command:
 
 ```
-deno fmt -c deno.json
-deno lint -c deno.json
+deno task fmt
 ```
 
 - Use underscores, not dashes in filenames example:

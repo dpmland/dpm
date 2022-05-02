@@ -10,6 +10,7 @@
   "tasks": {
     "bye": "echo 'bye'",
     "hello": "echo 'hello'",
-    "example": "echo 'example'"
+    "example": "echo 'example'",
+    "easy": "echo \"this is amazing and veeeeeeeery easy\""
   }
 }

@@ -4,6 +4,7 @@ import { ReadDenoConfigFile, ReadDpmFile } from 'dpm/read.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { dracoFiles, Table } from 'mods/deps.ts';
+import { ask } from 'mods/ask.ts';
 
 // Utils
 function checkFiles() {
@@ -101,4 +102,41 @@ export async function listDpmTasks() {
   table.sort();
   table.border(true);
   table.render();
+}
+
+async function generateThePrompt() {
+  const answers = await ask.prompt([
+    {
+      name: 'commandName',
+      message: 'What is the command name',
+      type: 'input',
+    },
+    {
+      name: 'commandValue',
+      message: 'What is the value of the command. Example: echo "hi" ',
+      type: 'input',
+    },
+  ]);
+  return answers;
+}
+
+export async function addDpmTask() {
+  // Valid if exists the necessary files
+  checkFiles();
+  // Get the file content
+  const dpm = await ReadDpmFile();
+  // Helpers
+  const scripts = dpm.scripts;
+  const data = await generateThePrompt();
+
+  scripts[`${data.commandName || 'notValid'}`] = `${
+    data.commandValue || 'echo \'error\''
+  }`;
+
+  await Deno.writeTextFile(
+    BASE_DIRECTORIES.DPM_FILE,
+    JSON.stringify(dpm, null, '  '),
+  );
+  LOGGER.done('Added successfully the new command to the dpm.json file');
+  await UpdateTasks();
 }

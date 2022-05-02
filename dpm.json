@@ -10,6 +10,7 @@
     "hello": "echo 'hello'",
     "bye": "echo 'bye'",
     "example": "echo 'example'",
+    "easy": "echo \"this is amazing and veeeeeeeery easy\"",
     "build_in": {
       "test": "deno test -A --unstable",
       "fmt": "deno fmt -c deno.jsonc",

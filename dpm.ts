@@ -17,7 +17,7 @@ import { InstallCommand } from 'cmd/install.ts';
 import { ToolsCommand } from 'cmd/tools.ts';
 import { UninstallCommand } from 'cmd/uninstall.ts';
 import { UpdateCommand } from 'cmd/update.ts';
-import { TasksCommand } from 'cmd/tasks.ts';
+import { TaskCommand } from 'cmd/task.ts';
 
 const notifier = new UpdateNotifier({
   name: 'dpm',
@@ -41,7 +41,7 @@ await new Command()
   .command('uninstall', new UninstallCommand())
   .command('install', new InstallCommand())
   .command('tools', new ToolsCommand())
-  .command('tasks', new TasksCommand())
+  .command('task', new TaskCommand())
   .command('update', new UpdateCommand())
   .command(
     'upgrade',
