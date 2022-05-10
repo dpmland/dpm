@@ -1,16 +1,96 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { Run } from './src/core/runner/main.ts';
-import { colors, dracoFiles, join } from './src/modules/deps.ts';
-import { ask } from './src/modules/ask.ts';
-import { BASE_DIRECTORIES } from './src/modules/dirs.ts';
+import * as colors from 'https://deno.land/std@0.135.0/fmt/colors.ts';
+import { join } from 'https://deno.land/std@0.135.0/path/mod.ts';
+import { dracoFiles, dracoInfo } from 'https://deno.land/x/draco@0.1.3/mod.ts';
+import Ask from 'https://deno.land/x/ask@1.0.6/mod.ts';
 import figlet from 'https://x.nest.land/deno-figlet@0.0.5/mod.js';
-import Random from 'https://deno.land/x/random@v1.1.2/Random.js';
+
+// Utilities
+
+// Runner function
+async function Run(command: string) {
+  const cmd = command.split(' ');
+  const run = Deno.run({
+    cmd: cmd,
+  });
+  const { success } = await run.status();
+  if (success == false) {
+    console.error(
+      colors.red(`The command was not executed correctly:\n${command}`),
+    );
+    Deno.exit(1);
+  }
+}
+
+// Temp Path
+const TEMP = join(dracoFiles.homeDir()!, '.deno', 'dpm');
+// Bin path for the executable
+const BIN = join(dracoFiles.homeDir()!, '.deno', 'bin');
+
+// Prompt
+const ask = new Ask({
+  suffix: '?',
+  prefix: '>',
+});
+
+// Copy the files to the bin function!
+
+async function MoveBinToMain() {
+  if (dracoInfo.platform() == 'windows') {
+    if (dracoFiles.exists(join(TEMP, 'canary', 'dpm.ts'))) {
+      console.log(colors.cyan('Found the DPM executable!'));
+      console.log(colors.cyan('Copying the executable to the BIN path!'));
+      await Deno.copyFile(
+        `${join(Deno.cwd(), 'dpm.exe')}`,
+        `${join(BIN, 'dpm.exe')}`,
+      );
+      console.log(
+        colors.cyan('Removing the dpm.exe file from the current path!'),
+      );
+      await Deno.remove(`${join(Deno.cwd(), 'dpm.exe')}`);
+    } else {
+      console.log(
+        colors.red(
+          'Not found the file compiled! Re run the installer or report the error on github.',
+        ),
+      );
+    }
+  } else if (
+    dracoInfo.platform() == 'linux' || dracoInfo.platform() == 'darwin'
+  ) {
+    if (dracoFiles.exists(join(TEMP, 'canary', 'dpm.ts'))) {
+      console.log(colors.cyan('Found the DPM executable!'));
+      console.log(colors.cyan('Copying the executable to the BIN path!'));
+      await Deno.copyFile(
+        `${join(Deno.cwd(), 'dpm')}`,
+        `${join(BIN, 'dpm')}`,
+      );
+      console.log(colors.cyan('Removing the dpm file from the current path!'));
+      await Deno.remove(`${join(Deno.cwd(), 'dpm')}`);
+    } else {
+      console.log(
+        colors.red(
+          'Not found the file compiled! Re run the installer or report the error on github.',
+        ),
+      );
+    }
+  } else {
+    console.log(
+      colors.red(
+        'Not found the main TypeScript File! Re run the installer or report the error on github.',
+      ),
+    );
+  }
+}
+
+/*********************************************/
+/*********************************************/
+/**        START THE INSTALLER WORK          */
+/*********************************************/
+/*********************************************/
 
 console.log(colors.cyan(await figlet('DPM INSTALLER')));
-
-const r = new Random();
-const numb = r.int(0, 100);
 
 const answers = await ask.prompt([
   {
@@ -22,35 +102,45 @@ const answers = await ask.prompt([
 switch (answers.versionOpt) {
   case 'canary': {
     console.log('Installing from canary!\n');
+    if (dracoFiles.exists(join(TEMP, 'canary'))) {
+      await Deno.remove(join(TEMP, 'canary'), { recursive: true });
+      console.log(colors.yellow('Cleaned the temp dpm dir!\n'));
+    }
     await Run(
       `git clone -b dev --depth=1 https://github.com/dpmland/dpm ${
-        join(BASE_DIRECTORIES.TEMP, 'canary', `v${numb}`)
+        join(TEMP, 'canary')
       }`,
     );
     console.log();
-    console.log('Running the installation with the Deno help!\n');
+    console.log('Compiling the executable for better preformance!\n');
     await Run(
-      `deno install -qAf --unstable ${
-        join(BASE_DIRECTORIES.TEMP, 'canary', `v${numb}`, 'dpm.ts')
-      }`,
+      `${Deno.execPath()} compile -A --unstable --import-map ${
+        join(TEMP, 'canary', './import_map.json')
+      } --target ${Deno.build.target} ${join(TEMP, 'canary', 'dpm.ts')}`,
     );
+    await MoveBinToMain();
     break;
   }
 
   case 'stable': {
     console.log('Install from stable!\n');
+    if (dracoFiles.exists(join(TEMP, 'stable'))) {
+      await Deno.remove(join(TEMP, 'stable'), { recursive: true });
+      console.log(colors.yellow('Cleaned the temp dpm dir!\n'));
+    }
     await Run(
       `git clone -b main --depth=1 https://github.com/dpmland/dpm ${
-        join(BASE_DIRECTORIES.TEMP, 'stable', `v${numb}`)
+        join(TEMP, 'stable')
       }`,
     );
     console.log();
     console.log('Running the installation with the Deno help!\n');
     await Run(
-      `deno install -qAf --unstable ${
-        join(BASE_DIRECTORIES.TEMP, 'stable', `v${numb}`, 'dpm.ts')
-      }`,
+      `${Deno.execPath()} compile -A --unstable --import-map ${
+        join(TEMP, 'stable', './import_map.json')
+      } --target ${Deno.build.target} ${join(TEMP, 'stable', 'dpm.ts')}`,
     );
+    await MoveBinToMain();
     break;
   }
 
@@ -61,7 +151,6 @@ switch (answers.versionOpt) {
       ),
     );
     Deno.exit(2);
-    break;
   }
 }
 
@@ -79,18 +168,31 @@ if (answers2.allTools) {
   console.log(
     colors.magenta('Installing the offline documentation with DPM!\n'),
   );
-  await Run(
-    `deno run -A --unstable --quiet ${
-      join(BASE_DIRECTORIES.TEMP, 'canary', `v${numb}`, 'dpm.ts')
-    } docs -d`,
-  );
-  console.log(colors.magenta('Installing the tools with DPM!\n'));
-  await Run(
-    `deno run -A --unstable --quiet ${
-      join(BASE_DIRECTORIES.TEMP, 'canary', `v${numb}`, 'dpm.ts')
-    } tools install`,
-  );
-  console.log(colors.yellow('Installed all tools and the documentation!'));
+  if (dracoInfo.platform() == 'windows') {
+    if (dracoFiles.exists(join(BIN, 'dpm.exe'))) {
+      await Run(`${join(BIN, 'dpm.exe')} docs -u`);
+      console.log(colors.yellow('Installed the documentation!'));
+    } else {
+      console.log(
+        colors.red(
+          'Not found the file compiled! Re run the installer or report the error on github.',
+        ),
+      );
+    }
+  } else if (
+    dracoInfo.platform() == 'linux' || dracoInfo.platform() == 'darwin'
+  ) {
+    if (dracoFiles.exists(join(BIN, 'dpm'))) {
+      await Run(`${join(BIN, 'dpm')} docs -u`);
+      console.log(colors.yellow('Installed the documentation!'));
+    } else {
+      console.log(
+        colors.red(
+          'Not found the file compiled! Re run the installer or report the error on github.',
+        ),
+      );
+    }
+  }
 }
 
 console.log(colors.brightGreen(await figlet('DONE!')));

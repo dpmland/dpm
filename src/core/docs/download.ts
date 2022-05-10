@@ -23,6 +23,4 @@ export async function updateDocumentation() {
     LOGGER.info('Updated the documentation successfully');
     Deno.exit();
   }
-  await downloadDocumentation();
-  Deno.exit();
 }
