@@ -13,6 +13,7 @@ interface directories {
   IMPORT_MAPS_DIR: string;
   EGGS_FILE: string;
   README: string;
+  TEMP: string;
 }
 
 interface names {
@@ -22,6 +23,7 @@ interface names {
   IMPORT_MAPS_DIR: string;
   EGGS_FILE: string;
   README: string;
+  TEMP: string;
 }
 
 export const BASE_DIRECTORIES: directories = {
@@ -34,6 +36,7 @@ export const BASE_DIRECTORIES: directories = {
   IMPORT_MAPS_DIR: join(dracoFiles.currentDir(), '.dpm', 'dpm_imports.json'),
   EGGS_FILE: join(dracoFiles.currentDir(), 'eggs.json'),
   README: join(dracoFiles.currentDir(), 'README.md'),
+  TEMP: join(dracoFiles.cacheDir('DPM')!, 'bin'),
 };
 
 export const NAME_DIRECTORIES: names = {
@@ -43,4 +46,5 @@ export const NAME_DIRECTORIES: names = {
   IMPORT_MAPS_DIR: join('.dpm', 'dpm_imports.json'),
   EGGS_FILE: 'eggs.json',
   README: 'README.md',
+  TEMP: join('SYSTEM_TEMP_FOLDER', 'DPM'),
 };

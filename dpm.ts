@@ -53,4 +53,10 @@ await new Command()
     }),
   )
   .command('completions', new CompletionsCommand())
+  .example(
+    'Start a new Project',
+    'mkdir my_project && cd my_project && dpm init -A',
+  )
+  .example('Install a dependency', 'dpm install draco dlog2')
+  .example('Uninstall a dependency', 'dpm uninstall draco dlog2')
   .parse(Deno.args);
