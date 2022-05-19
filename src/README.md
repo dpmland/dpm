@@ -6,6 +6,15 @@ Here you found the source code of Dpm.
 
 ```
 .
+├── commands
+│   ├── about.ts
+│   ├── docs.ts
+│   ├── init.ts
+│   ├── install.ts
+│   ├── task.ts
+│   ├── tools.ts
+│   ├── uninstall.ts
+│   └── update.ts
 ├── core
 │   ├── checker
 │   │   ├── file.ts
@@ -32,23 +41,17 @@ Here you found the source code of Dpm.
 │   ├── runner
 │   │   ├── format.ts
 │   │   └── main.ts
-│   ├── scripts
-│   │   └── build_in.ts
-│   ├── tools
-│   │   └── install.ts
-│   └── upgrade
-│       ├── check.ts
-│       ├── main.ts
-│       └── util.ts
+│   ├── task
+│   │   └── main.ts
+│   └── tools
+│       └── install.ts
 ├── modules
 │   ├── ask.ts
 │   ├── authors.ts
-│   ├── cli.ts
 │   ├── deps.ts
 │   ├── dirs.ts
 │   ├── info.ts
-│   ├── logger.ts
-│   └── spinners.ts
+│   └── logger.ts
 └── README.md
 ```
 
