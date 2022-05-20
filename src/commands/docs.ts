@@ -1,7 +1,8 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { Command, emoji } from 'mods/deps.ts';
+import { Command, emoji, open } from 'mods/deps.ts';
 import * as docs from 'docs/download.ts';
+import { LOGGER } from 'mods/logger.ts';
 import { getDocumentation } from 'docs/main.ts';
 
 export class DocsCommand extends Command {
@@ -24,6 +25,10 @@ export class DocsCommand extends Command {
         '-u --update [update:boolean]',
         'Update the documentation and clean the old documentation!',
       )
+      .option(
+        '-o --online [docs:boolean]',
+        'Open the online documentation if you want a complete experience',
+      )
       .stopEarly()
       .action(async (options, action: string) => {
         if (action) {
@@ -32,6 +37,12 @@ export class DocsCommand extends Command {
         }
         if (options.download == true) {
           await docs.downloadDocumentation();
+          Deno.exit();
+        }
+        if (options.online == true) {
+          LOGGER.info('Opening the Oficial Online Documentation site of DPM!');
+          await open('https://dpmland-docs.netlify.app/');
+          LOGGER.done('Opened successfully the Documentation Site!');
           Deno.exit();
         }
         if (options.update == true) {
