@@ -59,34 +59,15 @@
       "description": "The dependencies to use in the DPM Project!",
       "type": "object"
     },
-    "config": {
-      "description": "The configuration options for the DPM CLI",
-      "type": "object",
-      "properties": {
-        "importMap": {
-          "description": "The importMap config options.",
-          "type": "object",
-          "properties": {
-            "directory": {
-              "description": "Generate the .dpm folder or not!",
-              "type": "boolean"
-            }
-          },
-          "required": ["directory"]
-        }
-      },
-      "required": ["importMap"]
-    }
-  },
-  "required": [
-    "name",
-    "version",
-    "description",
-    "author",
-    "license",
-    "main",
-    "scripts",
-    "dependencies",
-    "config"
-  ]
+    "required": [
+      "name",
+      "version",
+      "description",
+      "author",
+      "license",
+      "main",
+      "scripts",
+      "dependencies"
+    ]
+  }
 }

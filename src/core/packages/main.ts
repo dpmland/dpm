@@ -17,8 +17,7 @@ export async function installDepsToImports(
   options: appendOptions = {},
 ) {
   if (
-    !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS) ||
-      !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS_DIR)))
+    !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))
   ) {
     await WriteImportMapJson();
   }
@@ -60,30 +59,19 @@ export async function installDepsToImports(
       deps[`${pkg[1]}`] = `${version}`;
     }
   }
-  if (dpm.config.importMap.directory == true) {
-    await Deno.writeTextFile(
-      BASE_DIRECTORIES.IMPORT_MAPS_DIR,
-      JSON.stringify(data, null, '  '),
-    );
-  } else {
-    await Deno.writeTextFile(
-      BASE_DIRECTORIES.IMPORT_MAPS,
-      JSON.stringify(data, null, '  '),
-    );
-  }
+
+  await Deno.writeTextFile(
+    BASE_DIRECTORIES.IMPORT_MAPS,
+    JSON.stringify(data, null, '  '),
+  );
   await Deno.writeTextFile(
     BASE_DIRECTORIES.DPM_FILE,
     JSON.stringify(dpm, null, '  '),
   );
-  if (dpm.config.importMap.directory == false) {
-    LOGGER.info(
-      `Successfully installed the dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
-    );
-    Deno.exit();
-  }
   LOGGER.info(
-    `Successfully installed the dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS_DIR} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
+    `Successfully installed the dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
   );
+  Deno.exit();
 }
 
 export async function getTheVersionOfDep(
@@ -110,8 +98,7 @@ export async function installStdToImports(
 ) {
   // Check if exists files!
   if (
-    !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS) ||
-      !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS_DIR)))
+    !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))
   ) {
     await WriteImportMapJson();
   }
@@ -147,28 +134,16 @@ export async function installStdToImports(
     }
   });
 
-  if (dpm.config.importMap.directory == true) {
-    await Deno.writeTextFile(
-      BASE_DIRECTORIES.IMPORT_MAPS_DIR,
-      JSON.stringify(data, null, '  '),
-    );
-  } else {
-    await Deno.writeTextFile(
-      BASE_DIRECTORIES.IMPORT_MAPS,
-      JSON.stringify(data, null, '  '),
-    );
-  }
+  await Deno.writeTextFile(
+    BASE_DIRECTORIES.IMPORT_MAPS,
+    JSON.stringify(data, null, '  '),
+  );
   await Deno.writeTextFile(
     BASE_DIRECTORIES.DPM_FILE,
     JSON.stringify(dpm, null, '  '),
   );
-  if (dpm.config.importMap.directory == false) {
-    LOGGER.info(
-      `Successfully installed the std dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
-    );
-    Deno.exit();
-  }
   LOGGER.info(
-    `Successfully installed the std dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS_DIR} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
+    `Successfully installed the std dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
   );
+  Deno.exit();
 }

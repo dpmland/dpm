@@ -22,7 +22,7 @@ export class AboutCommand extends Command {
       .arguments('[action:string]')
       .stopEarly()
       .action(async (_, action: string) => {
-        switch (action) {
+        switch (action.toLowerCase()) {
           case 'deno': {
             const DENO_INFO = {
               deno: dracoInfo.DenoVersion,
@@ -56,7 +56,7 @@ export class AboutCommand extends Command {
               logs: BASE_DIRECTORIES.LOGS,
               config: BASE_DIRECTORIES.CONFIG,
               docs: BASE_DIRECTORIES.DOCS,
-              importMap: BASE_DIRECTORIES.IMPORT_MAPS_DIR,
+              temp: BASE_DIRECTORIES.TEMP,
               dpm: BASE_DIRECTORIES.DPM_FILE,
               deno: BASE_DIRECTORIES.DENO_JSON_FILE,
               importMapFile: BASE_DIRECTORIES.IMPORT_MAPS,
@@ -90,6 +90,30 @@ export class AboutCommand extends Command {
           case 'deps': {
             const data = await ReadDpmFile();
             console.log(data.dependencies);
+            break;
+          }
+
+          case 'help': {
+            const COMMANDS_AVALIABLES = {
+              deno:
+                `Here you can get the Deno Information and the DPM License, Issue and other important information`,
+              dirs:
+                `Here you can find the DPM directories that are used for its operation.`,
+              dpm: `Here you can find the content of the DPM file!`,
+              authors: `Here you can get the authors of DPM and his credits!`,
+              deps:
+                `Here you can get the dependencies avaliable on the DPM File!`,
+              help: `This command. You can get all avaliable commands!`,
+            };
+            const table: Table = Table.from([]);
+
+            for (const i of Object.entries(COMMANDS_AVALIABLES)) {
+              table.push(i);
+            }
+            table.header(['Command', 'Description']);
+            table.sort();
+            table.border(true);
+            table.render();
             break;
           }
 
