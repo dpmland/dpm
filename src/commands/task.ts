@@ -1,6 +1,6 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { colors, Command, emoji } from 'mods/deps.ts';
+import { colors, Command, emoji, Table } from 'mods/deps.ts';
 import * as tasks from 'tasks/main.ts';
 import { LOGGER } from 'mods/logger.ts';
 
@@ -28,6 +28,10 @@ export class TaskCommand extends Command {
         'List all tasks on the dpm.json or on the deno.json file!',
       )
       .example(
+        'Help',
+        `For check the help you can go to the << dpm doc task >> or the https://dpmland-docs.netlify.app/commands/task/ url!`,
+      )
+      .example(
         'Use tasks',
         `This tool help you to make the tasks managment more easy for run the tasks you need ${
           colors.green('deno task <taskName>')
@@ -48,7 +52,7 @@ export class TaskCommand extends Command {
         }
 
         // Add the list and console out in table
-        switch (options.list) {
+        switch (options.list.toLowerCase()) {
           case 'deno': {
             await tasks.listDenoTasks();
             break;
@@ -64,6 +68,27 @@ export class TaskCommand extends Command {
             await tasks.listDenoTasks();
             LOGGER.info('Showing the content of the dpm files!');
             await tasks.listDpmTasks();
+            break;
+          }
+
+          case 'help': {
+            const COMMANDS_AVALIABLES = {
+              deno:
+                `Here you can see all tasks avaliable in the deno.json file!`,
+              dpm: `Here you can see all tasks avaliable in the dpm.json file!`,
+              all:
+                `Here you can see the content of the dpm.json file and the deno.json file!`,
+            };
+
+            const table: Table = Table.from([]);
+
+            for (const i of Object.entries(COMMANDS_AVALIABLES)) {
+              table.push(i);
+            }
+            table.header(['Action', 'Description']);
+            table.sort();
+            table.border(true);
+            table.render();
             break;
           }
 

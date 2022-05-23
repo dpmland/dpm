@@ -26,6 +26,10 @@ export class InstallCommand extends Command {
         '-s, --std [std:boolean]',
         'Add a dependency from the std library',
       )
+      .example(
+        'Help',
+        `For check the help you can go to the << dpm doc install >> or the https://dpmland-docs.netlify.app/commands/install/ url!`,
+      )
       .stopEarly()
       .action(async (options, dependency: string[]) => {
         if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE) == false) {

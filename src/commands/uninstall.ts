@@ -21,6 +21,10 @@ export class UninstallCommand extends Command {
         '-A, --all [all:boolean]',
         'Remove all dependencies from the files!',
       )
+      .example(
+        'Help',
+        `For check the help you can go to the << dpm doc uninstall >> or the https://dpmland-docs.netlify.app/commands/uninstall/ url!`,
+      )
       .stopEarly()
       .action(async (options, dependency: string[]) => {
         if (typeof options.all == 'boolean') {

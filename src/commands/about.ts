@@ -110,7 +110,7 @@ export class AboutCommand extends Command {
             for (const i of Object.entries(COMMANDS_AVALIABLES)) {
               table.push(i);
             }
-            table.header(['Command', 'Description']);
+            table.header(['Action', 'Description']);
             table.sort();
             table.border(true);
             table.render();

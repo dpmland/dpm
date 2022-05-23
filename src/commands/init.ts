@@ -1,6 +1,6 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { Command, emoji } from 'mods/deps.ts';
+import { Command, emoji, Table } from 'mods/deps.ts';
 import { writeDenoConfigFile } from 'dpm/deno.ts';
 import { generateReadme } from 'dpm/readme.ts';
 import { generateEggsFile } from 'dpm/eggs.ts';
@@ -32,6 +32,10 @@ export class InitCommand extends Command {
       )
       .option('-f, --file [file:string]', 'Only the file to create!')
       .stopEarly()
+      .example(
+        'Help',
+        `For check the help you can go to the << dpm doc init >> or the https://dpmland-docs.netlify.app/commands/init/ url!`,
+      )
       // Manage the actions!
       .action(async (options) => {
         if (options.all == true) {
@@ -51,7 +55,7 @@ export class InitCommand extends Command {
         }
 
         if (typeof options.file == 'string') {
-          switch (options.file) {
+          switch (options.file.toLowerCase()) {
             case 'readme': {
               await generateReadme();
               break;
@@ -62,18 +66,42 @@ export class InitCommand extends Command {
               break;
             }
 
-            case 'deno-config': {
+            case 'deno': {
               await writeDenoConfigFile();
               break;
             }
 
-            case 'import-map': {
+            case 'dpmImports': {
               await WriteImportMapJson();
               break;
             }
 
             case 'dpm': {
               await WriteDpmFileJson({});
+              break;
+            }
+
+            case 'help': {
+              const COMMANDS_AVALIABLES = {
+                readme:
+                  `Generate only the README file! Note: << Necessary the dpm.json file! >>`,
+                eggs:
+                  `Generate only the eggs file! Note: << Necessary the dpm.json file! >>`,
+                deno: `Generate the deno.json file with the default configs!`,
+                importMap:
+                  `Generate the dpm_imports.json with a empty content!`,
+                dpm: `Generate the dpm.json file with the default content!`,
+              };
+
+              const table: Table = Table.from([]);
+
+              for (const i of Object.entries(COMMANDS_AVALIABLES)) {
+                table.push(i);
+              }
+              table.header(['Action', 'Description']);
+              table.sort();
+              table.border(true);
+              table.render();
               break;
             }
 
