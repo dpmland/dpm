@@ -84,6 +84,61 @@ async function MoveBinToMain() {
   }
 }
 
+// Seppare by functions the CANARY and the STABLE
+
+export async function CanaryInstallation() {
+  console.log('Installing from canary!\n');
+  if (dracoFiles.exists(join(TEMP, 'canary'))) {
+    await Deno.remove(join(TEMP, 'canary'), { recursive: true });
+    console.log(colors.yellow('Cleaned the temp dpm dir!\n'));
+  }
+  await Run(
+    `git clone -b dev --depth=1 https://github.com/dpmland/dpm ${
+      join(TEMP, 'canary')
+    }`,
+  );
+  console.log();
+  console.log('Compiling the executable for better preformance!\n');
+  await Run(
+    `${Deno.execPath()} compile -A --unstable --import-map ${
+      join(TEMP, 'canary', './import_map.json')
+    } --target ${Deno.build.target} ${join(TEMP, 'canary', 'dpm.ts')}`,
+  );
+  await MoveBinToMain();
+}
+
+export async function StableInstallation() {
+  console.log('Install from stable!\n');
+  if (dracoFiles.exists(join(TEMP, 'stable'))) {
+    await Deno.remove(join(TEMP, 'stable'), { recursive: true });
+    console.log(colors.yellow('Cleaned the temp dpm dir!\n'));
+  }
+  await Run(
+    `git clone -b main --depth=1 https://github.com/dpmland/dpm ${
+      join(TEMP, 'stable')
+    }`,
+  );
+  console.log();
+  console.log('Running the installation with the Deno help!\n');
+  await Run(
+    `${Deno.execPath()} compile -A --unstable --import-map ${
+      join(TEMP, 'stable', './import_map.json')
+    } --target ${Deno.build.target} ${join(TEMP, 'stable', 'dpm.ts')}`,
+  );
+  await MoveBinToMain();
+}
+
+// Add the directly access without the prompt!
+
+if (Deno.args[0] == 'canary') {
+  await CanaryInstallation();
+  Deno.exit();
+}
+if (Deno.args[0] == 'stable') {
+  await StableInstallation();
+  Deno.exit();
+}
+
 /*********************************************/
 /*********************************************/
 /**        START THE INSTALLER WORK          */
@@ -101,46 +156,12 @@ const answers = await ask.prompt([
 
 switch (answers.versionOpt) {
   case 'canary': {
-    console.log('Installing from canary!\n');
-    if (dracoFiles.exists(join(TEMP, 'canary'))) {
-      await Deno.remove(join(TEMP, 'canary'), { recursive: true });
-      console.log(colors.yellow('Cleaned the temp dpm dir!\n'));
-    }
-    await Run(
-      `git clone -b dev --depth=1 https://github.com/dpmland/dpm ${
-        join(TEMP, 'canary')
-      }`,
-    );
-    console.log();
-    console.log('Compiling the executable for better preformance!\n');
-    await Run(
-      `${Deno.execPath()} compile -A --unstable --import-map ${
-        join(TEMP, 'canary', './import_map.json')
-      } --target ${Deno.build.target} ${join(TEMP, 'canary', 'dpm.ts')}`,
-    );
-    await MoveBinToMain();
+    await CanaryInstallation();
     break;
   }
 
   case 'stable': {
-    console.log('Install from stable!\n');
-    if (dracoFiles.exists(join(TEMP, 'stable'))) {
-      await Deno.remove(join(TEMP, 'stable'), { recursive: true });
-      console.log(colors.yellow('Cleaned the temp dpm dir!\n'));
-    }
-    await Run(
-      `git clone -b main --depth=1 https://github.com/dpmland/dpm ${
-        join(TEMP, 'stable')
-      }`,
-    );
-    console.log();
-    console.log('Running the installation with the Deno help!\n');
-    await Run(
-      `${Deno.execPath()} compile -A --unstable --import-map ${
-        join(TEMP, 'stable', './import_map.json')
-      } --target ${Deno.build.target} ${join(TEMP, 'stable', 'dpm.ts')}`,
-    );
-    await MoveBinToMain();
+    await StableInstallation();
     break;
   }
 

@@ -3,11 +3,8 @@
 import {
   Command,
   CompletionsCommand,
-  DenoLandProvider,
   Github,
-  GithubProvider,
   UpdateNotifier,
-  UpgradeCommand,
 } from 'mods/deps.ts';
 import { DESCRIPTION, VERSION } from 'mods/info.ts';
 import { AboutCommand } from 'cmd/about.ts';
@@ -18,6 +15,7 @@ import { ToolsCommand } from 'cmd/tools.ts';
 import { UninstallCommand } from 'cmd/uninstall.ts';
 import { UpdateCommand } from 'cmd/update.ts';
 import { TaskCommand } from 'cmd/task.ts';
+import { UpgradeCommand } from 'cmd/upgrade.ts';
 
 const notifier = new UpdateNotifier({
   name: 'dpm',
@@ -45,12 +43,7 @@ await new Command()
   .command('update', new UpdateCommand())
   .command(
     'upgrade',
-    new UpgradeCommand({
-      provider: [
-        new DenoLandProvider({ name: 'dpm' }),
-        new GithubProvider({ repository: 'dpmland/dpm' }),
-      ],
-    }),
+    new UpgradeCommand(),
   )
   .command('completions', new CompletionsCommand())
   .example(
