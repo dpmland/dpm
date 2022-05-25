@@ -1,6 +1,6 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { Command, emoji } from 'mods/deps.ts';
+import { Command, emoji, Table } from 'mods/deps.ts';
 import * as tools from 'tools/install.ts';
 import { LOGGER } from 'mods/logger.ts';
 
@@ -17,6 +17,7 @@ export class ToolsCommand extends Command {
       }`,
     )
       .arguments('[action:string]')
+      .example('Help', 'You can check all commands avaliables with << dpm tools help >>')
       .stopEarly()
       .action(async (_, action: string) => {
         switch (action) {
@@ -32,6 +33,25 @@ export class ToolsCommand extends Command {
 
           case 'clean': {
             await tools.cleanTools();
+            break;
+          }
+
+          case 'help': {
+            const COMMANDS_AVALIABLES = {
+              list: `Here you can get all tools to install with DPM`,
+              install: `With this command you can install all tools!`,
+              clean: `With this command you can uninstall all tools!`,
+            };
+
+            const table: Table = Table.from([]);
+
+            for (const i of Object.entries(COMMANDS_AVALIABLES)) {
+              table.push(i);
+            }
+            table.header(['Action', 'Description']);
+            table.sort();
+            table.border(true);
+            table.render();
             break;
           }
 
