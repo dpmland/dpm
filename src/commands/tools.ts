@@ -17,7 +17,10 @@ export class ToolsCommand extends Command {
       }`,
     )
       .arguments('[action:string]')
-      .example('Help', 'You can check all commands avaliables with << dpm tools help >>')
+      .example(
+        'Help',
+        'You can check all commands avaliables with << dpm tools help >>',
+      )
       .stopEarly()
       .action(async (_, action: string) => {
         switch (action) {

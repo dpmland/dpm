@@ -1,9 +1,8 @@
 {
-  "$id": "https://denopkg.com/dpmland/dpm/schemas/dpm.json",
-  "$schema": "http://json-schema.org/draft-07/schema",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
   "description": "A JSON representation of a Dpm main file.",
   "title": "DPM.json configuration schema!",
-  "type": "object",
   "properties": {
     "name": {
       "description": "The name of the project to use!",
@@ -50,24 +49,30 @@
               "type": "string"
             }
           },
-          "required": ["test", "fmt", "lint"]
+          "required": [
+            "test",
+            "fmt",
+            "lint"
+          ]
         }
       },
-      "required": ["build_in"]
+      "required": [
+        "build_in"
+      ]
     },
     "dependencies": {
       "description": "The dependencies to use in the DPM Project!",
       "type": "object"
-    },
-    "required": [
-      "name",
-      "version",
-      "description",
-      "author",
-      "license",
-      "main",
-      "scripts",
-      "dependencies"
-    ]
-  }
+    }
+  },
+  "required": [
+    "name",
+    "version",
+    "description",
+    "author",
+    "license",
+    "main",
+    "scripts",
+    "dependencies"
+  ]
 }
