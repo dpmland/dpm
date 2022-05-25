@@ -1,4 +1,5 @@
 {
+  "$id": "https://raw.githubusercontent.com/dpmland/dpm/dev/schemas/dpm.json",
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "description": "A JSON representation of a Dpm main file.",
