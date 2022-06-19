@@ -19,6 +19,10 @@ export class AboutCommand extends Command {
           emoji.get('closed_book')
         }`,
       )
+      .example(
+        'Help',
+        'You can check all commands avaliables with << dpm about help >>',
+      )
       .arguments('[action:string]')
       .stopEarly()
       .action(async (_, action: string) => {
