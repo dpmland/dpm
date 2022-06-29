@@ -1,6 +1,20 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { dracoFiles, join } from 'mods/deps.ts';
+import { dracoFiles, dracoInfo, join } from 'mods/deps.ts';
+
+// Os Deno Name
+let denoName;
+
+if (dracoInfo.platform() == 'windows') {
+  denoName = 'deno.exe';
+} else if (
+  dracoInfo.platform() == 'linux' || dracoInfo.platform() == 'darwin'
+) {
+  denoName = 'deno';
+}
+
+// None to the Deno Name if is Undefined!
+denoName = (typeof denoName == 'undefined') ? '' : denoName;
 
 // Types
 interface directories {
@@ -13,6 +27,7 @@ interface directories {
   EGGS_FILE: string;
   README: string;
   TEMP: string;
+  DENO_EXEC: string;
 }
 
 interface names {
@@ -22,6 +37,7 @@ interface names {
   EGGS_FILE: string;
   README: string;
   TEMP: string;
+  DENO_EXEC: string;
 }
 
 export const BASE_DIRECTORIES: directories = {
@@ -34,6 +50,7 @@ export const BASE_DIRECTORIES: directories = {
   EGGS_FILE: join(dracoFiles.currentDir(), 'eggs.json'),
   README: join(dracoFiles.currentDir(), 'README.md'),
   TEMP: join(dracoFiles.cacheDir('DPM')!, 'bin'),
+  DENO_EXEC: join(dracoFiles.homeDir()!, '.deno', 'bin', denoName),
 };
 
 export const NAME_DIRECTORIES: names = {
@@ -43,4 +60,5 @@ export const NAME_DIRECTORIES: names = {
   EGGS_FILE: 'eggs.json',
   README: 'README.md',
   TEMP: join('SYSTEM_TEMP_FOLDER', 'DPM'),
+  DENO_EXEC: join('.deno', 'bin', denoName),
 };
