@@ -23,7 +23,7 @@ export class InstallCommand extends Command {
       .arguments('[dependency...:string]')
       .option('--host [host:boolean]', 'Change from deno.land/x to other')
       .option(
-        '-s, --std [std:boolean]',
+        '-s, --std [std...:string]',
         'Add a dependency from the std library',
       )
       .example(
@@ -36,8 +36,8 @@ export class InstallCommand extends Command {
           await WriteDpmFileJson({});
           LOGGER.warn('Writing the default dpm file because not exists!');
         }
-        if (options.std) {
-          await installStdToImports(dependency);
+        if (options.std != undefined || options.std.length != 0) {
+          await installStdToImports(options.std);
           Deno.exit();
         }
         await installDepsToImports(dependency, { host: options.host });

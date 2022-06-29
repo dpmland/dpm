@@ -11,7 +11,7 @@ export async function generateEggsFile() {
   "entry": "${data.main}",
   "description": "${data.description}",
   "version": "${data.version}",
-  "homepage": "https://github.com/your_name/your_project",
+  "homepage": "https://github.com/your_name/${data.name}",
   "unstable": true,
   "unlisted": false,
   "version": "0.0.1",

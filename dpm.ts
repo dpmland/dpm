@@ -31,6 +31,12 @@ notifier.notify('dpm upgrade --version latest');
 // Make the CLI!
 await new Command()
   .name('dpm')
+  .example(
+    'Start a new Project',
+    'mkdir my_project && cd my_project && dpm init -A',
+  )
+  .example('Install a dependency', 'dpm install draco dlog2')
+  .example('Uninstall a dependency', 'dpm uninstall draco dlog2')
   .version(`${VERSION.substring(1)}`)
   .description(DESCRIPTION)
   .command('about', new AboutCommand())
@@ -46,10 +52,4 @@ await new Command()
     new UpgradeCommand(),
   )
   .command('completions', new CompletionsCommand())
-  .example(
-    'Start a new Project',
-    'mkdir my_project && cd my_project && dpm init -A',
-  )
-  .example('Install a dependency', 'dpm install draco dlog2')
-  .example('Uninstall a dependency', 'dpm uninstall draco dlog2')
   .parse(Deno.args);
