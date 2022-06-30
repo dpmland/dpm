@@ -2,7 +2,7 @@
 
 import { Run } from 'runner/main.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { table } from 'mods/deps.ts';
+import { Table } from 'mods/deps.ts';
 
 const TOOLS_TO_INSTALL = [
   {
@@ -33,12 +33,17 @@ const DenoPath = Deno.execPath();
 
 export function getAllTools() {
   LOGGER.info('All tools recommended for a better Deno development');
-  const t = table(TOOLS_TO_INSTALL, ['name', 'description', 'url'], {
-    upcaseHeader: true,
-    emptyReplacer: 'No field provided',
-    padding: 4,
+  TOOLS_TO_INSTALL.forEach((e) => {
+    LOGGER.done(`Information About the ${e.name.toUpperCase()} App!`);
+    const table: Table = Table.from([]);
+    for (const i of Object.entries(e)) {
+      table.push(i);
+    }
+    table.header(['Data', 'Description']);
+    table.sort();
+    table.border(true);
+    table.render();
   });
-  console.log(t);
 }
 
 export async function installTools() {
