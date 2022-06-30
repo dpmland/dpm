@@ -2,7 +2,7 @@
 
 import { ask } from 'mods/ask.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { LOGGER } from 'mods/logger.ts';
+import { writeFileFormatted } from 'dpm/util.ts';
 
 async function getPromptForDeno() {
   const answers = await ask.prompt([
@@ -25,7 +25,7 @@ async function getPromptForDeno() {
   return answers;
 }
 
-export async function writeDenoConfigFile() {
+export async function writeDenoConfigFile(print?: boolean) {
   const fmt = await getPromptForDeno();
   const data = `
 {
@@ -41,14 +41,12 @@ export async function writeDenoConfigFile() {
   "tasks": {}
 }
   `;
-  try {
-    await Deno.writeTextFile(
-      BASE_DIRECTORIES.DENO_JSON_FILE,
-      data,
-    );
-  } catch (e) {
-    LOGGER.error(e);
-    Deno.exit(1);
-  }
-  LOGGER.info(`Writed successfully the ${NAME_DIRECTORIES.DENO_JSON_FILE}!`);
+  // Magic Print
+  await writeFileFormatted({
+    content: data,
+    path: BASE_DIRECTORIES.DENO_JSON_FILE,
+    name: NAME_DIRECTORIES.DENO_JSON_FILE,
+    type: 'json',
+    print: print,
+  });
 }

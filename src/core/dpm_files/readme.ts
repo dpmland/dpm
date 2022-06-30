@@ -2,9 +2,9 @@
 
 import { ReadDpmFile } from 'dpm/read.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { LOGGER } from 'mods/logger.ts';
+import { writeFileFormatted } from 'dpm/util.ts';
 
-export async function generateReadme() {
+export async function generateReadme(print?: boolean) {
   const data = await ReadDpmFile();
   const file = `
 # ${data.name}
@@ -23,14 +23,11 @@ ${data.description}
 
 Made by [dpm](https://github.com/dpmland/dpm)
 `;
-  try {
-    await Deno.writeTextFile(
-      BASE_DIRECTORIES.README,
-      file,
-    );
-  } catch (e) {
-    LOGGER.error(e);
-    Deno.exit(1);
-  }
-  LOGGER.info(`Generated succesfully the ${NAME_DIRECTORIES.README} file`);
+  await writeFileFormatted({
+    content: file,
+    path: BASE_DIRECTORIES.README,
+    name: NAME_DIRECTORIES.README,
+    type: 'md',
+    print: print,
+  });
 }

@@ -31,6 +31,10 @@ export class InitCommand extends Command {
         'Write only the dpm file and the imports not more! The necessary files!',
       )
       .option('-f, --file [file:string]', 'Only the file to create!')
+      .option(
+        '-M --minimalist [minimalist:boolean]',
+        'Write all files but without print the content!',
+      )
       .stopEarly()
       .example(
         'Help',
@@ -38,7 +42,7 @@ export class InitCommand extends Command {
       )
       // Manage the actions!
       .action(async (options) => {
-        if (options.all == true) {
+        if (options.minimalist == true) {
           const app = await GetTheOptionsPrompt();
           await WriteDpmFileJson(app);
           await WriteImportMapJson();
@@ -48,6 +52,18 @@ export class InitCommand extends Command {
           await FormatInternalJSON();
           Deno.exit();
         }
+
+        if (options.all == true) {
+          const app = await GetTheOptionsPrompt();
+          await WriteDpmFileJson(app, true);
+          await WriteImportMapJson(true);
+          await writeDenoConfigFile(true);
+          await generateReadme(true);
+          await generateEggsFile(true);
+          await FormatInternalJSON();
+          Deno.exit();
+        }
+
         if (options.yes == true) {
           await WriteDpmFileJson({});
           await WriteImportMapJson();

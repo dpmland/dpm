@@ -3,7 +3,7 @@
 import { ask } from 'mods/ask.ts';
 import { basename, dracoFiles } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { LOGGER } from 'mods/logger.ts';
+import { writeFileFormatted } from 'dpm/util.ts';
 
 export async function GetTheOptionsPrompt() {
   const answers = await ask.prompt([
@@ -62,36 +62,38 @@ function generateJSONObject(
   };
 }
 
-export async function WriteDpmFileJson(input_prompt: Record<string, unknown>) {
-  try {
-    await Deno.writeTextFile(
-      BASE_DIRECTORIES.DPM_FILE,
-      JSON.stringify(generateJSONObject(input_prompt), null, ' '),
-    );
-  } catch (e) {
-    LOGGER.error(e);
-    Deno.exit(1);
-  }
-  LOGGER.info(`Writed succesfully the ${NAME_DIRECTORIES.DPM_FILE} file`);
+export async function WriteDpmFileJson(
+  input_prompt: Record<string, unknown>,
+  print?: boolean,
+) {
+  // Content
+  const file = JSON.stringify(generateJSONObject(input_prompt), null, ' ');
+
+  // Magic Print
+  await writeFileFormatted({
+    content: file,
+    path: BASE_DIRECTORIES.DPM_FILE,
+    name: NAME_DIRECTORIES.DPM_FILE,
+    type: 'json',
+    print: print,
+  });
 }
 
-export async function WriteImportMapJson() {
-  try {
-    await Deno.writeTextFile(
-      BASE_DIRECTORIES.IMPORT_MAPS,
-      JSON.stringify(
-        {
-          imports: {},
-        },
-        null,
-        '  ',
-      ),
-    );
-    LOGGER.info(
-      `Writed succesfully the ${NAME_DIRECTORIES.IMPORT_MAPS} file!`,
-    );
-  } catch (e) {
-    LOGGER.error(e.message);
-    Deno.exit(2);
-  }
+export async function WriteImportMapJson(print?: boolean) {
+  const file = JSON.stringify(
+    {
+      imports: {},
+    },
+    null,
+    '  ',
+  );
+
+  // Magic Print
+  await writeFileFormatted({
+    content: file,
+    path: BASE_DIRECTORIES.IMPORT_MAPS,
+    name: NAME_DIRECTORIES.IMPORT_MAPS,
+    type: 'json',
+    print: print,
+  });
 }

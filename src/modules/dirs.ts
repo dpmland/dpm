@@ -17,7 +17,7 @@ if (dracoInfo.platform() == 'windows') {
 denoName = (typeof denoName == 'undefined') ? '' : denoName;
 
 // Types
-interface directories {
+export interface directories {
   LOGS: string;
   CONFIG: string;
   DOCS: string;
@@ -30,7 +30,7 @@ interface directories {
   DENO_EXEC: string;
 }
 
-interface names {
+export interface names {
   DPM_FILE: string;
   DENO_JSON_FILE: string;
   IMPORT_MAPS: string;
