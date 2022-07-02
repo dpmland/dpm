@@ -38,7 +38,11 @@ export async function writeDenoConfigFile(print?: boolean) {
     }
   },
   "importMap": "./dpm_imports.json",
-  "tasks": {}
+  "tasks": {
+    "test": "deno test -A --unstable",
+    "fmt": "deno fmt -c deno.json",
+    "lint": "deno lint -c deno.json",
+  }
 }
   `;
   // Magic Print

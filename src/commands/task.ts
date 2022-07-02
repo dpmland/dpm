@@ -52,51 +52,57 @@ export class TaskCommand extends Command {
         }
 
         // Add the list and console out in table
-        switch (options.list.toLowerCase()) {
-          case 'deno': {
-            await tasks.listDenoTasks();
-            break;
-          }
-
-          case 'dpm': {
-            await tasks.listDpmTasks();
-            break;
-          }
-
-          case 'all': {
-            LOGGER.info('Showing the content of the deno files!');
-            await tasks.listDenoTasks();
-            LOGGER.info('Showing the content of the dpm files!');
-            await tasks.listDpmTasks();
-            break;
-          }
-
-          case 'help': {
-            const COMMANDS_AVALIABLES = {
-              deno:
-                `Here you can see all tasks avaliable in the deno.json file!`,
-              dpm: `Here you can see all tasks avaliable in the dpm.json file!`,
-              all:
-                `Here you can see the content of the dpm.json file and the deno.json file!`,
-            };
-
-            const table: Table = Table.from([]);
-
-            for (const i of Object.entries(COMMANDS_AVALIABLES)) {
-              table.push(i);
+        if (options.new != '') {
+          options.new = (typeof options.new == 'undefined')
+            ? 'all'
+            : options.new;
+          options.new = (typeof options.new == 'string')
+            ? options.new.toLowerCase()
+            : options.new;
+          switch (options.new) {
+            case 'deno': {
+              await tasks.listDenoTasks();
+              break;
             }
-            table.header(['Action', 'Description']);
-            table.sort();
-            table.border(true);
-            table.render();
-            break;
-          }
 
-          default: {
-            LOGGER.error(
-              'Error action not value: Only valid -> all, dpm, deno',
-            );
-            Deno.exit(2);
+            case 'dpm': {
+              await tasks.listDpmTasks();
+              break;
+            }
+
+            case 'help': {
+              const COMMANDS_AVALIABLES = {
+                deno:
+                  `Here you can see all tasks avaliable in the deno.json file!`,
+                dpm:
+                  `Here you can see all tasks avaliable in the dpm.json file!`,
+              };
+
+              const table: Table = Table.from([]);
+
+              for (const i of Object.entries(COMMANDS_AVALIABLES)) {
+                table.push(i);
+              }
+              table.header(['Action', 'Description']);
+              table.sort();
+              table.border(true);
+              table.render();
+              break;
+            }
+
+            case 'all': {
+              LOGGER.info('Showing the content of the deno files!');
+              await tasks.listDenoTasks();
+              LOGGER.info('Showing the content of the dpm files!');
+              await tasks.listDpmTasks();
+              break;
+            }
+
+            default: {
+              LOGGER.error(
+                'Not found the command! You can check more with dpm task help',
+              );
+            }
           }
         }
       });

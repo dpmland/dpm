@@ -54,8 +54,8 @@ function generateJSONObject(
     scripts: {
       build_in: {
         test: 'deno test -A --unstable',
-        fmt: 'deno fmt -c deno.jsonc',
-        lint: 'deno lint -c deno.jsonc',
+        fmt: 'deno fmt -c deno.json',
+        lint: 'deno lint -c deno.json',
       },
     },
     dependencies: {},
