@@ -74,26 +74,31 @@ export class InitCommand extends Command {
           switch (options.file.toLowerCase()) {
             case 'readme': {
               await generateReadme();
+              Deno.exit();
               break;
             }
 
             case 'eggs': {
               await generateEggsFile();
+              Deno.exit();
               break;
             }
 
             case 'deno': {
               await writeDenoConfigFile();
+              Deno.exit();
               break;
             }
 
             case 'dpmImports': {
               await WriteImportMapJson();
+              Deno.exit();
               break;
             }
 
             case 'dpm': {
               await WriteDpmFileJson({});
+              Deno.exit();
               break;
             }
 
@@ -118,6 +123,7 @@ export class InitCommand extends Command {
               table.sort();
               table.border(true);
               table.render();
+              Deno.exit();
               break;
             }
 
@@ -125,7 +131,7 @@ export class InitCommand extends Command {
               LOGGER.warn(
                 'Action not found check the << dpm doc init.actions >> for the option correct!',
               );
-              break;
+              Deno.exit();
             }
           }
         }

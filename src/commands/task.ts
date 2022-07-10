@@ -40,13 +40,13 @@ export class TaskCommand extends Command {
       .stopEarly()
       .action(async (options) => {
         // Update the tasks in the deno.json file from the dpm.json
-        if (options.update) {
+        if (options.update == true) {
           await tasks.UpdateTasks();
           Deno.exit();
         }
 
         // Add a new task to the file with a ui
-        if (options.new) {
+        if (options.new == true) {
           await tasks.addDpmTask();
           Deno.exit();
         }
