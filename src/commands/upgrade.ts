@@ -3,7 +3,7 @@
 import { Command, emoji, Table } from 'mods/deps.ts';
 import { Run } from 'runner/main.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
-// import { LOGGER } from 'mods/logger.ts';
+import { LOGGER } from 'mods/logger.ts';
 
 export class UpgradeCommand extends Command {
   #cmd?: Command;
@@ -24,6 +24,12 @@ export class UpgradeCommand extends Command {
       )
       .stopEarly()
       .action(async (_, version: string) => {
+        if (typeof version == 'undefined' || version == '') {
+          LOGGER.error(
+            'Need a version for start the update you can check this versions in << dpm upgrade help >>',
+          );
+          Deno.exit(2);
+        }
         switch (version.toLowerCase()) {
           case 'canary': {
             await Run(

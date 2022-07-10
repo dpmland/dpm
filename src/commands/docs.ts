@@ -29,6 +29,10 @@ export class DocsCommand extends Command {
         '-o --online [docs:boolean]',
         'Open the online documentation if you want a complete experience',
       )
+      .option(
+        '-D, --discord [discord:boolean]',
+        'Open the discord server if you want ask or propose something',
+      )
       .stopEarly()
       .action(async (options, action: string) => {
         if (action) {
@@ -40,9 +44,15 @@ export class DocsCommand extends Command {
           Deno.exit();
         }
         if (options.online == true) {
-          LOGGER.info('Opening the Oficial Online Documentation site of DPM!');
+          LOGGER.info('Opening the Official Online Documentation site of DPM!');
           await open('https://dpmland-docs.netlify.app/');
           LOGGER.done('Opened successfully the Documentation Site!');
+          Deno.exit();
+        }
+        if (options.discord == true) {
+          LOGGER.info('Opening the Official Discord Server of DPM!');
+          await open('https://discord.gg/Um27YPJKud');
+          LOGGER.done('OPened successfully the Discord Server Invitation!');
           Deno.exit();
         }
         if (options.update == true) {
