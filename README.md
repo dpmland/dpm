@@ -5,39 +5,35 @@
 [![Discord](https://img.shields.io/discord/932381618851692565?label=Discord&logo=discord&logoColor=white)](https://discord.gg/Um27YPJKud)
 [![Twitter](https://img.shields.io/twitter/follow/dpm_land?label=Dpm%20Land&style=social)](https://twitter.com/intent/follow?screen_name=dpm_land)
 [![GitHub license](https://img.shields.io/github/license/dpmland/cli?label=License)](./LICENSE)
-![Github Workflow](https://img.shields.io/github/workflow/status/dpmland/cli/CI)
+![GitHub Workflow](https://img.shields.io/github/workflow/status/dpmland/cli/CI)
 
 Dpm `Deno Package Manager` is a _simple_, _modern_ and _easy way_ to **manage
-the Deno Modules and dependencies** that help to write and manage the deno
-libraries and code
+the Deno modules and dependencies** that help to write and manage the Deno
+modules and in general any TypeScript or JavaScript code
 
 ## Features :computer:
 
-- Build with 100% Typescript
-- Deno Lint, Format command support
-- Config generator for _deno lint_, _deno fmt_, _deno test_
+- Build all with TypeScript
+- `deno lint` and `deno fmt` commands support
+- Config generator for `deno lint`, `deno fmt` and `deno test`
 - Manage all in a `dpm.json` file with the same syntax of the `package.json` and
   more features
 - Generate all dependencies from a `import_map.json` file
 - Offline documentation manager
-- Tools helper manager, install all tools for a better Deno Development
-- Update the dependencies manager!
-- Information about some directories and versions!
-- Powerfull Logger sistem!
-- Open Source!
+- Tools helper manager: install all tools for a better Deno development
+- Update the dependencies manager
+- Information about some directories and versions
+- Powerful logger system
 
 ## Installation :rocket:
 
-> Unstable version :warning:
-
-If you want test dpm in the development version **NOT DOCUMENTATION PROVIDED**
-and **NO COMPLETE FEATURES** can you install with:
+**Warning** Dpm is under development process and does not provide full documentation or complete features. Use at your own risk and expect breaking changes.
 
 ```sh
 deno run -A --unstable https://raw.githubusercontent.com/dpmland/dpm/dev/install.ts canary
 ```
 
-> Recommendation in Windows with the EMOJIS :alien:
+> Recommendation for Windows with the EMOJIS :alien:
 
 Well I found a bug with emojis in the CLI and tried to find a solution and found
 this comment about this issue and what causes this issue.
@@ -50,8 +46,8 @@ You have to enable utf8 character encoding in windows than it should work.
 
 _Source [Here](https://github.com/c4spar/deno-cliffy/issues/113)_
 
-And the solution proposed is add this to the top of the `profile.ps1` file can
-be accessibly with this command `notepad $PROFILE` on powershell!
+And the solution proposed is added this to the top of the `profile.ps1` file can
+be accessibly with this command `notepad $PROFILE` on Powershell!
 
 ```ps1
 [Console]::OutputEncoding = [Text.UTF8Encoding]::UTF8
@@ -59,140 +55,139 @@ be accessibly with this command `notepad $PROFILE` on powershell!
 
 # Usage :alien:
 
-~~Well this is very dificult to use~~, no is a very usefull and easy to use tool
-for manage and write new Deno Projects actually is all necessary features done
-but is going some features now!
+## Start a basic Deno project :mega:
 
-## Start a basic Deno Project! :mega:
-
-For start a Deno project with all files you only need make this!
+For start a Deno project with all files you only need make this:
 
 ```sh
-# Start a new folder!
-mkdir my_project && cd my_project
-# Start a all fully featured Dpm Project!
-dpm init -A
-# Answer the questions and Done!
+# Start a new folder
+$ mkdir my_project && cd my_project
+
+# Start a all fully featured Dpm project
+$ dpm init -A
+
+# Answer the questions and done!
 ```
 
-If you need start only the _dpm_imports.json_ file and the _dpm.json_ file
-without questions you need only run:
+If you just need to start `dpm_imports.json` and `dpm.json` files
+without questions you need to run:
 
 ```sh
 # Start a new folder!
-mkdir my_project && cd my_project
+$ mkdir my_project && cd my_project
+
 # Start only necessary files project
-dpm init -y
+$ dpm init -y
 ```
 
-If you want restart or write only one file you need run
+If you want to restart or only write one file you need to run
 
 ```sh
-# Start a new folder!
-mkdir my_project && cd my_project
-# Start only one file!
-dpm init -f readme
+# Start a new folder
+$ mkdir my_project && cd my_project
+
+# Start only one file
+$ dpm init -f readme
+
 ## Note:
 ## Check the files avaliable on dpm docs init.actions
-## FOR START A FILE LIKE: readme, deno-config or eggs
-## You need start the dpm.json file!
+## for start a file like: readme, deno-config or eggs
+## You need start the dpm.json file
 ```
 
-## Install dependencies with DPM :package:
+## Install dependencies with Dpm :package:
 
-DPM does not download files on the computer, only write the correct url on the
-_dpm_imports.json_ file and make a experience of development like **NodeJS** and
+Dpm does not download files on the computer, only write the correct url at
+`dpm_imports.json` and make an experience of development like **NodeJS** with
 **NPM or Yarn**
 
-For install dependencies from the [deno.land/x](https://deno.land/x/) register
-you need only write:
+For install dependencies from the [deno.land/x](https://deno.land/x/) registry
+you only need to write:
 
 ```sh
-dpm install draco dlog2
+$ dpm install draco dlog2
 ```
 
-For install dependencies from the [deno std](https://deno.land/std) register you
-need only use this!
+For install dependencies from the [Deno std](https://deno.land/std) registry you
+only need to use this:
 
 ```sh
-dpm install flag async http path --std
+$ dpm install flag async http path --std
+
 ## You need put the name of the library and the flag -s or --std
 ```
 
-For install dependencies from other host you need run:
+For install dependencies from other host or registries you need to run:
 
 ```sh
-dpm install example_dep --host nest.land
+$ dpm install example_dep --host nest.land
 ```
 
-## Use the dependencies with DPM :package:
+## Use the dependencies with Dpm :package:
 
-To use the modules installed in the `dpm_imports.json` file, you need to use as
+To use the modules installed at `dpm_imports.json`, you need to use like
 Node:
 
 ```ts
 import { serve } from 'http/server.ts';
+
 serve((req) => new Response('Hello World\n'));
 ```
 
 > To configure DPM to work with code editors, you need to download the plugin
-> for your editor and fill the `deno.config` field with `./deno.json` and the
-> `deno.importMap` field with `./dpm_imports .json` Add automatic support for
-> editors :thinking: probably
+> for your editor and fill the `deno.config` field at `./deno.json` and the
+> `deno.importMap` field at `./dpm_imports.json`.
 
-## Uninstall dependencies with DPM :star2:
+## Uninstall dependencies with Dpm :star2:
 
-DPM doesn't delete any libraries from your computer, it just deletes the
-_dpm_imports.json_ file!
+Dpm does not delete any libraries from your computer, it just deletes the
+`dpm_imports.json` file
 
-For uninstall all dependencies from the _dpm_imports.json_ you need run:
-
-```sh
-dpm uninstall -A
-```
-
-For uninstall only one specific dependency you need run:
+To uninstall all dependencies at `dpm_imports.json` you need to run:
 
 ```sh
-dpm uninstall draco dlog2
+$ dpm uninstall -A
 ```
 
-## Automate commands with the [Deno Tasks](https://deno.land/manual/tools/task_runner) :robot:
-
-Many apps need some commands and you don't like write this many many times this
-command and here are the amazing and incredible **Deno tasks** well with this
-you can automate many things and are integrated with Deno but how can make this
-amazing tool better here are the _task command_ on dpm.
-
-For add a task to the files well you need only run:
+For uninstall just one specific dependency you need to run:
 
 ```sh
-dpm task -n
+$ dpm uninstall draco dlog2
 ```
 
-And this add the task on the deno.json and the dpm.json file well but if I add a
-new task on the dpm.json file how can update this. You need run only this
-command
+## Automate commands with [Deno tasks](https://deno.land/manual/tools/task_runner) :robot:
+
+Many apps need some commands, and you do not like write this many times this command and here are the amazing and incredible **Deno tasks** well with this you can automate many things and are integrated with Deno but how can make this amazing tool better here are the _task command_ on Dpm.
+
+To add a task to the files well you only need to run:
 
 ```sh
-dpm task -u
+$ dpm task -n
 ```
 
-You want see what commands you have y this files here are the list in a
-beautifull table.
+And this adds the task at `deno.json` and `dpm.json`, well but if I add a
+new task at `dpm.json` How can update this? You only need to run this
+command:
 
-```
-dpm task -l deno # For the deno.json file
-dpm task -l dpm # For the dpm.json file
-dpm task -l all # For the dpm and deno.json files!
+```sh
+$ dpm task -u
 ```
 
-> Here are all basic features of dpm if you want :warning: but exists more
-> features you can check dpm doc help :white_check_mark:
+You want to see what commands you have, and this files here are the list in a
+beautiful table.
+
+```sh
+$ dpm task -l deno # To see the deno.json file
+$ dpm task -l dpm # To see the dpm.json file
+$ dpm task -l all # To see the dpm and deno.json files
+```
+
+> Here are all basic features of Dpm if you want to :warning: but exists more
+> features you can check Dpm doc help :white_check_mark:
 
 ## Contribution Guides :books:
 
-Thanks for want help to this project for contribute you can check the
+Thanks for want to help to this project, to contribute you can check the
 [contributing file](./CONTRIBUTING.md)
 
 ---
