@@ -1,5 +1,4 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
-
 import { Command, emoji, open } from 'mods/deps.ts';
 import * as docs from 'docs/download.ts';
 import { LOGGER } from 'mods/logger.ts';
@@ -52,7 +51,7 @@ export class DocsCommand extends Command {
         if (options.discord == true) {
           LOGGER.info('Opening the Official Discord Server of DPM!');
           await open('https://discord.gg/Um27YPJKud');
-          LOGGER.done('OPened successfully the Discord Server Invitation!');
+          LOGGER.done('Opened successfully the Discord Server Invitation!');
           Deno.exit();
         }
         if (options.update == true) {
