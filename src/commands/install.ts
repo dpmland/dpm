@@ -1,5 +1,4 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
-
 import { Command, emoji } from 'mods/deps.ts';
 import { dracoFiles } from 'mods/deps.ts';
 import { LOGGER } from 'mods/logger.ts';
@@ -9,7 +8,6 @@ import { WriteDpmFileJson } from 'dpm/init.ts';
 
 export class InstallCommand extends Command {
   #cmd?: Command;
-
   public constructor(cmd?: Command) {
     super();
     this.#cmd = cmd;
@@ -32,11 +30,12 @@ export class InstallCommand extends Command {
       )
       .stopEarly()
       .action(async (options, dependency: string[]) => {
+        LOGGER.info(`Dependencies to install: ${dependency.join(' ,')}`);
         if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE) == false) {
           await WriteDpmFileJson({});
           LOGGER.warn('Writing the default dpm file because not exists!');
         }
-        if (options.std != undefined || options.std != '') {
+        if (options.std != undefined) {
           await installStdToImports(options.std);
           Deno.exit();
         }

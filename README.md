@@ -27,7 +27,9 @@ modules and in general any TypeScript or JavaScript code
 
 ## Installation :rocket:
 
-**Warning** Dpm is under development process and does not provide full documentation or complete features. Use at your own risk and expect breaking changes.
+**Warning** Dpm is under development process and does not provide full
+documentation or complete features. Use at your own risk and expect breaking
+changes.
 
 ```sh
 deno run -A --unstable https://raw.githubusercontent.com/dpmland/dpm/dev/install.ts canary
@@ -69,8 +71,8 @@ $ dpm init -A
 # Answer the questions and done!
 ```
 
-If you just need to start `dpm_imports.json` and `dpm.json` files
-without questions you need to run:
+If you just need to start `dpm_imports.json` and `dpm.json` files without
+questions you need to run:
 
 ```sh
 # Start a new folder!
@@ -125,8 +127,7 @@ $ dpm install example_dep --host nest.land
 
 ## Use the dependencies with Dpm :package:
 
-To use the modules installed at `dpm_imports.json`, you need to use like
-Node:
+To use the modules installed at `dpm_imports.json`, you need to use like Node:
 
 ```ts
 import { serve } from 'http/server.ts';
@@ -157,7 +158,10 @@ $ dpm uninstall draco dlog2
 
 ## Automate commands with [Deno tasks](https://deno.land/manual/tools/task_runner) :robot:
 
-Many apps need some commands, and you do not like write this many times this command and here are the amazing and incredible **Deno tasks** well with this you can automate many things and are integrated with Deno but how can make this amazing tool better here are the _task command_ on Dpm.
+Many apps need some commands, and you do not like write this many times this
+command and here are the amazing and incredible **Deno tasks** well with this
+you can automate many things and are integrated with Deno but how can make this
+amazing tool better here are the _task command_ on Dpm.
 
 To add a task to the files well you only need to run:
 
@@ -165,9 +169,8 @@ To add a task to the files well you only need to run:
 $ dpm task -n
 ```
 
-And this adds the task at `deno.json` and `dpm.json`, well but if I add a
-new task at `dpm.json` How can update this? You only need to run this
-command:
+And this adds the task at `deno.json` and `dpm.json`, well but if I add a new
+task at `dpm.json` How can update this? You only need to run this command:
 
 ```sh
 $ dpm task -u
