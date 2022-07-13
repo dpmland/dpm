@@ -36,7 +36,7 @@ export class InstallCommand extends Command {
           await WriteDpmFileJson({});
           LOGGER.warn('Writing the default dpm file because not exists!');
         }
-        if (options.std != undefined || options.std.length != 0) {
+        if (options.std != undefined || options.std != '') {
           await installStdToImports(options.std);
           Deno.exit();
         }
