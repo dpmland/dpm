@@ -1,8 +1,9 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { Run } from 'runner/main.ts';
+import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { table } from 'mods/deps.ts';
+import { Table } from 'mods/deps.ts';
 
 const TOOLS_TO_INSTALL = [
   {
@@ -29,21 +30,25 @@ const TOOLS_TO_INSTALL = [
   },
 ];
 
-const DenoPath = Deno.execPath();
-
 export function getAllTools() {
   LOGGER.info('All tools recommended for a better Deno development');
-  const t = table(TOOLS_TO_INSTALL, ['name', 'description', 'url'], {
-    upcaseHeader: true,
-    emptyReplacer: 'No field provided',
-    padding: 4,
+  TOOLS_TO_INSTALL.forEach((e) => {
+    LOGGER.done(`Information About the ${e.name.toUpperCase()} App!`);
+    const table: Table = Table.from([]);
+    for (const i of Object.entries(e)) {
+      table.push(i);
+    }
+    table.header(['Data', 'Description']);
+    table.sort();
+    table.border(true);
+    table.render();
   });
-  console.log(t);
 }
 
 export async function installTools() {
   for (const i of TOOLS_TO_INSTALL) {
-    const command = `${DenoPath} install -qAf --unstable -n ${i.name} ${i.url}`;
+    const command =
+      `${BASE_DIRECTORIES.DENO_EXEC} install -qAf --unstable -n ${i.name} ${i.url}`;
     await Run(command);
     LOGGER.done(`Successfully installed ${i.name}`);
   }
@@ -51,7 +56,8 @@ export async function installTools() {
 
 export async function cleanTools() {
   for (const i of TOOLS_TO_INSTALL) {
-    const command = `${DenoPath} uninstall --unstable ${i.name}`;
+    const command =
+      `${BASE_DIRECTORIES.DENO_EXEC} uninstall --unstable ${i.name}`;
     await Run(command);
     LOGGER.done('Uninstalled and cleaned all tools');
   }

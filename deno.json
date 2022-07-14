@@ -1,17 +1,23 @@
 {
-  "$schema": "https://deno.land/x/deno@v1.17.2/cli/schemas/config-file.v1.json",
-  "lint": {
-    "rules": {
-      "exclude": [
-        "no-explicit-any"
-      ]
-    }
-  },
+  "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+  "importMap": "./import_map.json",
   "fmt": {
     "options": {
       "useTabs": false,
       "indentWidth": 2,
       "singleQuote": true
     }
+  },
+  "tasks": {
+    "check": "deno fmt -c deno.json --check && deno lint -c deno.json",
+    "update": "deno run -A https://deno.land/x/udd/main.ts ./src/modules/deps.ts ./src/modules/logger.ts ./src/modules/ask.ts",
+    "fmt": "deno fmt -c deno.json ; deno lint -c deno.json",
+    "fmt:check": "deno fmt -c deno.json --check ; deno lint -c deno.json",
+    "clean": "deno run -A --unstable ./dev.ts clean",
+    "compile:windows": "deno compile -A --unstable --target x86_64-pc-windows-msvc ./dpm.ts",
+    "compile:linux": "deno compile -A --unstable --target x86_64-unknown-linux-gnu ./dpm.ts",
+    "compile:macOSx64": "deno compile -A --unstable --target x86_64-apple-darwin ./dpm.ts",
+    "compile:macOSarch64": "deno compile -A --unstable --target aarch64-apple-darwin ./dpm.ts",
+    "install": "deno run -A ./install.ts"
   }
 }

@@ -13,18 +13,17 @@ export async function ReadDpmFile() {
 }
 
 export async function ReadImportMapFile() {
-  const file = await ReadDpmFile();
-  let filename;
-  if (file.config.importMap.directory == false) {
-    filename = BASE_DIRECTORIES.IMPORT_MAPS;
-  } else {
-    filename = BASE_DIRECTORIES.IMPORT_MAPS_DIR;
-  }
-  filename = (typeof filename == 'undefined')
-    ? BASE_DIRECTORIES.IMPORT_MAPS
-    : filename;
   try {
-    return JSON.parse(await Deno.readTextFile(filename));
+    return JSON.parse(await Deno.readTextFile(BASE_DIRECTORIES.IMPORT_MAPS));
+  } catch (e) {
+    LOGGER.error(e.message);
+    Deno.exit(2);
+  }
+}
+
+export async function ReadDenoConfigFile() {
+  try {
+    return JSON.parse(await Deno.readTextFile(BASE_DIRECTORIES.DENO_JSON_FILE));
   } catch (e) {
     LOGGER.error(e.message);
     Deno.exit(2);

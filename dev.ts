@@ -1,3 +1,5 @@
+// Copyright © 2022 Dpm Land. All Rights Reserved.
+
 import { Run } from 'runner/main.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { dracoFiles, join } from 'mods/deps.ts';
@@ -25,14 +27,6 @@ if (Deno.args[0] == 'clean') {
     await Deno.remove(BASE_DIRECTORIES.IMPORT_MAPS);
     console.log(`Removed the ${NAME_DIRECTORIES.IMPORT_MAPS} file!`);
   }
-  if (dracoFiles.exists(BASE_DIRECTORIES.DENO_JSON_FILE)) {
-    await Deno.remove(BASE_DIRECTORIES.DENO_JSON_FILE);
-    console.log(`Removed the ${NAME_DIRECTORIES.DENO_JSON_FILE} file!`);
-  }
-  if (dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS_DIR)) {
-    await Deno.remove(BASE_DIRECTORIES.IMPORT_MAPS_DIR, { recursive: true });
-    console.log(`Removed the ${NAME_DIRECTORIES.IMPORT_MAPS_DIR} dir!`);
-  }
   if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
     await Deno.remove(BASE_DIRECTORIES.DPM_FILE);
     console.log(`Removed the ${NAME_DIRECTORIES.DPM_FILE} file!`);
@@ -41,11 +35,9 @@ if (Deno.args[0] == 'clean') {
     await Deno.remove(BASE_DIRECTORIES.EGGS_FILE);
     console.log(`Removed the ${NAME_DIRECTORIES.EGGS_FILE} file!`);
   }
-  if (dracoFiles.exists(join(dracoFiles.currentDir(), '.dpm'))) {
-    await Deno.remove(join(dracoFiles.currentDir(), '.dpm'), {
-      recursive: true,
-    });
-    console.log(`Removed the .dpm dir!`);
+  if (dracoFiles.exists(join(Deno.cwd(), 'dpm.exe'))) {
+    await Deno.remove(join(Deno.cwd(), 'dpm.exe'));
+    console.log('Removed the binary of DPM!');
   }
   console.log('Cleaned!');
   Deno.exit();

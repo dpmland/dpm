@@ -35,26 +35,10 @@ export async function cleanAllDeps() {
       JSON.stringify(file, null, '  '),
     );
 
-    // Write with the .dpm folder check!
-    if (file.config.importMap.directory) {
-      await Deno.writeTextFile(
-        BASE_DIRECTORIES.IMPORT_MAPS_DIR,
-        JSON.stringify(imports, null, '  '),
-      );
-    }
-
     await Deno.writeTextFile(
       BASE_DIRECTORIES.IMPORT_MAPS,
       JSON.stringify(imports, null, '  '),
     );
-
-    // Show thats a good end!
-    if (file.config.importMap.directory) {
-      LOGGER.info(
-        `Cleaned successfully the ${NAME_DIRECTORIES.DPM_FILE} and the ${NAME_DIRECTORIES.IMPORT_MAPS_DIR}!`,
-      );
-      Deno.exit();
-    }
 
     LOGGER.info(
       `Cleaned successfully the ${NAME_DIRECTORIES.DPM_FILE} and the ${NAME_DIRECTORIES.IMPORT_MAPS}!`,
@@ -105,11 +89,6 @@ export async function cleanAnyDependency(deps: string[]) {
       if (Object.hasOwn(imp, `${i}/`)) {
         Object.keys(imp).forEach((_k) => delete imp[`${i}/`]);
       } else {
-        if (file.config.importMap.directory) {
-          LOGGER.warn(
-            `Not found the ${i} dependency in the ${NAME_DIRECTORIES.IMPORT_MAPS_DIR}`,
-          );
-        }
         LOGGER.warn(
           `Not found the ${i} dependency in the ${NAME_DIRECTORIES.IMPORT_MAPS}`,
         );
@@ -121,21 +100,6 @@ export async function cleanAnyDependency(deps: string[]) {
       BASE_DIRECTORIES.DPM_FILE,
       JSON.stringify(file, null, '  '),
     );
-
-    // Update the import map file!
-    if (file.config.importMap.directory) {
-      await Deno.writeTextFile(
-        BASE_DIRECTORIES.IMPORT_MAPS_DIR,
-        JSON.stringify(imports, null, '  '),
-      );
-
-      LOGGER.info(
-        `Cleanned successfully! ${
-          deps.join(' ')
-        } -> On ${NAME_DIRECTORIES.DPM_FILE} ${NAME_DIRECTORIES.IMPORT_MAPS_DIR}`,
-      );
-      Deno.exit();
-    }
 
     await Deno.writeTextFile(
       BASE_DIRECTORIES.IMPORT_MAPS,

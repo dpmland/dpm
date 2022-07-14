@@ -5,18 +5,22 @@ import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { dracoFiles, join, renderMarkdown } from 'mods/deps.ts';
 
 const parseActionToFile = (file: string): string => {
-  const pathsplit = file.split('.');
+  const f = file.toUpperCase();
+  const pathsplit = f.split('.');
   let path;
   if (pathsplit.length > 2) {
     LOGGER.error('Supported only 2 params to search in docs');
     Deno.exit(1);
   }
   if (pathsplit.length == 2) {
-    path = join(BASE_DIRECTORIES.DOCS, pathsplit[0], `${pathsplit[1]}.md`)
-      .toLowerCase();
+    path = join(
+      BASE_DIRECTORIES.DOCS,
+      pathsplit[0].toLowerCase(),
+      `${pathsplit[1]}.md`,
+    );
   }
   if (pathsplit.length == 1) {
-    path = join(BASE_DIRECTORIES.DOCS, `${pathsplit[0]}.md`).toLowerCase();
+    path = join(BASE_DIRECTORIES.DOCS, `${pathsplit[0]}.md`);
   }
   path = (typeof path == 'undefined') ? 'nothing' : path;
   if (!(dracoFiles.exists(path))) {

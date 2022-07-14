@@ -1,0 +1,79 @@
+{
+  "$id": "https://raw.githubusercontent.com/dpmland/dpm/main/schemas/dpm.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "A JSON representation of a Dpm main file.",
+  "title": "DPM.json configuration schema!",
+  "properties": {
+    "name": {
+      "description": "The name of the project to use!",
+      "type": "string"
+    },
+    "version": {
+      "description": "The version of the project for use with DPM!",
+      "type": "string"
+    },
+    "description": {
+      "description": "The description of the project for use with DPM!",
+      "type": "string"
+    },
+    "author": {
+      "description": "The author or authors of this project!",
+      "type": "string"
+    },
+    "license": {
+      "description": "The license to use in this project!",
+      "type": "string"
+    },
+    "main": {
+      "description": "The main file for use in this project!",
+      "type": "string"
+    },
+    "scripts": {
+      "description": "The scripts for automate the commands!",
+      "type": "object",
+      "properties": {
+        "build_in": {
+          "description": "The included scripts generated for DPM for a better development with the included tasks!",
+          "type": "object",
+          "properties": {
+            "test": {
+              "description": "The test command generated from DPM",
+              "type": "string"
+            },
+            "fmt": {
+              "description": "The fmt command generated from DPM",
+              "type": "string"
+            },
+            "lint": {
+              "description": "The lint command generated from DPM",
+              "type": "string"
+            }
+          },
+          "required": [
+            "test",
+            "fmt",
+            "lint"
+          ]
+        }
+      },
+      "required": [
+        "build_in"
+      ]
+    },
+    "dependencies": {
+      "description": "The dependencies to use in the DPM Project!",
+      "type": "object"
+    }
+  },
+  "required": [
+    "name",
+    "version",
+    "description",
+    "author",
+    "license",
+    "main",
+    "scripts",
+    "dependencies"
+  ]
+}
