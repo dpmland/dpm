@@ -32,7 +32,7 @@ documentation or complete features. Use at your own risk and expect breaking
 changes.
 
 ```sh
-deno run -A --unstable https://raw.githubusercontent.com/dpmland/dpm/dev/install.ts canary
+deno run -A --unstable https://deno.land/x/dpm/install.ts canary
 ```
 
 > Recommendation for Windows with the EMOJIS :alien:

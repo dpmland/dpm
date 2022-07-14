@@ -4,6 +4,7 @@ import { ask } from 'mods/ask.ts';
 import { basename, dracoFiles } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { writeFileFormatted } from 'dpm/util.ts';
+import { RAW_URL } from 'mods/info.ts';
 
 export async function GetTheOptionsPrompt() {
   const answers = await ask.prompt([
@@ -43,8 +44,7 @@ function generateJSONObject(
   input: Record<string, unknown>,
 ): Record<string, unknown> {
   return {
-    $schema:
-      'https://raw.githubusercontent.com/dpmland/dpm/dev/schemas/dpm.json',
+    $schema: `${RAW_URL}/schemas/dpm.json`,
     name: input.name || basename(dracoFiles.currentDir()),
     version: input.version || '0.1.0',
     description: input.description || 'A example dpm package',

@@ -3,6 +3,7 @@
 import { Command, emoji, Table } from 'mods/deps.ts';
 import { Run } from 'runner/main.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
+import { RAW_URL } from 'mods/info.ts';
 import { LOGGER } from 'mods/logger.ts';
 
 export class UpgradeCommand extends Command {
@@ -33,14 +34,14 @@ export class UpgradeCommand extends Command {
         switch (version.toLowerCase()) {
           case 'canary': {
             await Run(
-              `${BASE_DIRECTORIES.DENO_EXEC} run -A --unstable https://raw.githubusercontent.com/dpmland/dpm/dev/install.ts canary`,
+              `${BASE_DIRECTORIES.DENO_EXEC} run -A --unstable ${RAW_URL}/install.ts canary`,
             );
             break;
           }
 
           case 'stable': {
             await Run(
-              `${BASE_DIRECTORIES.DENO_EXEC} run -A --unstable https://raw.githubusercontent.com/dpmland/dpm/dev/install.ts stable`,
+              `${BASE_DIRECTORIES.DENO_EXEC} run -A --unstable ${RAW_URL}/install.ts stable`,
             );
             break;
           }
