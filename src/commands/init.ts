@@ -129,7 +129,7 @@ export class InitCommand extends Command {
 
             default: {
               LOGGER.warn(
-                'Action not found check the << dpm doc init.actions >> for the option correct!',
+                'Action not found check the << dpm init help >> for the option correct!',
               );
               Deno.exit();
             }

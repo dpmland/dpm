@@ -30,7 +30,7 @@ export function appendModuleToDpm(
     const splited = i.split('/');
     if (splited.length > 2) {
       LOGGER.error(
-        'Only supported 2 deps to install syntax < packageName/packagefolder > or < packagename/file.ts > more info on < dpm doc install.syntax>',
+        'Only supported 2 deps to install syntax < packageName/packagefolder > or < packagename/file.ts > more info on < dpm doc install >',
       );
       Deno.exit(1);
     }

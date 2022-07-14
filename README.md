@@ -92,7 +92,7 @@ $ mkdir my_project && cd my_project
 $ dpm init -f readme
 
 ## Note:
-## Check the files avaliable on dpm docs init.actions
+## Check the files avaliable on dpm init help
 ## for start a file like: readme, deno-config or eggs
 ## You need start the dpm.json file
 ```
