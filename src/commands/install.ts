@@ -30,7 +30,11 @@ export class InstallCommand extends Command {
       )
       .stopEarly()
       .action(async (options, dependency: string[]) => {
-        LOGGER.info(`Dependencies to install: ${dependency.join(' ,')}`);
+        if (typeof dependency == 'string') {
+          LOGGER.info(`Dependency to install: ${dependency}`);
+        } else if (typeof dependency != 'undefined') {
+          LOGGER.info(`Dependencies to install: ${dependency.join(' ,')}`);
+        }
         if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE) == false) {
           await WriteDpmFileJson({});
           LOGGER.warn('Writing the default dpm file because not exists!');
