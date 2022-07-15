@@ -13,7 +13,6 @@ export async function generateEggsFile(print?: boolean) {
   "homepage": "https://github.com/your_name/${data.name}",
   "unstable": true,
   "unlisted": false,
-  "version": "0.0.1",
   "releaseType": "patch",
   "files": ["./mod.ts", "./src/**/*", "./README.md"],
   "ignore": [".git"],
