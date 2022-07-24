@@ -27,9 +27,14 @@ modules and in general any TypeScript or JavaScript code
 
 ## Installation :rocket:
 
-**Warning** Dpm is under development process and does not provide full
-documentation or complete features. Use at your own risk and expect breaking
-changes.
+Stable Version:
+
+```sh
+deno run -A --unstable https://deno.land/x/dpm/install.ts stable
+```
+
+Development Version can check the features roadmap
+[here](https://github.com/dpmland/dpm/pull/7):
 
 ```sh
 deno run -A --unstable https://deno.land/x/dpm/install.ts canary
