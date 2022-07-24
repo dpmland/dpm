@@ -52,3 +52,6 @@ export * as colors from 'https://deno.land/std@0.145.0/fmt/colors.ts';
 
 // Add the JSON Colorizer for beautifull out!
 export * as jsonColorize from 'https://deno.land/x/json_colorize@0.1.0/mod.ts';
+
+// Add the parse arguments deps
+export { parse } from 'https://deno.land/std@0.145.0/flags/mod.ts';

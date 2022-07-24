@@ -9,6 +9,7 @@
     "tools/": "./src/core/tools/",
     "docs/": "./src/core/docs/",
     "checker/": "./src/core/checker/",
-    "cmd/": "./src/commands/"
+    "cmd/": "./src/commands/",
+    "dpx/": "./src/core/dpx/"
   }
 }
