@@ -1,6 +1,6 @@
 import { emoji } from 'mods/deps.ts';
 
-export const VERSION = 'v0.1.0';
+export const VERSION = 'v0.1.1';
 
 export const RAW_URL = 'https://raw.githubusercontent.com/dpmland/dpm/main/';
 
