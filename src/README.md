@@ -7,51 +7,58 @@ Here you found the source code of Dpm.
 ```
 .
 ├── commands
-│   ├── about.ts
-│   ├── docs.ts
-│   ├── init.ts
-│   ├── install.ts
-│   ├── task.ts
-│   ├── tools.ts
-│   ├── uninstall.ts
-│   └── update.ts
+│   ├── about.ts
+│   ├── docs.ts
+│   ├── exec.ts
+│   ├── init.ts
+│   ├── install.ts
+│   ├── task.ts
+│   ├── tools.ts
+│   ├── uninstall.ts
+│   ├── update.ts
+│   └── upgrade.ts
 ├── core
-│   ├── checker
-│   │   ├── file.ts
-│   │   ├── main.ts
-│   │   ├── README.md
-│   │   ├── types
-│   │   │   ├── dependencyType.ts
-│   │   │   └── importType.ts
-│   │   └── version.ts
-│   ├── docs
-│   │   ├── download.ts
-│   │   └── main.ts
-│   ├── dpm_files
-│   │   ├── deno.ts
-│   │   ├── eggs.ts
-│   │   ├── init.ts
-│   │   ├── read.ts
-│   │   └── readme.ts
-│   ├── packages
-│   │   ├── add.ts
-│   │   ├── clean.ts
-│   │   ├── main.ts
-│   │   └── update.ts
-│   ├── runner
-│   │   ├── format.ts
-│   │   └── main.ts
-│   ├── task
-│   │   └── main.ts
-│   └── tools
-│       └── install.ts
+│   ├── checker
+│   │   ├── file.ts
+│   │   ├── main.ts
+│   │   ├── README.md
+│   │   ├── types
+│   │   │   ├── dependencyType.ts
+│   │   │   └── importType.ts
+│   │   └── version.ts
+│   ├── docs
+│   │   ├── download.ts
+│   │   └── main.ts
+│   ├── dpm_files
+│   │   ├── deno.ts
+│   │   ├── eggs.ts
+│   │   ├── init.ts
+│   │   ├── readme.ts
+│   │   ├── read.ts
+│   │   └── util.ts
+│   ├── dpx
+│   │   ├── cache.ts
+│   │   ├── main.ts
+│   │   └── README.md
+│   ├── packages
+│   │   ├── add.ts
+│   │   ├── clean.ts
+│   │   ├── main.ts
+│   │   └── update.ts
+│   ├── runner
+│   │   ├── format.ts
+│   │   └── main.ts
+│   ├── task
+│   │   └── main.ts
+│   └── tools
+│       └── install.ts
 ├── modules
-│   ├── ask.ts
-│   ├── authors.ts
-│   ├── deps.ts
-│   ├── dirs.ts
-│   ├── info.ts
-│   └── logger.ts
+│   ├── ask.ts
+│   ├── authors.ts
+│   ├── deps.ts
+│   ├── dirs.ts
+│   ├── info.ts
+│   └── logger.ts
 └── README.md
 ```
 
