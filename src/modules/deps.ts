@@ -55,3 +55,6 @@ export * as jsonColorize from 'https://deno.land/x/json_colorize@0.1.0/mod.ts';
 
 // Add the parse arguments deps
 export { parse } from 'https://deno.land/std@0.145.0/flags/mod.ts';
+
+// Add the node process
+export * as node from 'https://deno.land/std@0.149.0/node/process.ts';

@@ -1,12 +1,22 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
-
-import { colors, Command, emoji, Table } from 'mods/deps.ts';
+import {
+  basename,
+  colors,
+  Command,
+  dracoFiles,
+  dracoInfo,
+  emoji,
+  join,
+  node,
+  Table,
+} from 'mods/deps.ts';
 import {
   denoPermissionFlags,
   GeneratePromptDPX,
   RunDPX,
   supportedModuleExts,
 } from 'dpx/main.ts';
+import { LOGGER } from 'mods/logger.ts';
 
 export class ExecCommand extends Command {
   #cmd?: Command;
@@ -39,6 +49,60 @@ export class ExecCommand extends Command {
       )
       .stopEarly()
       .action(async (options) => {
+        if (options.alias == true) {
+          console.info('Working in this feature');
+          if (
+            dracoInfo.platform() == 'linux' || dracoInfo.platform() == 'darwin'
+          ) {
+            const stringToAdd = `alias dpx="dpm exec"`;
+            console.log(
+              `Append this command\n${colors.bold(colors.cyan(stringToAdd))}`,
+            );
+            switch (basename(node.env.SHELL)) {
+              case 'zsh': {
+                console.log(
+                  `To the path of your shell in this case ${
+                    basename(node.env.SHELL)
+                  }:\n${colors.bold(join(dracoFiles.homeDir()!, '.zshrc'))}`,
+                );
+                break;
+              }
+
+              case 'fish': {
+                console.log(
+                  `To the path of your shell in this case ${
+                    basename(node.env.SHELL)
+                  }:\n${
+                    colors.bold(
+                      join(
+                        dracoFiles.homeDir()!,
+                        '.config',
+                        'fish',
+                        'config.fish',
+                      ),
+                    )
+                  }`,
+                );
+                break;
+              }
+
+              case 'bash': {
+                console.log(
+                  `To the path of your shell in this case ${
+                    basename(node.env.SHELL)
+                  }:\n${colors.bold(join(dracoFiles.homeDir()!, '.bashrc'))}`,
+                );
+                break;
+              }
+
+              default: {
+                LOGGER.error('This shell is unsupported!');
+                break;
+              }
+            }
+          }
+          Deno.exit();
+        }
         const answers = await GeneratePromptDPX();
         const filename = answers.name?.toString().split(' ');
         const importMap = answers.importMap?.toString().split(' ');
@@ -72,10 +136,6 @@ export class ExecCommand extends Command {
           table.border(true);
           table.render();
           Deno.exit();
-        }
-
-        if (options.alias == true) {
-          console.info('Working in this feature');
         }
       });
   }
