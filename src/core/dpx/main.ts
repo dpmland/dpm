@@ -1,8 +1,17 @@
 import { colors, parse } from 'mods/deps.ts';
+import { ask } from 'mods/ask.ts';
 import { cache } from 'dpx/cache.ts';
+import { LOGGER } from 'mods/logger.ts';
+import { BASE_DIRECTORIES } from 'mods/dirs.ts';
+
 type DirEntry = { type: string; path: string };
 
-const denoPermissionFlags = [
+export interface DpxOptions {
+  importMapNames?: string[] | undefined;
+  filenameNames?: string[] | undefined;
+}
+
+export const denoPermissionFlags = [
   '-A',
   '--allow-all',
   '--allow-env',
@@ -14,7 +23,7 @@ const denoPermissionFlags = [
   '--allow-write',
 ];
 
-const supportedModuleExts = [
+export const supportedModuleExts = [
   '.ts',
   '.tsx',
   '.mts',
@@ -23,23 +32,34 @@ const supportedModuleExts = [
   '.mjs',
 ];
 
-const importMapSupportedNames = [
-  'import_map.json',
-  'import-map.json',
-  'importMap.json',
-  'importmap.json',
-];
-
-const filenameSupportedNames = [
-  'cli',
-  'main',
-  'mod',
-];
-
-export async function RunDPX(Arguments: string[]) {
+export async function RunDPX(
+  Arguments: string[] | undefined,
+  Options: DpxOptions = {},
+) {
+  if (typeof Arguments == 'undefined') {
+    LOGGER.error('Is necessary a value for run!');
+    Deno.exit(2);
+  }
   const { _: args, ...options } = parse(
     Arguments.filter((a) => !denoPermissionFlags.includes(a)),
   );
+
+  // Add the Variables of the CLI Names
+  Options.filenameNames = (Options.filenameNames?.includes(''))
+    ? ['cli', 'main', 'mod']
+    : Options.filenameNames;
+  Options.importMapNames = (Options.importMapNames?.includes(''))
+    ? [
+      'import_map.json',
+      'import-map.json',
+      'importMap.json',
+      'importmap.json',
+    ]
+    : Options.importMapNames;
+
+  console.log(Options.filenameNames);
+  console.log(Options.importMapNames);
+  // Add the Args Default
   if (args.length == 0) {
     console.log(colors.bold('EXTRACTED AND ADAPTED FROM LAND'));
     console.log(colors.dim('Homepage: '), 'https://deno.land/x/land');
@@ -102,7 +122,7 @@ export async function RunDPX(Arguments: string[]) {
   let command: string | null = null;
   let importMap: string | null = null;
   for (
-    const name of filenameSupportedNames.map((name) =>
+    const name of Options.filenameNames.map((name) =>
       supportedModuleExts.map((ext) => `${name}${ext}`)
     ).flat()
   ) {
@@ -116,7 +136,7 @@ export async function RunDPX(Arguments: string[]) {
     }
   }
   for (
-    const filename of importMapSupportedNames
+    const filename of Options.importMapNames
   ) {
     if (
       directory_listing.some((entry: DirEntry) =>
@@ -194,7 +214,7 @@ export async function RunDPX(Arguments: string[]) {
 
   const cmd = Deno.run({
     cmd: [
-      Deno.execPath(),
+      BASE_DIRECTORIES.DENO_EXEC,
       'run',
       '--unstable',
       ...denoFlags,
@@ -209,4 +229,27 @@ export async function RunDPX(Arguments: string[]) {
   });
   await cmd.status();
   cmd.close();
+}
+
+export async function GeneratePromptDPX() {
+  const answers = await ask.prompt([
+    {
+      name: 'app',
+      type: 'input',
+      message: 'Name of the app to execute with the version',
+    },
+    {
+      name: 'name',
+      type: 'input',
+      message:
+        'Name of the file to execute (Default can check with dpm exec --defaults or dpx --defaults)',
+    },
+    {
+      name: 'importMap',
+      type: 'input',
+      message:
+        'Name of the importMap file to run (Default can check with dpm exec --defaults or dpx --defaults)',
+    },
+  ]);
+  return answers;
 }
