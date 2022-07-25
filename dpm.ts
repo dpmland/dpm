@@ -16,6 +16,7 @@ import { UninstallCommand } from 'cmd/uninstall.ts';
 import { UpdateCommand } from 'cmd/update.ts';
 import { TaskCommand } from 'cmd/task.ts';
 import { UpgradeCommand } from 'cmd/upgrade.ts';
+import { ExecCommand } from 'cmd/exec.ts';
 
 const notifier = new UpdateNotifier({
   name: 'dpm',
@@ -51,5 +52,6 @@ await new Command()
     'upgrade',
     new UpgradeCommand(),
   )
+  .command('exec', new ExecCommand())
   .command('completions', new CompletionsCommand())
   .parse(Deno.args);

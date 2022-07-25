@@ -25,7 +25,7 @@ async function getPromptForDeno() {
   return answers;
 }
 
-export async function writeDenoConfigFile(print?: boolean) {
+export async function writeDenoConfigFile(_print?: boolean) {
   const fmt = await getPromptForDeno();
   const data = `
 {
@@ -51,6 +51,6 @@ export async function writeDenoConfigFile(print?: boolean) {
     path: BASE_DIRECTORIES.DENO_JSON_FILE,
     name: NAME_DIRECTORIES.DENO_JSON_FILE,
     type: 'json',
-    print: print,
+    print: false,
   });
 }

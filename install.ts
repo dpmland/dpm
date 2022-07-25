@@ -1,7 +1,8 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import * as colors from 'https://deno.land/std@0.135.0/fmt/colors.ts';
-import { join } from 'https://deno.land/std@0.135.0/path/mod.ts';
+import * as colors from 'https://deno.land/std@0.149.0/fmt/colors.ts';
+import { join } from 'https://deno.land/std@0.149.0/path/mod.ts';
+import { copy } from 'https://deno.land/std@0.149.0/fs/copy.ts';
 import { dracoFiles, dracoInfo } from 'https://deno.land/x/draco@0.1.3/mod.ts';
 import Ask from 'https://deno.land/x/ask@1.0.6/mod.ts';
 import figlet from 'https://x.nest.land/deno-figlet@0.0.5/mod.js';
@@ -41,9 +42,10 @@ async function MoveBinToMain() {
     if (dracoFiles.exists(join(TEMP, 'canary', 'dpm.ts'))) {
       console.log(colors.cyan('Found the DPM executable!'));
       console.log(colors.cyan('Copying the executable to the BIN path!'));
-      await Deno.copyFile(
+      await copy(
         `${join(Deno.cwd(), 'dpm.exe')}`,
         `${join(BIN, 'dpm.exe')}`,
+        { overwrite: true },
       );
       console.log(
         colors.cyan('Removing the dpm.exe file from the current path!'),
@@ -62,9 +64,10 @@ async function MoveBinToMain() {
     if (dracoFiles.exists(join(TEMP, 'canary', 'dpm.ts'))) {
       console.log(colors.cyan('Found the DPM executable!'));
       console.log(colors.cyan('Copying the executable to the BIN path!'));
-      await Deno.copyFile(
+      await copy(
         `${join(Deno.cwd(), 'dpm')}`,
         `${join(BIN, 'dpm')}`,
+        { overwrite: true },
       );
       console.log(colors.cyan('Removing the dpm file from the current path!'));
       await Deno.remove(`${join(Deno.cwd(), 'dpm')}`);
