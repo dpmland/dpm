@@ -45,10 +45,12 @@ export async function RunDPX(
   );
 
   // Add the Variables of the CLI Names
-  Options.filenameNames = (Options.filenameNames?.includes(''))
+  Options.filenameNames = (Options.filenameNames?.includes('') ||
+      typeof Options.filenameNames == 'undefined')
     ? ['cli', 'main', 'mod']
     : Options.filenameNames;
-  Options.importMapNames = (Options.importMapNames?.includes(''))
+  Options.importMapNames = (Options.importMapNames?.includes('') ||
+      typeof Options.importMapNames == 'undefined')
     ? [
       'import_map.json',
       'import-map.json',
