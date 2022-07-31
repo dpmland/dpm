@@ -52,11 +52,9 @@ function generateJSONObject(
     license: input.license || 'ISC',
     main: input.entry_point || 'mod.ts',
     scripts: {
-      build_in: {
         test: 'deno test -A --unstable',
         fmt: 'deno fmt -c deno.json',
         lint: 'deno lint -c deno.json',
-      },
     },
     dependencies: {},
   };

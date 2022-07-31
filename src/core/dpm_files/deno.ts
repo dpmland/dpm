@@ -41,7 +41,7 @@ export async function writeDenoConfigFile(_print?: boolean) {
   "tasks": {
     "test": "deno test -A --unstable",
     "fmt": "deno fmt -c deno.json",
-    "lint": "deno lint -c deno.json",
+    "lint": "deno lint -c deno.json"
   }
 }
   `;

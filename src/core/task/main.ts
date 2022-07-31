@@ -27,22 +27,14 @@ function checkFiles() {
 export async function UpdateTasks() {
   // Valid if exists
   checkFiles();
+
   // Read the files
   const dpm = await ReadDpmFile();
   const deno = await ReadDenoConfigFile();
 
-  // Write a helper
-  const helper = {
-    build_in: {},
-  };
-  Object.assign(helper.build_in, dpm.scripts.build_in);
-
-  // Delete the build_in key
-  delete dpm.scripts['build_in'];
-
   // Copy the deno to dpm and dpm to deno
   Object.assign(deno.tasks, dpm.scripts);
-  Object.assign(dpm.scripts, deno.tasks, helper);
+  Object.assign(dpm.scripts, deno.tasks);
 
   // Update the files!
   await Deno.writeTextFile(
@@ -91,7 +83,6 @@ export async function listDpmTasks() {
 
   const dpm = await ReadDpmFile();
   // Helpers
-  delete dpm.scripts['build_in'];
   const tasks = dpm.scripts;
   const table: Table = Table.from([]);
   for (const i of Object.entries(tasks)) {
