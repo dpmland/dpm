@@ -12,7 +12,11 @@ export {
 } from 'https://deno.land/std@0.145.0/path/mod.ts';
 
 // Ensure exists file for the folder support!
-export { ensureDir, ensureFile } from 'https://deno.land/std@0.145.0/fs/mod.ts';
+export {
+  emptyDir,
+  ensureDir,
+  ensureFile,
+} from 'https://deno.land/std@0.145.0/fs/mod.ts';
 
 // Tables for help!
 export { Table } from 'https://deno.land/x/cliffy@v0.23.0/mod.ts';

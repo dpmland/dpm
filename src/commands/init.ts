@@ -11,6 +11,7 @@ import {
 } from 'dpm/init.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
 import { LOGGER } from 'mods/logger.ts';
+import { DownloadTemplate } from 'core/license/download.ts';
 
 export class InitCommand extends Command {
   #cmd?: Command;
@@ -34,6 +35,10 @@ export class InitCommand extends Command {
       .option(
         '-M --minimalist [minimalist:boolean]',
         'Write all files but without print the content!',
+      )
+      .option(
+        '-L --license [license:boolean]',
+        'Download the license file from the dpm.json file!',
       )
       .stopEarly()
       .example(
@@ -67,6 +72,11 @@ export class InitCommand extends Command {
         if (options.yes == true) {
           await WriteDpmFileJson({});
           await WriteImportMapJson();
+          Deno.exit();
+        }
+
+        if (options.license == true) {
+          await DownloadTemplate();
           Deno.exit();
         }
 
