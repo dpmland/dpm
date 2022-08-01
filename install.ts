@@ -148,7 +148,7 @@ if (Deno.args[0] == 'stable') {
 /*********************************************/
 /*********************************************/
 
-console.log(colors.cyan(await figlet('DPM INSTALLER')));
+console.log(colors.cyan(await figlet('DPM UP')));
 
 const answers = await ask.prompt([
   {
@@ -190,12 +190,16 @@ const answers2 = await ask.prompt([
 
 if (answers2.allTools) {
   console.log(
-    colors.magenta('Installing the offline documentation with DPM!\n'),
+    colors.magenta(
+      'Installing the offline documentation and templates with DPM!\n',
+    ),
   );
   if (dracoInfo.platform() == 'windows') {
     if (dracoFiles.exists(join(BIN, 'dpm.exe'))) {
       await Run(`${join(BIN, 'dpm.exe')} docs -u`);
       console.log(colors.yellow('Installed the documentation!'));
+      await Run(`${join(BIN, 'dpm.exe')} init -D`);
+      console.log(colors.yellow('Installed the license templates!'));
     } else {
       console.log(
         colors.red(
@@ -209,6 +213,8 @@ if (answers2.allTools) {
     if (dracoFiles.exists(join(BIN, 'dpm'))) {
       await Run(`${join(BIN, 'dpm')} docs -u`);
       console.log(colors.yellow('Installed the documentation!'));
+      await Run(`${join(BIN, 'dpm')} init -D`);
+      console.log(colors.yellow('Installed the license templates!'));
     } else {
       console.log(
         colors.red(

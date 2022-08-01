@@ -2,7 +2,7 @@
 import { dracoFiles, ensureDir, join, soxa } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
-// import { ReadDpmFile } from 'dpm/read.ts';
+import { ReadDpmFile } from 'dpm/read.ts';
 
 export async function DownloadTemplate(verbose?: boolean) {
   const URL =
@@ -39,10 +39,49 @@ function checkFiles() {
     );
     Deno.exit(2);
   }
+  if (!dracoFiles.exists(BASE_DIRECTORIES.LICENSE_DIR)) {
+    LOGGER.error(
+      `Not found the LICENSE PATH for search the licenses!! Please download the directory with: << dpm init -L >> or check if exists: ${BASE_DIRECTORIES.LICENSE_DIR} path and if exists report the error on GitHub`,
+    );
+    Deno.exit(2);
+  }
 }
 
-export function GetLicense(verbose?: boolean) {
+export async function GetLicense() {
   checkFiles();
-  // TODO: Add the get function reading and searching the license from the dir
-  console.log(verbose);
+  const DPM = await ReadDpmFile();
+  const LICENSE_PATH = join(
+    BASE_DIRECTORIES.LICENSE_DIR,
+    DPM.license.toUpperCase(),
+  );
+
+  if (!dracoFiles.exists(LICENSE_PATH)) {
+    LOGGER.error(`Not found in the path the license file!!`);
+    Deno.exit();
+  }
+
+  if (!('author' in DPM)) {
+    LOGGER.error(
+      'Author key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm for restart the dpm file >>',
+    );
+    Deno.exit(2);
+  }
+
+  if (!('license' in DPM)) {
+    LOGGER.error(
+      'License key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm for restart the dpm file >>',
+    );
+    Deno.exit(2);
+  }
+
+  let license = await Deno.readTextFile(LICENSE_PATH);
+
+  // Update the file with the new content
+  license = license.replace('{{.Year}}', new Date().getFullYear().toString());
+  license = license.replace('{{.Name}}', DPM.author);
+
+  await Deno.writeTextFile(`${join(Deno.cwd(), 'LICENSE')}`, license);
+  LOGGER.done(
+    `Successfully created the license: ${DPM.license.toUpperCase()} in the current directory!!`,
+  );
 }

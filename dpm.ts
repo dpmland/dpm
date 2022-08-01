@@ -1,11 +1,6 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import {
-  Command,
-  CompletionsCommand,
-  Github,
-  UpdateNotifier,
-} from 'mods/deps.ts';
+import { Command, CompletionsCommand } from 'mods/deps.ts';
 import { DESCRIPTION, VERSION } from 'mods/info.ts';
 import { AboutCommand } from 'cmd/about.ts';
 import { DocsCommand } from 'cmd/docs.ts';
@@ -17,17 +12,6 @@ import { UpdateCommand } from 'cmd/update.ts';
 import { TaskCommand } from 'cmd/task.ts';
 import { UpgradeCommand } from 'cmd/upgrade.ts';
 import { ExecCommand } from 'cmd/exec.ts';
-
-const notifier = new UpdateNotifier({
-  name: 'dpm',
-  owner: 'dpmland',
-  registry: Github,
-  currentVersion: `${VERSION.substring(1)}`,
-});
-
-await notifier.checkForUpdates();
-
-notifier.notify('dpm upgrade --version latest');
 
 // Make the CLI!
 await new Command()

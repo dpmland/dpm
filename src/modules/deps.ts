@@ -9,17 +9,17 @@ export {
   dirname,
   extname,
   join,
-} from 'https://deno.land/std@0.145.0/path/mod.ts';
+} from 'https://deno.land/std@0.150.0/path/mod.ts';
 
 // Ensure exists file for the folder support!
 export {
   emptyDir,
   ensureDir,
   ensureFile,
-} from 'https://deno.land/std@0.145.0/fs/mod.ts';
+} from 'https://deno.land/std@0.150.0/fs/mod.ts';
 
 // Tables for help!
-export { Table } from 'https://deno.land/x/cliffy@v0.23.0/mod.ts';
+export { Table } from 'https://deno.land/x/cliffy@v0.22.2/mod.ts';
 
 // Charmd for the documentation
 export { renderMarkdown } from 'https://deno.land/x/charmd@v0.0.1/mod.ts';
@@ -36,29 +36,17 @@ export {
   CompletionsCommand,
 } from 'https://deno.land/x/cliffy@v0.22.2/command/mod.ts';
 
-// Update notifications!
-export {
-  DenoLandProvider,
-  GithubProvider,
-  UpgradeCommand,
-} from 'https://deno.land/x/cliffy@v0.22.2/command/upgrade/mod.ts';
-
-export {
-  Github,
-  UpdateNotifier,
-} from 'https://x.nest.land/hatcher@0.10.2/mod.ts';
-
 // Emoji!
 export * as emoji from 'https://deno.land/x/emoji@0.1.2/mod.ts';
 
 // Colors!
-export * as colors from 'https://deno.land/std@0.145.0/fmt/colors.ts';
+export * as colors from 'https://deno.land/std@0.150.0/fmt/colors.ts';
 
 // Add the JSON Colorizer for beautifull out!
 export * as jsonColorize from 'https://deno.land/x/json_colorize@0.1.0/mod.ts';
 
 // Add the parse arguments deps
-export { parse } from 'https://deno.land/std@0.145.0/flags/mod.ts';
+export { parse } from 'https://deno.land/std@0.150.0/flags/mod.ts';
 
 // Add the node process
-export * as node from 'https://deno.land/std@0.149.0/node/process.ts';
+export * as node from 'https://deno.land/std@0.150.0/node/process.ts';

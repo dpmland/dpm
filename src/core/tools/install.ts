@@ -17,17 +17,6 @@ const TOOLS_TO_INSTALL = [
     description: 'Upload the package to the nest.land register',
     url: 'https://x.nest.land/eggs@0.3.10/eggs.ts',
   },
-  {
-    name: 'land',
-    description: 'Run Deno X module without installation.',
-    url: 'https://deno.land/x/land/cli.ts',
-  },
-  {
-    name: 'vr',
-    description:
-      `Velociraptor is a script runner for Deno, inspired by npm's package.json scripts.`,
-    url: 'https://deno.land/x/velociraptor/cli.ts',
-  },
 ];
 
 export function getAllTools() {

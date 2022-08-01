@@ -60,6 +60,7 @@ export class AboutCommand extends Command {
               logs: BASE_DIRECTORIES.LOGS,
               config: BASE_DIRECTORIES.CONFIG,
               docs: BASE_DIRECTORIES.DOCS,
+              license: BASE_DIRECTORIES.LICENSE_DIR,
               temp: BASE_DIRECTORIES.TEMP,
               dpm: BASE_DIRECTORIES.DPM_FILE,
               deno: BASE_DIRECTORIES.DENO_JSON_FILE,

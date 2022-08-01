@@ -11,7 +11,7 @@ import {
 } from 'dpm/init.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { DownloadTemplate } from 'core/license/download.ts';
+import { DownloadTemplate, GetLicense } from 'core/license/download.ts';
 
 export class InitCommand extends Command {
   #cmd?: Command;
@@ -37,7 +37,7 @@ export class InitCommand extends Command {
         'Write all files but without print the content!',
       )
       .option(
-        '-L --license [license:boolean]',
+        '-D --download-license [downloadLicense:boolean]',
         'Download the license file from the dpm.json file!',
       )
       .stopEarly()
@@ -54,6 +54,7 @@ export class InitCommand extends Command {
           await writeDenoConfigFile();
           await generateReadme();
           await generateEggsFile();
+          await GetLicense();
           await FormatInternalJSON();
           Deno.exit();
         }
@@ -65,6 +66,7 @@ export class InitCommand extends Command {
           await writeDenoConfigFile(true);
           await generateReadme(true);
           await generateEggsFile(true);
+          await GetLicense();
           await FormatInternalJSON();
           Deno.exit();
         }
@@ -75,7 +77,7 @@ export class InitCommand extends Command {
           Deno.exit();
         }
 
-        if (options.license == true) {
+        if (options.downloadLicense == true) {
           await DownloadTemplate();
           Deno.exit();
         }
@@ -112,6 +114,12 @@ export class InitCommand extends Command {
               break;
             }
 
+            case 'license': {
+              await GetLicense();
+              Deno.exit();
+              break;
+            }
+
             case 'help': {
               const COMMANDS_AVALIABLES = {
                 readme:
@@ -122,6 +130,8 @@ export class InitCommand extends Command {
                 importMap:
                   `Generate the dpm_imports.json with a empty content!`,
                 dpm: `Generate the dpm.json file with the default content!`,
+                license:
+                  `Generate the LICENSE from the template using the LICENSE in the dpm.json file! Note<< Necessary the dpm.json file! >>`,
               };
 
               const table: Table = Table.from([]);
