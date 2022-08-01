@@ -50,20 +50,23 @@ export class ExecCommand extends Command {
       .stopEarly()
       .action(async (options) => {
         if (options.alias == true) {
-          console.info('Working in this feature');
+          if (dracoInfo.platform() == 'windows') {
+            LOGGER.info(`Unsupported platform working in this...`);
+            Deno.exit();
+          }
           if (
             dracoInfo.platform() == 'linux' || dracoInfo.platform() == 'darwin'
           ) {
             const stringToAdd = `alias dpx="dpm exec"`;
             console.log(
-              `Append this command\n${colors.bold(colors.cyan(stringToAdd))}`,
+              `Append this command\n${colors.bold(colors.cyan(stringToAdd))}\n`,
             );
             switch (basename(node.env.SHELL)) {
               case 'zsh': {
                 console.log(
                   `To the path of your shell in this case ${
                     basename(node.env.SHELL)
-                  }:\n${colors.bold(join(dracoFiles.homeDir()!, '.zshrc'))}`,
+                  }:\n${colors.bold(join(dracoFiles.homeDir()!, '.zshrc'))}\n`,
                 );
                 break;
               }
@@ -81,7 +84,7 @@ export class ExecCommand extends Command {
                         'config.fish',
                       ),
                     )
-                  }`,
+                  }\n`,
                 );
                 break;
               }
@@ -90,7 +93,7 @@ export class ExecCommand extends Command {
                 console.log(
                   `To the path of your shell in this case ${
                     basename(node.env.SHELL)
-                  }:\n${colors.bold(join(dracoFiles.homeDir()!, '.bashrc'))}`,
+                  }:\n${colors.bold(join(dracoFiles.homeDir()!, '.bashrc'))}\n`,
                 );
                 break;
               }
@@ -103,15 +106,6 @@ export class ExecCommand extends Command {
           }
           Deno.exit();
         }
-        const answers = await GeneratePromptDPX();
-        const filename = answers.name?.toString().split(' ');
-        const importMap = answers.importMap?.toString().split(' ');
-        const app = answers.app?.toString().split(' ');
-
-        await RunDPX(app, {
-          filenameNames: filename,
-          importMapNames: importMap,
-        });
 
         if (options.defaults == true) {
           const DEFAULTS_CLI = {
@@ -137,6 +131,16 @@ export class ExecCommand extends Command {
           table.render();
           Deno.exit();
         }
+
+        const answers = await GeneratePromptDPX();
+        const filename = answers.name?.toString().split(' ');
+        const importMap = answers.importMap?.toString().split(' ');
+        const app = answers.app?.toString().split(' ');
+
+        await RunDPX(app, {
+          filenameNames: filename,
+          importMapNames: importMap,
+        });
       });
   }
 }
