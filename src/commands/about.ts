@@ -6,6 +6,7 @@ import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { VERSION } from 'mods/info.ts';
 import { ReadDpmFile } from 'dpm/read.ts';
+import { ListAllLicenses } from 'core/license/download.ts';
 
 export class AboutCommand extends Command {
   #cmd?: Command;
@@ -98,6 +99,11 @@ export class AboutCommand extends Command {
             break;
           }
 
+          case 'licenses': {
+            await ListAllLicenses();
+            break;
+          }
+
           case 'help': {
             const COMMANDS_AVALIABLES = {
               deno:
@@ -108,6 +114,8 @@ export class AboutCommand extends Command {
               authors: `Here you can get the authors of DPM and his credits!`,
               deps:
                 `Here you can get the dependencies avaliable on the DPM File!`,
+              license:
+                `Here you can get all licenses avaliable for the DPM file!`,
               help: `This command. You can get all avaliable commands!`,
             };
             const table: Table = Table.from([]);

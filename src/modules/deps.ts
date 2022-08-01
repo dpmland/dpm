@@ -13,9 +13,9 @@ export {
 
 // Ensure exists file for the folder support!
 export {
-  emptyDir,
   ensureDir,
   ensureFile,
+  walk,
 } from 'https://deno.land/std@0.150.0/fs/mod.ts';
 
 // Tables for help!

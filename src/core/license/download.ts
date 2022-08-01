@@ -1,10 +1,10 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
-import { dracoFiles, ensureDir, join, soxa } from 'mods/deps.ts';
+import { dracoFiles, ensureDir, join, soxa, walk } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { ReadDpmFile } from 'dpm/read.ts';
 
-export async function DownloadTemplate(verbose?: boolean) {
+export async function DownloadTemplate() {
   const URL =
     'https://api.github.com/repos/nishanths/license/contents/.templates';
 
@@ -24,11 +24,9 @@ export async function DownloadTemplate(verbose?: boolean) {
       `${join(BASE_DIRECTORIES.LICENSE_DIR, name)}`,
       data,
     );
-    if (verbose == true) {
-      LOGGER.done(
-        `Successfully downloaded the license ${name}]`,
-      );
-    }
+    LOGGER.done(
+      `Successfully downloaded the license ${name}`,
+    );
   }
 }
 
@@ -83,5 +81,25 @@ export async function GetLicense() {
   await Deno.writeTextFile(`${join(Deno.cwd(), 'LICENSE')}`, license);
   LOGGER.done(
     `Successfully created the license: ${DPM.license.toUpperCase()} in the current directory!!`,
+  );
+}
+
+export async function ListAllLicenses() {
+  if (!dracoFiles.exists(BASE_DIRECTORIES.LICENSE_DIR)) {
+    LOGGER.error(
+      `Not found the LICENSE PATH for search the licenses!! Please download the directory with: << dpm init -L >> or check if exists: ${BASE_DIRECTORIES.LICENSE_DIR} path and if exists report the error on GitHub`,
+    );
+    Deno.exit(2);
+  }
+
+  LOGGER.info(`Licenses avaliable in the LICENSE_DIR:`);
+
+  for await (const e of walk(`${BASE_DIRECTORIES.LICENSE_DIR}/`)) {
+    if (e.isFile) {
+      console.log(`LICENSE: ${e.name}`);
+    }
+  }
+  LOGGER.done(
+    `This is all licenses avaliable in the directory and can used in the DPM file`,
   );
 }
