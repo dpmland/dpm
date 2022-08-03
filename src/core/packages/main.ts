@@ -3,17 +3,18 @@
 import { WriteDpmFileJson, WriteImportMapJson } from 'dpm/init.ts';
 import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
 import { dracoFiles } from 'mods/deps.ts';
-import { soxa } from 'mods/deps.ts';
+import { colors, soxa } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import {
   appendModuleToDpm,
   appendOptions,
   appendStdToFile,
+  esmGetVersion,
 } from 'packages/add.ts';
 
 export async function installDepsToImports(
-  depName: Array<string>,
+  depName: string[],
   options: appendOptions = {},
 ) {
   if (
@@ -69,7 +70,9 @@ export async function installDepsToImports(
     JSON.stringify(dpm, null, '  '),
   );
   LOGGER.info(
-    `Successfully installed the dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
+    `Successfully installed ${
+      colors.bold(depName.join(', '))
+    } into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
   );
   Deno.exit();
 }
@@ -94,7 +97,7 @@ export async function getTheVersionOfDep(
 }
 
 export async function installStdToImports(
-  depName: Array<string>,
+  depName: string[],
 ) {
   // Check if exists files!
   if (
@@ -143,7 +146,62 @@ export async function installStdToImports(
     JSON.stringify(dpm, null, '  '),
   );
   LOGGER.info(
-    `Successfully installed the std dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
+    `Successfully installed ${
+      colors.bold(depName.join(', '))
+    } into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
+  );
+  Deno.exit();
+}
+
+export async function esmInstallation(depName: string[]) {
+  // Check if exists files!
+  if (
+    !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))
+  ) {
+    await WriteImportMapJson();
+  }
+  if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
+    await WriteDpmFileJson({});
+  }
+  // Read the files!
+  const data = await ReadImportMapFile();
+  const dpm = await ReadDpmFile();
+  if (!('dependencies' in dpm)) {
+    LOGGER.error(
+      'Dependency key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm for restart the dpm file >>',
+    );
+    Deno.exit(2);
+  }
+  if (!('imports' in data)) {
+    LOGGER.error(
+      'Imports key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm >> for restart the dpm file',
+    );
+    Deno.exit(2);
+  }
+  // Helper constants
+  const imports = data.imports;
+  const deps = dpm.dependencies;
+
+  await esmGetVersion(depName).then((f) => {
+    for (const i of f) {
+      const pkg = i.replace(' ', '').split('/');
+      imports[`${pkg[3]}/`] = `${i.replace(' ', '')}/`;
+      deps[`${pkg[3]}/`] = `${i.replace(' ', '')}/`;
+    }
+  });
+
+  await Deno.writeTextFile(
+    BASE_DIRECTORIES.IMPORT_MAPS,
+    JSON.stringify(data, null, '  '),
+  );
+  await Deno.writeTextFile(
+    BASE_DIRECTORIES.DPM_FILE,
+    JSON.stringify(dpm, null, '  '),
+  );
+  LOGGER.info(
+    `Successfully installed ${
+      colors.bold(depName.join(', '))
+    } into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
   );
   Deno.exit();
 }

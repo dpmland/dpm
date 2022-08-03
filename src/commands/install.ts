@@ -3,7 +3,11 @@ import { Command, emoji } from 'mods/deps.ts';
 import { dracoFiles } from 'mods/deps.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
-import { installDepsToImports, installStdToImports } from 'packages/main.ts';
+import {
+  esmInstallation,
+  installDepsToImports,
+  installStdToImports,
+} from 'packages/main.ts';
 import { WriteDpmFileJson } from 'dpm/init.ts';
 
 export class InstallCommand extends Command {
@@ -24,6 +28,10 @@ export class InstallCommand extends Command {
         '-s, --std [std...:string]',
         'Add a dependency from the std library',
       )
+      .option(
+        '-e --esm [esm...:string]',
+        'Add a dependency from the https://esm.sh register',
+      )
       .example(
         'Help',
         `For check the help you can go to the << dpm doc install >> or the https://dpmland-docs.netlify.app/commands/install/ url!`,
@@ -41,6 +49,10 @@ export class InstallCommand extends Command {
         }
         if (options.std != undefined) {
           await installStdToImports(options.std);
+          Deno.exit();
+        }
+        if (options.esm != undefined) {
+          await esmInstallation(options.esm);
           Deno.exit();
         }
         await installDepsToImports(dependency, { host: options.host });

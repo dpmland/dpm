@@ -12,10 +12,11 @@ export interface appendOptions {
 
 // URLS
 const url = 'https://cdn.deno.land/std/meta/versions.json';
+const urlESM = 'https://esm.sh';
 const denoRegister = 'https://deno.land/x';
 
 export function appendModuleToDpm(
-  depName: Array<string>,
+  depName: string[],
   options: appendOptions = {},
 ) {
   const url = [];
@@ -26,6 +27,12 @@ export function appendModuleToDpm(
   options.host = (typeof options.host == 'undefined')
     ? 'https://deno.land/x'
     : options.host;
+
+  if (options.host == 'https://esm.sh' || options.host == 'esm.sh') {
+    LOGGER.warn(`Use dpm install --esm thePackage insead this!!!`);
+    Deno.exit();
+  }
+
   for (const i of depName) {
     const splited = i.split('/');
     if (splited.length > 2) {
@@ -49,7 +56,7 @@ export function appendModuleToDpm(
 }
 
 export async function appendStdToFile(
-  depName: Array<string>,
+  depName: string[],
 ) {
   // Get the latest version of
   const version = await soxa.get(url)
@@ -74,4 +81,29 @@ export async function appendStdToFile(
     std.push(URL_COMPLETE);
   }
   return std;
+}
+
+export async function esmGetVersion(depName: string[]) {
+  const urls = [];
+  for (const i of depName) {
+    const url = `${urlESM}/${i}`;
+    const dependency = await soxa.get(url)
+      .catch((error) => {
+        LOGGER.error(`Error getting the latest dependency ${error}`);
+      });
+
+    if (dependency.status != 200) {
+      LOGGER.error(
+        `Error getting the dependency status code: ${dependency.status} status text: ${dependency.statusText}`,
+      );
+      Deno.exit(2);
+    }
+
+    const version = dependency.data.split('\n', 1)[0].substring(12).replace(
+      '*/',
+      '',
+    );
+    urls.push(`${urlESM}/${version}`);
+  }
+  return urls;
 }
