@@ -3,7 +3,6 @@
 import { Command, emoji, Table } from 'mods/deps.ts';
 import { LOGGER } from 'mods/logger.ts';
 import * as update from 'packages/update.ts';
-
 export class UpdateCommand extends Command {
   #cmd?: Command;
 
@@ -25,6 +24,7 @@ export class UpdateCommand extends Command {
 
           case 'now': {
             await update.writeUpdates();
+            await update.updateDPMFiles();
             break;
           }
 
