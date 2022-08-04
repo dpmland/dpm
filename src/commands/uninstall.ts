@@ -15,7 +15,7 @@ export class UninstallCommand extends Command {
         emoji.get('broom')
       }`,
     )
-      .alias('clean')
+      .alias('remove')
       .arguments('[dependency...:string]')
       .option(
         '-A, --all [all:boolean]',

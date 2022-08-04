@@ -83,8 +83,8 @@ export async function cleanAnyDependency(deps: string[]) {
 
     console.info('Cleanning the dependencies.... ');
     for (const i of deps) {
-      if (Object.hasOwn(f, i)) {
-        Object.keys(f).forEach((_k) => delete f[i]);
+      if (Object.hasOwn(f, `${i}/`)) {
+        Object.keys(f).forEach((_k) => delete f[`${i}/`]);
       } else {
         LOGGER.warn(
           `Not found the ${i} dependency in the ${NAME_DIRECTORIES.DPM_FILE}`,
