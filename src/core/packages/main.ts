@@ -191,8 +191,8 @@ export async function esmInstallation(depName: string[]) {
   await esmGetVersion(depName).then((f) => {
     for (const i of f) {
       const pkg = i.replace(' ', '').split('/');
-      imports[`${pkg[3]}/`] = `${i.replace(' ', '')}/`;
-      deps[`${pkg[3]}/`] = `${i.replace(' ', '')}/`;
+      imports[`${pkg[3].split('@')[0]}/`] = `${i.replace(' ', '')}/`;
+      deps[`${pkg[3].split('@')[0]}/`] = `${i.replace(' ', '')}/`;
     }
   });
 
