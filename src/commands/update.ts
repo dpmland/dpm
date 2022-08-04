@@ -18,15 +18,22 @@ export class UpdateCommand extends Command {
       .stopEarly()
       .action(async (_, action: string) => {
         switch (action.toLowerCase()) {
-          case 'imports': {
-            await update.updateImportMap();
+          case 'check': {
+            await update.checkUpdates();
+            break;
+          }
+
+          case 'now': {
+            await update.writeUpdates();
             break;
           }
 
           case 'help': {
             const COMMANDS_AVALIABLES = {
-              imports:
-                `Here you can update the dpm_imports.json file and checks the versions for change`,
+              check:
+                `Here you can see the dependencies to update and the current version of the dependency`,
+              now:
+                `With this command replace the old versions and write the new versions!`,
             };
 
             const table: Table = Table.from([]);
@@ -43,7 +50,7 @@ export class UpdateCommand extends Command {
 
           default: {
             LOGGER.error(
-              'File not found run < dpm doc update.files > for more information',
+              'File not found run < dpm update help > for more information',
             );
             Deno.exit(2);
           }
