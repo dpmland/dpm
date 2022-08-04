@@ -1,6 +1,6 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { checkVersion } from 'checker/main.ts';
+import { checkVersion } from 'core/checker/main.ts';
 import { dracoFiles } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';

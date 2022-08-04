@@ -192,7 +192,7 @@ export async function esmInstallation(depName: string[]) {
     for (const i of f) {
       const pkg = i.replace(' ', '').split('/');
       imports[`${pkg[3].split('@')[0]}/`] = `${i.replace(' ', '')}/`;
-      deps[`${pkg[3].split('@')[0]}/`] = `${i.replace(' ', '')}/`;
+      deps[`${pkg[3].split('@')[0]}`] = `${i.replace(' ', '')}/`;
     }
   });
 
