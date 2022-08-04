@@ -29,8 +29,10 @@ export async function UpdateTasks() {
   checkFiles();
 
   // Read the files
-  const dpm = await ReadDpmFile();
-  const deno = await ReadDenoConfigFile();
+  const [dpm, deno] = await Promise.all([
+    ReadDpmFile(),
+    ReadDenoConfigFile(),
+  ]);
 
   // Copy the deno to dpm and dpm to deno
   Object.assign(deno.tasks, dpm.scripts);
@@ -115,10 +117,11 @@ export async function addDpmTask() {
   // Valid if exists the necessary files
   checkFiles();
   // Get the file content
-  const dpm = await ReadDpmFile();
-  // Helpers
+  const [dpm, data] = await Promise.all([
+    ReadDpmFile(),
+    generateThePrompt(),
+  ]);
   const scripts = dpm.scripts;
-  const data = await generateThePrompt();
 
   scripts[`${data.commandName || 'notValid'}`] = `${
     data.commandValue || 'echo \'error\''

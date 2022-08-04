@@ -25,8 +25,10 @@ export async function installDepsToImports(
   if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
     await WriteDpmFileJson({});
   }
-  const data = await ReadImportMapFile();
-  const dpm = await ReadDpmFile();
+  const [data, dpm] = await Promise.all([
+    ReadImportMapFile(),
+    ReadDpmFile(),
+  ]);
   const mods = appendModuleToDpm(depName, options);
   if (!('dependencies' in dpm)) {
     LOGGER.error(
@@ -109,8 +111,10 @@ export async function installStdToImports(
     await WriteDpmFileJson({});
   }
   // Read the files!
-  const data = await ReadImportMapFile();
-  const dpm = await ReadDpmFile();
+  const [data, dpm] = await Promise.all([
+    ReadImportMapFile(),
+    ReadDpmFile(),
+  ]);
   if (!('dependencies' in dpm)) {
     LOGGER.error(
       'Dependency key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm for restart the dpm file >>',
@@ -164,8 +168,10 @@ export async function esmInstallation(depName: string[]) {
     await WriteDpmFileJson({});
   }
   // Read the files!
-  const data = await ReadImportMapFile();
-  const dpm = await ReadDpmFile();
+  const [data, dpm] = await Promise.all([
+    ReadImportMapFile(),
+    ReadDpmFile(),
+  ]);
   if (!('dependencies' in dpm)) {
     LOGGER.error(
       'Dependency key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm for restart the dpm file >>',

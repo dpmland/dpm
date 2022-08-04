@@ -9,8 +9,10 @@ import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
 // The import map file and the dpm dependencies file!
 export async function cleanAllDeps() {
   if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
-    const file = await ReadDpmFile();
-    const imports = await ReadImportMapFile();
+    const [file, imports] = await Promise.all([
+      ReadDpmFile(),
+      ReadImportMapFile(),
+    ]);
     // Delete the imports data
     if (!('imports' in imports)) {
       LOGGER.error(
@@ -55,8 +57,10 @@ export async function cleanAllDeps() {
 export async function cleanAnyDependency(deps: string[]) {
   if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
     // Read the files!
-    const file = await ReadDpmFile();
-    const imports = await ReadImportMapFile();
+    const [file, imports] = await Promise.all([
+      ReadDpmFile(),
+      ReadImportMapFile(),
+    ]);
 
     // Check if exists imports and if exists dependencies
     if (!('imports' in imports)) {
