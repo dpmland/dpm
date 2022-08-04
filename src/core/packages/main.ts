@@ -57,9 +57,9 @@ export async function installDepsToImports(
       imports[`${pkg[1]}/`] = `${options.host}/${pkg[1]}@${version}/`;
     }
     if (version == '') {
-      deps[`${pkg[1]}`] = 'No Provided';
+      deps[`${pkg[1]}/`] = 'none';
     } else {
-      deps[`${pkg[1]}`] = `${version}`;
+      deps[`${pkg[1]}/`] = `${version}`;
     }
   }
 
@@ -137,7 +137,7 @@ export async function installStdToImports(
     for (const i of f) {
       const pkg = i.split('/');
       imports[`${pkg[5]}/`] = i;
-      deps[`${pkg[5]}`] = i;
+      deps[`${pkg[5]}/`] = i;
     }
   });
 
@@ -192,7 +192,7 @@ export async function esmInstallation(depName: string[]) {
     for (const i of f) {
       const pkg = i.replace(' ', '').split('/');
       imports[`${pkg[3].split('@')[0]}/`] = `${i.replace(' ', '')}/`;
-      deps[`${pkg[3].split('@')[0]}`] = `${i.replace(' ', '')}/`;
+      deps[`${pkg[3].split('@')[0]}/`] = `${i.replace(' ', '').split('@')[1]}`;
     }
   });
 

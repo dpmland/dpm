@@ -25,7 +25,7 @@ export async function writeNewVersions(file: string) {
     i.latest = (typeof i.latest == 'undefined' || i.latest == null)
       ? i.version
       : i.latest;
-    obj[`${i.name}`] = i.url.replace(i.version, i.latest);
+    obj[`${i.name}/`] = i.url.replace(i.version, i.latest);
   }
   return obj;
 }

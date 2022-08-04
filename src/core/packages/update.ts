@@ -65,7 +65,10 @@ export async function updateDPMFiles() {
 
     const obj: NewObject = {};
     for (const i of Object.keys(imports.imports)) {
-      obj[i] = imports.imports[i].split('@')[1].replace('/', '');
+      obj[`${i.replace('/', '')}/`] = imports.imports[i].split('@')[1].replace(
+        '/',
+        '',
+      );
     }
 
     dpm.dependencies = obj;
