@@ -3,6 +3,7 @@
 import { Command, emoji } from 'mods/deps.ts';
 import { DownloadRepo } from 'templates/download.ts';
 import { ListAllTemplates } from 'templates/list.ts';
+import { SearchTemplates } from 'templates/search.ts';
 
 export class TemplateCommand extends Command {
   #cmd?: Command;
@@ -24,6 +25,10 @@ export class TemplateCommand extends Command {
         '-l --list [list:boolean]',
         'List all installed templates in the directory!',
       )
+      .option(
+        '-s --search [search...:string]',
+        'Search and show a README of a template!',
+      )
       .alias('tmpl')
       .example(
         'Help',
@@ -36,6 +41,9 @@ export class TemplateCommand extends Command {
         }
         if (options.list == true) {
           await ListAllTemplates();
+        }
+        if (options.search != undefined) {
+          await SearchTemplates(options.search);
         }
       });
   }

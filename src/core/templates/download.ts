@@ -35,7 +35,9 @@ export async function DownloadRepo(repos: string[], opts: RepoParams = {}) {
           `${opts.cmd}`,
           String(opts.depth),
           `${opts.host}/${i}.git`,
-          `${join(BASE_DIRECTORIES.TEMPLATE_DIR, i.split('/')[1])}`,
+          `${
+            join(BASE_DIRECTORIES.TEMPLATE_DIR, i.split('/')[1].toLowerCase())
+          }`,
         ),
       );
     } else {

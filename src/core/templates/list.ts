@@ -7,7 +7,11 @@ import { LOGGER } from 'mods/logger.ts';
 export async function ListAllTemplates() {
   if (!dracoFiles.exists(BASE_DIRECTORIES.TEMPLATE_DIR)) {
     LOGGER.error(
-      `Not found the TEMPLATE_DIR for search the Templates!! Please download licenses for use this command with: << dpm template -I repoOwner/repoName >> or check if exists: ${BASE_DIRECTORIES.TEMPLATE_DIR} path and if exists report the error on GitHub`,
+      `Not found the ${
+        colors.bold('TEMPLATE_DIR')
+      }!! Please download the templates with this command: << dpm template -I repoOwner/repoName >> or check if exists: ${
+        colors.bold(BASE_DIRECTORIES.TEMPLATE_DIR)
+      } path and if exists report the error on GitHub`,
     );
     Deno.exit(2);
   }
