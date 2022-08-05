@@ -137,7 +137,7 @@ export async function installStdToImports(
     for (const i of f) {
       const pkg = i.split('/');
       imports[`${pkg[5]}/`] = i;
-      deps[`${pkg[5]}/`] = i;
+      deps[`${pkg[5]}/`] = i.split('@')[1].replace(/[^\d.-]/g, '');
     }
   });
 
