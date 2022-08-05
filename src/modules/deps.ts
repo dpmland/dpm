@@ -9,14 +9,14 @@ export {
   dirname,
   extname,
   join,
-} from 'https://deno.land/std@0.150.0/path/mod.ts';
+} from 'https://deno.land/std@0.151.0/path/mod.ts';
 
 // Ensure exists file for the folder support!
 export {
   ensureDir,
   ensureFile,
   walk,
-} from 'https://deno.land/std@0.150.0/fs/mod.ts';
+} from 'https://deno.land/std@0.151.0/fs/mod.ts';
 
 // Tables for help!
 export { Table } from 'https://deno.land/x/cliffy@v0.22.2/mod.ts';
@@ -40,13 +40,16 @@ export {
 export * as emoji from 'https://deno.land/x/emoji@0.1.2/mod.ts';
 
 // Colors!
-export * as colors from 'https://deno.land/std@0.150.0/fmt/colors.ts';
+export * as colors from 'https://deno.land/std@0.151.0/fmt/colors.ts';
 
 // Add the JSON Colorizer for beautifull out!
 export * as jsonColorize from 'https://deno.land/x/json_colorize@0.1.0/mod.ts';
 
 // Add the parse arguments deps
-export { parse } from 'https://deno.land/std@0.150.0/flags/mod.ts';
+export { parse } from 'https://deno.land/std@0.151.0/flags/mod.ts';
 
 // Add the node process
-export * as node from 'https://deno.land/std@0.150.0/node/process.ts';
+export * as node from 'https://deno.land/std@0.151.0/node/process.ts';
+
+// Add the sprintf module
+export * as fmt from 'https://deno.land/std@0.151.0/fmt/printf.ts';

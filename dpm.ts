@@ -12,6 +12,7 @@ import { UpdateCommand } from 'cmd/update.ts';
 import { TaskCommand } from 'cmd/task.ts';
 import { UpgradeCommand } from 'cmd/upgrade.ts';
 import { ExecCommand } from 'cmd/exec.ts';
+import { TemplateCommand } from 'cmd/template.ts';
 
 // Make the CLI!
 await new Command()
@@ -32,6 +33,7 @@ await new Command()
   .command('tools', new ToolsCommand())
   .command('task', new TaskCommand())
   .command('update', new UpdateCommand())
+  .command('template', new TemplateCommand())
   .command(
     'upgrade',
     new UpgradeCommand(),

@@ -29,6 +29,7 @@ export interface directories {
   TEMP: string;
   DENO_EXEC: string;
   LICENSE_DIR: string;
+  TEMPLATE_DIR: string;
 }
 
 export interface names {
@@ -46,6 +47,7 @@ export const BASE_DIRECTORIES: directories = {
   CONFIG: join(dracoFiles.cacheDir('DPM')!, 'config'),
   DOCS: join(dracoFiles.cacheDir('DPM')!, 'docs'),
   LICENSE_DIR: join(dracoFiles.cacheDir('DPM')!, 'licenses'),
+  TEMPLATE_DIR: join(dracoFiles.cacheDir('DPM')!, 'templates'),
   DPM_FILE: join(dracoFiles.currentDir(), 'dpm.json'),
   DENO_JSON_FILE: join(dracoFiles.currentDir(), 'deno.json'),
   IMPORT_MAPS: join(dracoFiles.currentDir(), 'dpm_imports.json'),

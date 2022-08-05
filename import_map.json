@@ -10,6 +10,7 @@
     "docs/": "./src/core/docs/",
     "checker/": "./src/core/checker/",
     "cmd/": "./src/commands/",
-    "dpx/": "./src/core/dpx/"
+    "dpx/": "./src/core/dpx/",
+    "templates/": "./src/core/templates/"
   }
 }
