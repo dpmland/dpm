@@ -2,6 +2,7 @@
 
 import { Command, emoji } from 'mods/deps.ts';
 import { DownloadRepo } from 'templates/download.ts';
+import { ListAllTemplates } from 'templates/list.ts';
 
 export class TemplateCommand extends Command {
   #cmd?: Command;
@@ -19,6 +20,10 @@ export class TemplateCommand extends Command {
         '-I, --install [install...:string]',
         'The install the templates for offline usage',
       )
+      .option(
+        '-l --list [list:boolean]',
+        'List all installed templates in the directory!',
+      )
       .alias('tmpl')
       .example(
         'Help',
@@ -28,6 +33,9 @@ export class TemplateCommand extends Command {
       .action(async (options) => {
         if (options.install != undefined) {
           await DownloadRepo(options.install);
+        }
+        if (options.list == true) {
+          await ListAllTemplates();
         }
       });
   }
