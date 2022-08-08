@@ -18,6 +18,8 @@
     "compile:linux": "deno compile -A --unstable --target x86_64-unknown-linux-gnu ./dpm.ts",
     "compile:macOSx64": "deno compile -A --unstable --target x86_64-apple-darwin ./dpm.ts",
     "compile:macOSarch64": "deno compile -A --unstable --target aarch64-apple-darwin ./dpm.ts",
-    "install": "deno run -A ./install.ts"
+    "install": "deno run -A ./install.ts",
+    "install:canary": "deno run -A ./install.ts canary",
+    "install:stable": "deno run -A ./install.ts stable"
   }
 }

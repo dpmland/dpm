@@ -1,9 +1,9 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
-
 import { Command, emoji } from 'mods/deps.ts';
 import { DownloadRepo } from 'templates/download.ts';
 import { ListAllTemplates } from 'templates/list.ts';
 import { SearchTemplates } from 'templates/search.ts';
+import { useTemplate } from 'templates/usage.ts';
 
 export class TemplateCommand extends Command {
   #cmd?: Command;
@@ -29,6 +29,10 @@ export class TemplateCommand extends Command {
         '-s --search [search...:string]',
         'Search and show a README of a template!',
       )
+      .option(
+        '-u --use [use...:string]',
+        'Copy the template to the current directory and run << dpm init -y >>',
+      )
       .alias('tmpl')
       .example(
         'Help',
@@ -45,6 +49,10 @@ export class TemplateCommand extends Command {
         if (options.search != undefined) {
           await SearchTemplates(options.search);
         }
+        if (options.use != undefined) {
+          await useTemplate(options.use);
+        }
+        console.log(options);
       });
   }
 }

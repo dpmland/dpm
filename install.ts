@@ -6,9 +6,7 @@ import { copy } from 'https://deno.land/std@0.149.0/fs/copy.ts';
 import { dracoFiles, dracoInfo } from 'https://deno.land/x/draco@0.1.3/mod.ts';
 import Ask from 'https://deno.land/x/ask@1.0.6/mod.ts';
 import figlet from 'https://x.nest.land/deno-figlet@0.0.5/mod.js';
-
 // Utilities
-
 // Runner function
 async function Run(command: string) {
   const cmd = command.split(' ');

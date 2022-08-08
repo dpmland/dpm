@@ -13,6 +13,7 @@ export {
 
 // Ensure exists file for the folder support!
 export {
+  copy,
   ensureDir,
   ensureFile,
   walk,
