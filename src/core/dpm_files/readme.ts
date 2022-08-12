@@ -13,7 +13,7 @@ export async function generateReadme(print?: boolean) {
 
 ${data.description}
 
-## Information
+## Information :book:
 
 - **Author:** ${data.author}
 - **Version:** ${data.version}
@@ -21,7 +21,7 @@ ${data.description}
 
 ---
 
-Made by [dpm](https://github.com/dpmland/dpm)
+Made by [dpm](https://github.com/dpmland/dpm) :sauropod:
 `;
   await writeFileFormatted({
     content: file,

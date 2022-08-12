@@ -41,10 +41,6 @@ export class InitCommand extends Command {
         'Download the license file from the dpm.json file!',
       )
       .stopEarly()
-      .example(
-        'Help',
-        `For check the help you can go to the << dpm doc init >> or the https://dpmland-docs.netlify.app/commands/init/ url!`,
-      )
       // Manage the actions!
       .action(async (options) => {
         if (options.minimalist == true) {

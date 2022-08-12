@@ -7,8 +7,8 @@ import { writeFileFormatted } from 'dpm/util.ts';
 async function getPromptForDeno() {
   const answers = await ask.prompt([
     {
-      name: 'tabs',
-      message: 'Use tabs',
+      name: 'spaces',
+      message: 'Use spaces',
       type: 'confirm',
     },
     {
@@ -27,27 +27,27 @@ async function getPromptForDeno() {
 
 export async function writeDenoConfigFile(_print?: boolean) {
   const fmt = await getPromptForDeno();
-  const data = `
-{
-  "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
-  "fmt": {
-    "options": {
-      "useTabs": ${fmt.tabs},
-      "indentWidth": ${fmt.indent},
-      "singleQuote": ${fmt.quote}
-    }
-  },
-  "importMap": "./dpm_imports.json",
-  "tasks": {
-    "test": "deno test -A --unstable",
-    "fmt": "deno fmt -c deno.json",
-    "lint": "deno lint -c deno.json"
-  }
-}
-  `;
+
+  const data = {
+    $schema: 'https://deno.land/x/deno/cli/schemas/config-file.v1.json',
+    fmt: {
+      options: {
+        useTabs: !fmt.spaces,
+        indentWidth: fmt.indent,
+        singleQuote: fmt.quote,
+      },
+    },
+    importMap: './dpm_imports.json',
+    tasks: {
+      test: 'deno test -A --unstable',
+      fmt: 'deno fmt -c deno.json',
+      [`fmt:check`]: 'deno fmt -c deno.json --check && deno lint -c deno.json',
+      lint: 'deno lint -c deno.json',
+    },
+  };
   // Magic Print
   await writeFileFormatted({
-    content: data,
+    content: JSON.stringify(data),
     path: BASE_DIRECTORIES.DENO_JSON_FILE,
     name: NAME_DIRECTORIES.DENO_JSON_FILE,
     type: 'json',
