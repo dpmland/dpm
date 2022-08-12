@@ -11,6 +11,7 @@
     "checker/": "./src/core/checker/",
     "cmd/": "./src/commands/",
     "dpx/": "./src/core/dpx/",
-    "templates/": "./src/core/templates/"
+    "templates/": "./src/core/templates/",
+    "publish/": "./src/core/publish/"
   }
 }

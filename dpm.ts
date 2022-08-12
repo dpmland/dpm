@@ -13,6 +13,7 @@ import { TaskCommand } from 'cmd/task.ts';
 import { UpgradeCommand } from 'cmd/upgrade.ts';
 import { ExecCommand } from 'cmd/exec.ts';
 import { TemplateCommand } from 'cmd/template.ts';
+import { PublishCommand } from 'cmd/publish.ts';
 
 // Make the CLI!
 await new Command()
@@ -40,4 +41,5 @@ await new Command()
   )
   .command('exec', new ExecCommand())
   .command('completions', new CompletionsCommand())
+  .command('publish', new PublishCommand())
   .parse(Deno.args);
