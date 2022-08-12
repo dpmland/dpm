@@ -28,10 +28,6 @@ export class TaskCommand extends Command {
         'List all tasks on the dpm.json or on the deno.json file!',
       )
       .example(
-        'Help',
-        `For check the help you can go to the << dpm doc task >> or the https://dpmland-docs.netlify.app/commands/task/ url!`,
-      )
-      .example(
         'Use tasks',
         `This tool help you to make the tasks managment more easy for run the tasks you need ${
           colors.green('deno task <taskName>')

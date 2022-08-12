@@ -32,10 +32,6 @@ export class InstallCommand extends Command {
         '-e --esm [esm...:string]',
         'Add a dependency from the https://esm.sh register',
       )
-      .example(
-        'Help',
-        `For check the help you can go to the << dpm doc install >> or the https://dpmland-docs.netlify.app/commands/install/ url!`,
-      )
       .stopEarly()
       .action(async (options, dependency: string[]) => {
         if (typeof dependency == 'string') {
