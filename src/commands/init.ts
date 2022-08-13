@@ -12,6 +12,7 @@ import {
 import { FormatInternalJSON } from 'runner/format.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { DownloadTemplate, GetLicense } from 'core/license/download.ts';
+import { EditorJSONConfig } from 'dpm/editor_gen.ts';
 
 export class InitCommand extends Command {
   #cmd?: Command;
@@ -113,6 +114,11 @@ export class InitCommand extends Command {
             case 'license': {
               await GetLicense();
               Deno.exit();
+              break;
+            }
+
+            case 'editor': {
+              await EditorJSONConfig();
               break;
             }
 
