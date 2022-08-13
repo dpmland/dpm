@@ -15,7 +15,7 @@ export async function Publish() {
     });
     init.init = (typeof init.init == 'undefined') ? false : init.init;
     if (init.init) {
-      await Run('git init');
+      await OtherRunner('git', 'init');
     }
   }
 
@@ -23,8 +23,6 @@ export async function Publish() {
     RunOut('git remote'),
     RunOut('git branch --show-current'),
   ]);
-
-  await OtherRunner('git', 'add', '.', '--all');
 
   const ans = await ask.prompt([{
     name: 'msg',
@@ -53,6 +51,7 @@ export async function Publish() {
     ? `release(${ans.tag}): automated by DPM`
     : ans.msg;
 
+  await OtherRunner('git', 'add', '.', '--all');
   await OtherRunner('git', 'commit', '-m', ans.msg.toString());
   await OtherRunner('git', 'tag', ans.tag.toString());
 
@@ -69,7 +68,7 @@ export async function Publish() {
       Deno.exit(2);
     }
 
-    await Run('eggs publish');
+    await OtherRunner('eggs', 'publish');
   }
 
   LOGGER.done(`Successfully published the ${ans.tag} version!!`);
