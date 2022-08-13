@@ -59,8 +59,6 @@ export async function RunDPX(
     ]
     : Options.importMapNames;
 
-  console.log(Options.filenameNames);
-  console.log(Options.importMapNames);
   // Add the Args Default
   if (args.length == 0) {
     console.log(colors.bold('EXTRACTED AND ADAPTED FROM LAND'));
@@ -214,23 +212,28 @@ export async function RunDPX(
     );
   }
 
-  const cmd = Deno.run({
-    cmd: [
-      BASE_DIRECTORIES.DENO_EXEC,
-      'run',
-      '--unstable',
-      ...denoFlags,
-      ...permissionFlags,
-      `https://deno.land/x/${moduleName}@${version}/${command}`,
-      ...args.map((a: string) => a.toString()),
-      ...appFlags,
-    ],
+  const cmd = [
+    BASE_DIRECTORIES.DENO_EXEC,
+    'run',
+    '--unstable',
+    ...denoFlags,
+    ...permissionFlags,
+    `https://deno.land/x/${moduleName}@${version}/${command}`,
+    ...args.map((a: string) => a.toString()),
+    ...appFlags,
+  ];
+
+  console.log(`${colors.dim('$')} ${colors.bold(cmd.join(' '))}`);
+
+  const run = Deno.run({
+    cmd: cmd,
     stdin: 'inherit',
     stdout: 'inherit',
     stderr: 'inherit',
   });
-  await cmd.status();
-  cmd.close();
+
+  await run.status();
+  run.close();
 }
 
 export async function GeneratePromptDPX() {
@@ -238,19 +241,27 @@ export async function GeneratePromptDPX() {
     {
       name: 'app',
       type: 'input',
-      message: 'Name of the app to execute with the version',
+      message: `App@Version and arguments to run ${
+        colors.underline('dpm@0.1.2 --help')
+      }`,
     },
     {
       name: 'name',
       type: 'input',
-      message:
-        'Name of the file to execute (Default can check with dpm exec --defaults or dpx --defaults)',
+      message: `Name of the file to execute ${
+        colors.dim(
+          '( Default << dpm exec --defaults >> )',
+        )
+      }`,
     },
     {
       name: 'importMap',
       type: 'input',
-      message:
-        'Name of the importMap file to run (Default can check with dpm exec --defaults or dpx --defaults)',
+      message: `Name of the importMap file to run ${
+        colors.dim(
+          '( Default << dpm exec --defaults >> )',
+        )
+      }`,
     },
   ]);
   return answers;
