@@ -30,7 +30,7 @@ export class PublishCommand extends Command {
         }`,
       )
       .stopEarly()
-      .action(async (_options) => {
+      .action(async (_) => {
         await Publish();
       });
   }

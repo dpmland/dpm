@@ -9,16 +9,28 @@ import figlet from 'https://x.nest.land/deno-figlet@0.0.5/mod.js';
 // Utilities
 // Runner function
 async function Run(command: string) {
+  console.log(`${colors.dim('$')} ${colors.bold(command)}`);
   const cmd = command.split(' ');
   const run = Deno.run({
     cmd: cmd,
+    stdout: 'piped',
+    stderr: 'piped',
   });
-  const { success } = await run.status();
-  if (success == false) {
+
+  const { code } = await run.status();
+
+  // Piped outs
+  const rawErr = await run.stderrOutput();
+
+  if (code !== 0) {
     console.error(
-      colors.red(`The command was not executed correctly:\n${command}`),
+      `The command was not executed correctly:\n${
+        colors.dim(command)
+      }\n - Error Detailed:\n${
+        colors.red(colors.bold(new TextDecoder().decode(rawErr)))
+      }`,
     );
-    Deno.exit(1);
+    Deno.exit(code);
   }
 }
 
@@ -38,21 +50,21 @@ const ask = new Ask({
 async function MoveBinToMain() {
   if (dracoInfo.platform() == 'windows') {
     if (dracoFiles.exists(join(TEMP, 'canary', 'dpm.ts'))) {
-      console.log(colors.cyan('Found the DPM executable!'));
-      console.log(colors.cyan('Copying the executable to the BIN path!'));
+      console.log(colors.cyan('Found the DPM executable!\n'));
+      console.log(colors.cyan('Copying the executable to the BIN path!\n'));
       await copy(
         `${join(Deno.cwd(), 'dpm.exe')}`,
         `${join(BIN, 'dpm.exe')}`,
         { overwrite: true },
       );
       console.log(
-        colors.cyan('Removing the dpm.exe file from the current path!'),
+        colors.cyan('Removing the dpm.exe file from the current path!\n'),
       );
       await Deno.remove(`${join(Deno.cwd(), 'dpm.exe')}`);
     } else {
       console.log(
         colors.red(
-          'Not found the file compiled! Re run the installer or report the error on github.',
+          'Not found the file compiled! Re run the installer or report the error on github.\n',
         ),
       );
     }
@@ -60,26 +72,28 @@ async function MoveBinToMain() {
     dracoInfo.platform() == 'linux' || dracoInfo.platform() == 'darwin'
   ) {
     if (dracoFiles.exists(join(TEMP, 'canary', 'dpm.ts'))) {
-      console.log(colors.cyan('Found the DPM executable!'));
-      console.log(colors.cyan('Copying the executable to the BIN path!'));
+      console.log(colors.cyan('Found the DPM executable!\n'));
+      console.log(colors.cyan('Copying the executable to the BIN path!\n'));
       await copy(
         `${join(Deno.cwd(), 'dpm')}`,
         `${join(BIN, 'dpm')}`,
         { overwrite: true },
       );
-      console.log(colors.cyan('Removing the dpm file from the current path!'));
+      console.log(
+        colors.cyan('Removing the dpm file from the current path!\n'),
+      );
       await Deno.remove(`${join(Deno.cwd(), 'dpm')}`);
     } else {
       console.log(
         colors.red(
-          'Not found the file compiled! Re run the installer or report the error on github.',
+          'Not found the file compiled! Re run the installer or report the error on github.\n',
         ),
       );
     }
   } else {
     console.log(
       colors.red(
-        'Not found the main TypeScript File! Re run the installer or report the error on github.',
+        'Not found the main TypeScript File! Re run the installer or report the error on github.\n',
       ),
     );
   }
@@ -223,7 +237,6 @@ if (answers2.allTools) {
   }
 }
 
-console.log(colors.brightGreen(await figlet('DONE!')));
 console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\n');
 console.log(
   `Run ${colors.green('dpm --help')} for usage information\n`,
