@@ -30,14 +30,14 @@ modules and in general any TypeScript or JavaScript code
 Stable Version:
 
 ```sh
-deno run -A --unstable https://deno.land/x/dpm/install.ts stable
+deno run -A --unstable https://dpmland.deno.dev/install stable
 ```
 
 Development Version can check the features roadmap
 [here](https://github.com/dpmland/dpm/pull/7):
 
 ```sh
-deno run -A --unstable https://deno.land/x/dpm/install.ts canary
+deno run -A --unstable https://dpmland.deno.dev/install canary
 ```
 
 > Recommendation for Windows with the EMOJIS :alien:
