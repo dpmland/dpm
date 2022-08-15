@@ -12,7 +12,9 @@ Here you found the source code of Dpm.
 │   ├── exec.ts
 │   ├── init.ts
 │   ├── install.ts
+│   ├── publish.ts
 │   ├── task.ts
+│   ├── template.ts
 │   ├── tools.ts
 │   ├── uninstall.ts
 │   ├── update.ts
@@ -31,6 +33,7 @@ Here you found the source code of Dpm.
 │   │   └── main.ts
 │   ├── dpm_files
 │   │   ├── deno.ts
+│   │   ├── editor_gen.ts
 │   │   ├── eggs.ts
 │   │   ├── init.ts
 │   │   ├── readme.ts
@@ -40,20 +43,28 @@ Here you found the source code of Dpm.
 │   │   ├── cache.ts
 │   │   ├── main.ts
 │   │   └── README.md
+│   ├── license
+│   │   └── download.ts
 │   ├── packages
 │   │   ├── add.ts
 │   │   ├── clean.ts
 │   │   ├── main.ts
 │   │   └── update.ts
+│   ├── publish
+│   │   └── main.ts
 │   ├── runner
 │   │   ├── format.ts
 │   │   └── main.ts
 │   ├── task
 │   │   └── main.ts
+│   ├── templates
+│   │   ├── download.ts
+│   │   ├── list.ts
+│   │   ├── search.ts
+│   │   └── usage.ts
 │   └── tools
 │       └── install.ts
 ├── modules
-│   ├── ask.ts
 │   ├── authors.ts
 │   ├── deps.ts
 │   ├── dirs.ts
