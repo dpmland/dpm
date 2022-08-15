@@ -63,12 +63,9 @@ export async function WriteDpmFileJson(
   input_prompt: Record<string, unknown>,
   print?: boolean,
 ) {
-  // Content
-  const file = JSON.stringify(generateJSONObject(input_prompt), null, ' ');
-
   // Magic Print
   await writeFileFormatted({
-    content: file,
+    content: JSON.stringify(generateJSONObject(input_prompt), null, ' '),
     path: BASE_DIRECTORIES.DPM_FILE,
     name: NAME_DIRECTORIES.DPM_FILE,
     type: 'json',
@@ -77,17 +74,15 @@ export async function WriteDpmFileJson(
 }
 
 export async function WriteImportMapJson(print?: boolean) {
-  const file = JSON.stringify(
-    {
-      imports: {},
-    },
-    null,
-    '  ',
-  );
-
   // Magic Print
   await writeFileFormatted({
-    content: file,
+    content: JSON.stringify(
+      {
+        imports: {},
+      },
+      null,
+      '  ',
+    ),
     path: BASE_DIRECTORIES.IMPORT_MAPS,
     name: NAME_DIRECTORIES.IMPORT_MAPS,
     type: 'json',

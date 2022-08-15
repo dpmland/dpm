@@ -1,6 +1,6 @@
 // Util for the Print and more beautifull out!
 
-import { jsonColorize, renderMarkdown } from 'mods/deps.ts';
+import { ensureFile, jsonColorize, renderMarkdown } from 'mods/deps.ts';
 import { LOGGER } from 'mods/logger.ts';
 
 interface writeFormatOpts {
@@ -29,6 +29,7 @@ export async function writeFileFormatted(
 
 async function writeFiles(content: string, path: string, name: string) {
   try {
+    await ensureFile(path);
     await Deno.writeTextFile(
       path,
       content,

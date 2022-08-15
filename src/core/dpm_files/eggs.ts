@@ -26,7 +26,7 @@ export async function generateEggsFile(print?: boolean) {
 
   // Magic Print
   await writeFileFormatted({
-    content: JSON.stringify(file),
+    content: JSON.stringify(file, null, '  '),
     path: BASE_DIRECTORIES.EGGS_FILE,
     name: NAME_DIRECTORIES.EGGS_FILE,
     type: 'json',

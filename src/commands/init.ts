@@ -52,7 +52,6 @@ export class InitCommand extends Command {
           await generateReadme();
           await generateEggsFile();
           await GetLicense();
-          await FormatInternalJSON();
           Deno.exit();
         }
 
@@ -64,6 +63,7 @@ export class InitCommand extends Command {
           await generateReadme(true);
           await generateEggsFile(true);
           await GetLicense();
+          await EditorJSONConfig();
           await FormatInternalJSON();
           Deno.exit();
         }
@@ -71,6 +71,7 @@ export class InitCommand extends Command {
         if (options.yes == true) {
           await WriteDpmFileJson({});
           await WriteImportMapJson();
+          await writeDenoConfigFile();
           Deno.exit();
         }
 
@@ -119,6 +120,7 @@ export class InitCommand extends Command {
 
             case 'editor': {
               await EditorJSONConfig();
+              Deno.exit();
               break;
             }
 
@@ -133,7 +135,9 @@ export class InitCommand extends Command {
                   `Generate the dpm_imports.json with a empty content!`,
                 dpm: `Generate the dpm.json file with the default content!`,
                 license:
-                  `Generate the LICENSE from the template using the LICENSE in the dpm.json file! Note<< Necessary the dpm.json file! >>`,
+                  `Generate the LICENSE from the template using the LICENSE in the dpm.json file! Note: << Necessary the dpm.json file! >>`,
+                editor:
+                  `Generate a config file for an editor de default config for the dpm files! Note: << If you want know the editor supported run ** dpm docs init.files ** >>`,
               };
 
               const table: Table = Table.from([]);

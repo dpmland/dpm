@@ -47,7 +47,7 @@ export async function writeDenoConfigFile(_print?: boolean) {
   };
   // Magic Print
   await writeFileFormatted({
-    content: JSON.stringify(data),
+    content: JSON.stringify(data, null, '  '),
     path: BASE_DIRECTORIES.DENO_JSON_FILE,
     name: NAME_DIRECTORIES.DENO_JSON_FILE,
     type: 'json',
