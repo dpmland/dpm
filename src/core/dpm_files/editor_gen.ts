@@ -22,6 +22,8 @@ export async function EditorJSONConfig() {
     },
   };
 
+  const SUPPORTED_EDITORS =  ['vscode', 'nvim', 'vim']
+
   if (typeof ans.editor != 'string' || ans.editor == '') {
     LOGGER.error('Not valid type of the editor please enter a valid editor');
     Deno.exit(2);
@@ -80,6 +82,7 @@ export async function EditorJSONConfig() {
     }
 
     default: {
+      LOGGER.info(`Only supported this editors: ${colors.dim(SUPPORTED_EDITORS.join(', '))}`)
       LOGGER.error(
         `The ${
           colors.dim(ans.editor?.toUpperCase()!)
