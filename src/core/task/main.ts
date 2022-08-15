@@ -3,8 +3,7 @@
 import { ReadDenoConfigFile, ReadDpmFile } from 'dpm/read.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { dracoFiles, Table } from 'mods/deps.ts';
-import { ask } from 'mods/ask.ts';
+import { dracoFiles, Input, prompt, Table } from 'mods/deps.ts';
 
 // Utils
 function checkFiles() {
@@ -98,19 +97,18 @@ export async function listDpmTasks() {
 }
 
 async function generateThePrompt() {
-  const answers = await ask.prompt([
+  return await prompt([
     {
       name: 'commandName',
       message: 'What is the command name',
-      type: 'input',
+      type: Input,
     },
     {
       name: 'commandValue',
       message: 'What is the value of the command. Example: echo "hi" ',
-      type: 'input',
+      type: Input,
     },
   ]);
-  return answers;
 }
 
 export async function addDpmTask() {

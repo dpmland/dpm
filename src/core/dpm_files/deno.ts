@@ -1,28 +1,28 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { ask } from 'mods/ask.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
+import { Confirm, Number, prompt } from 'mods/deps.ts';
 import { writeFileFormatted } from 'dpm/util.ts';
 
 async function getPromptForDeno() {
-  const answers = await ask.prompt([
+  return await prompt([
     {
       name: 'spaces',
       message: 'Use spaces',
-      type: 'confirm',
+      type: Confirm,
     },
     {
       name: 'indent',
       message: 'Indent width',
-      type: 'number',
+      type: Number,
+      suggestions: [2, 4],
     },
     {
       name: 'quote',
       message: 'Single Quote',
-      type: 'confirm',
+      type: Confirm,
     },
   ]);
-  return answers;
 }
 
 export async function writeDenoConfigFile(_print?: boolean) {

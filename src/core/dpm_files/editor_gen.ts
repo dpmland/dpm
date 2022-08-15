@@ -1,15 +1,16 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { colors, join } from 'mods/deps.ts';
+import { colors, Input, join } from 'mods/deps.ts';
 import { writeFileFormatted } from 'dpm/util.ts';
-import { ask } from 'mods/ask.ts';
 import { LOGGER } from 'mods/logger.ts';
 
 export async function EditorJSONConfig() {
-  const ans = await ask.input({
-    name: 'editor',
+  const SUPPORTED_EDITORS = ['vscode', 'nvim', 'vim'];
+
+  const editor: string = await Input.prompt({
     message: 'Editor to write the config',
+    suggestions: SUPPORTED_EDITORS,
   });
 
   const JSON_LSP = {
@@ -22,14 +23,12 @@ export async function EditorJSONConfig() {
     },
   };
 
-  const SUPPORTED_EDITORS =  ['vscode', 'nvim', 'vim']
-
-  if (typeof ans.editor != 'string' || ans.editor == '') {
+  if (editor == '') {
     LOGGER.error('Not valid type of the editor please enter a valid editor');
     Deno.exit(2);
   }
 
-  switch (ans.editor) {
+  switch (editor) {
     case 'vscode': {
       const path = join(Deno.cwd(), '.vscode', 'settings.json');
 
@@ -82,10 +81,14 @@ export async function EditorJSONConfig() {
     }
 
     default: {
-      LOGGER.info(`Only supported this editors: ${colors.dim(SUPPORTED_EDITORS.join(', '))}`)
+      LOGGER.info(
+        `Only supported this editors: ${
+          colors.dim(SUPPORTED_EDITORS.join(', '))
+        }`,
+      );
       LOGGER.error(
         `The ${
-          colors.dim(ans.editor?.toUpperCase()!)
+          colors.dim(editor.toUpperCase()!)
         } editor not have support with DPM if you want add support for this please send a PR to the GitHub repo thanks :p`,
       );
       Deno.exit(2);

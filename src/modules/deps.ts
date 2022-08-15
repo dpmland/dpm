@@ -20,10 +20,18 @@ export {
 } from 'https://deno.land/std@0.151.0/fs/mod.ts';
 
 // Tables for help!
-export { Table } from 'https://deno.land/x/cliffy@v0.22.2/mod.ts';
+export { Table } from 'https://deno.land/x/cliffy@v0.24.3/mod.ts';
+
+// Input module!
+export {
+  Confirm,
+  Input,
+  Number,
+  prompt,
+} from 'https://deno.land/x/cliffy@v0.24.3/prompt/mod.ts';
 
 // Charmd for the documentation
-export { renderMarkdown } from 'https://deno.land/x/charmd@v0.0.1/mod.ts';
+export { renderMarkdown } from 'https://deno.land/x/charmd@v0.0.2/mod.ts';
 
 // Opener for the urls
 export { open } from 'https://deno.land/x/open@v0.0.5/index.ts';
@@ -31,7 +39,8 @@ export { open } from 'https://deno.land/x/open@v0.0.5/index.ts';
 // Version Checker Tool
 export { soxa } from 'https://deno.land/x/soxa@1.4/mod.ts';
 
-// Cliffy cli version!
+// Cliffy cli!
+// BUG: Dont change this version because have very bad breaking changes in the new CLI version!
 export {
   Command,
   CompletionsCommand,

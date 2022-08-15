@@ -1,5 +1,4 @@
-import { colors, parse } from 'mods/deps.ts';
-import { ask } from 'mods/ask.ts';
+import { colors, Input, parse, prompt } from 'mods/deps.ts';
 import { cache } from 'dpx/cache.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
@@ -237,31 +236,38 @@ export async function RunDPX(
 }
 
 export async function GeneratePromptDPX() {
-  const answers = await ask.prompt([
+  const answers = await prompt([
     {
       name: 'app',
-      type: 'input',
       message: `App@Version and arguments to run ${
         colors.underline('dpm@0.1.2 --help')
       }`,
+      type: Input,
     },
     {
       name: 'name',
-      type: 'input',
       message: `Name of the file to execute ${
         colors.dim(
           '( Default << dpm exec --defaults >> )',
         )
       }`,
+      type: Input,
+      suggestions: ['cli', 'main', 'mod'],
     },
     {
       name: 'importMap',
-      type: 'input',
       message: `Name of the importMap file to run ${
         colors.dim(
           '( Default << dpm exec --defaults >> )',
         )
       }`,
+      type: Input,
+      suggestions: [
+        'import_map.json',
+        'import-map.json',
+        'importMap.json',
+        'importmap.json',
+      ],
     },
   ]);
   return answers;

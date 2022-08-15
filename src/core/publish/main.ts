@@ -2,19 +2,15 @@
 
 import { OtherRunner, Run, RunOut } from 'runner/main.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { colors, dracoFiles, join } from 'mods/deps.ts';
-import { ask } from 'mods/ask.ts';
+import { colors, Confirm, dracoFiles, Input, join, prompt } from 'mods/deps.ts';
 
 export async function Publish() {
   LOGGER.info('Opening the prompt for make the release...');
   if (!dracoFiles.exists(join(Deno.cwd(), '.git'))) {
-    const init = await ask.confirm({
-      name: 'init',
-      message: 'Initialize the git repository',
-      type: 'confirm',
-    });
-    init.init = (typeof init.init == 'undefined') ? false : init.init;
-    if (init.init) {
+    const init: boolean = await Confirm.prompt(
+      'Initialize the git repository',
+    );
+    if (init) {
       await OtherRunner('git', 'init');
     }
   }
@@ -24,24 +20,24 @@ export async function Publish() {
     RunOut('git branch --show-current'),
   ]);
 
-  const ans = await ask.prompt([{
+  const ans = await prompt([{
     name: 'msg',
     message: 'Message for the release commit',
-    type: 'input',
+    type: Input,
   }, {
     name: 'tag',
     message: 'Tag for the commit and the git command',
-    type: 'input',
+    type: Input,
   }, {
     name: 'push',
     message: `Push ${
       remote.split('\n')[0]
     } on ${branch} branch to the repository?`,
-    type: 'confirm',
+    type: Confirm,
   }, {
     name: 'eggs',
     message: `Run the ${colors.bold('eggs publish')} command for publish?`,
-    type: 'confirm',
+    type: Confirm,
   }]);
 
   ans.tag = (typeof ans.tag == 'undefined' || ans.tag == '')
