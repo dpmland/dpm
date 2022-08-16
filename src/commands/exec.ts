@@ -29,10 +29,11 @@ export class ExecCommand extends Command {
         emoji.get('sauropod')
       }
 
-      Extracted from Land: https://github.com/ije/land
+      Extracted from Land: ${colors.bold('https://github.com/ije/land')}
       Thanks to Ije for make this amazing tool ${emoji.get('sunglasses')}`,
     )
       .alias('x')
+      .arguments('[...cmd:string]')
       .option(
         '-d --defaults [defaults:boolean]',
         'Show a table with the default values used in the DPX CLI!',
@@ -48,7 +49,7 @@ export class ExecCommand extends Command {
         } or can use: ${colors.bold('dpx')} for example`,
       )
       .stopEarly()
-      .action(async (options) => {
+      .action(async (options, cmd: string[]) => {
         if (options.alias == true) {
           if (dracoInfo.platform() == 'windows') {
             LOGGER.info(`Unsupported platform working in this...`);
@@ -132,10 +133,18 @@ export class ExecCommand extends Command {
           Deno.exit();
         }
 
-        const answers = await GeneratePromptDPX();
-        const filename = answers.name?.toString().split(' ');
-        const importMap = answers.importMap?.toString().split(' ');
-        const app = answers.app?.toString().split(' ');
+        let answers, filename, importMap, app;
+        if (cmd == null) {
+          answers = await GeneratePromptDPX();
+          filename = answers.name?.toString().split(' ');
+          importMap = answers.importMap?.toString().split(' ');
+          app = answers.app?.toString().split(' ');
+        } else {
+          // BUG: Flags not work with args need to upgrade CLIFFY maybe
+          filename = undefined;
+          importMap = undefined;
+          app = (typeof cmd != 'undefined' || cmd != null) ? cmd : app;
+        }
 
         await RunDPX(app, {
           filenameNames: filename,
