@@ -47,7 +47,7 @@ this comment about this issue and what causes this issue.
 
 ```
 There is an issue with Deno.stdout.write which doesn't handle unicode characters well. There is already an deno issue denoland/deno#6001.
-But i found a workaourund here denoland/deno#6131 (comment).
+But i found a workaround here denoland/deno#6131 (comment).
 You have to enable utf8 character encoding in windows than it should work.
 ```
 
@@ -60,138 +60,157 @@ be accessibly with this command `notepad $PROFILE` on Powershell!
 [Console]::OutputEncoding = [Text.UTF8Encoding]::UTF8
 ```
 
-# Usage :alien:
+# Basic usage :nerd_face:
 
-## Start a basic Deno project :mega:
+Well is very very simple make a project with DPM help and here we are going to
+make a simple http server with the DPM tool.
 
-For start a Deno project with all files you only need make this:
-
-```sh
-# Start a new folder
-$ mkdir my_project && cd my_project
-
-# Start a all fully featured Dpm project
-$ dpm init -A
-
-# Answer the questions and done!
-```
-
-If you just need to start `dpm_imports.json` and `dpm.json` files without
-questions you need to run:
+1. You need start the DPM files and you can make this with:
 
 ```sh
-# Start a new folder!
-$ mkdir my_project && cd my_project
+# Here exists maaaaaany ways but here explain the ways very simple
 
-# Start only necessary files project
-$ dpm init -y
+# -A or --all -> Write all files what support DPM printing the content with  ** many colors out :) **
+# -y or --yes -> Write only the DPM File, DPM Imports and the Deno file only basic setup
+# -M or --minimalist Write all files what support DPM but without print the content ** no colors out :( **
+
+# We start only with the necessary files..
+dpm init -y
 ```
 
-If you want to restart or only write one file you need to run
+2. After this we need install the dependencies we make 2 servers with third
+   party dependencies and with std dependencies
 
 ```sh
-# Start a new folder
-$ mkdir my_project && cd my_project
+# For the third party server we are going to use oak for install this you need run:
 
-# Start only one file
-$ dpm init -f readme
+dpm install oak # Done!
 
-## Note:
-## Check the files avaliable on dpm init help
-## for start a file like: readme, deno-config or eggs
-## You need start the dpm.json file
+# For the std dependencies only need the http module and for this you need only run:
+
+dpm install --std http # Don't forget the --std flag
 ```
 
-## Install dependencies with Dpm :package:
+3. Done the setup for the dependencies well this repository maybe need a task
+   for start this
 
-Dpm does not download files on the computer, only write the correct url at
-`dpm_imports.json` and make an experience of development like **NodeJS** with
-**NPM or Yarn**
+```jsonc
+// Well in our dpm.json we need add this...
+{
+  "$schema": "https://dpmland.deno.dev/schema",
+  "name": "dpm-tutorial",
+  "version": "0.1.0",
+  "description": "A example dpm package",
+  "author": "A cool coder human",
+  "license": "ISC",
+  "main": "mod.ts",
+  "scripts": {
+    "test": "deno test -A --unstable",
+    "fmt": "deno fmt -c deno.json",
+    "lint": "deno lint -c deno.json",
+    "fmt:check": "deno fmt -c deno.json --check && deno lint -c deno.json",
+    // The start scripts for the oak and http files
+    "start:oak": "deno run -A oak.ts",
+    "start:http": "deno run -A http.ts"
+  },
+  "dependencies": {
+    "oak/": "v10.6.0",
+    "http/": "0.152.0"
+  }
+}
+```
 
-For install dependencies from the [deno.land/x](https://deno.land/x/) registry
-you only need to write:
+After this is necessary run the update command for the tasks:
 
 ```sh
-$ dpm install draco dlog2
+# With this command you can merge the dpm.json and deno.json tasks in one.
+dpm task -u
 ```
 
-For install dependencies from the [Deno std](https://deno.land/std) registry you
-only need to use this:
+4. How can make the editor works with the module completions?
+
+Well now your editor not works with completions for DPM and if you add the code
+in the next step you see many errors in your editor but this is easy to solve.
 
 ```sh
-$ dpm install flag async http path --std
-
-## You need put the name of the library and the flag -s or --std
+# Many editors are supported with the auto config generator with this command
+dpm init -f editor
+# If your editor is not found you can run
+dpm init -f editor-cfg 
+# This is the content of the file you only need copy the content to the deno-lsp config in your editor :)
 ```
 
-For install dependencies from other host or registries you need to run:
+5. Well with this need the code for start this servers:
 
-```sh
-$ dpm install example_dep --host nest.land
+- The Oak Code.
+
+```ts
+// oak.ts file
+import { Application } from '"oak/mod.ts';
+const app = new Application();
+
+app.use((ctx) => {
+  ctx.response.body = 'Hello DPM!';
+});
+
+await app.listen({ port: 8000 });
 ```
 
-## Use the dependencies with Dpm :package:
+With this the server are ready to run you only need run `deno task start:oak`
+and done the setup with DPM is very simple and fast :smiley:
 
-To use the modules installed at `dpm_imports.json`, you need to use like Node:
+- The Http Code.
 
 ```ts
 import { serve } from 'http/server.ts';
-
-serve((req) => new Response('Hello World\n'));
+serve((_req) => new Response('Hello DPM!'), { port: 8000 });
 ```
 
-> To configure DPM to work with code editors, you need to download the plugin
-> for your editor and fill the `deno.config` field at `./deno.json` and the
-> `deno.importMap` field at `./dpm_imports.json`.
+With this the server are ready to run you only need run `deno task start:http`
+and done the setup with DPM is very simple and fast :smiley:
 
-## Uninstall dependencies with Dpm :star2:
+# Commands :robot:
 
-Dpm does not delete any libraries from your computer, it just deletes the
-`dpm_imports.json` file
+> For see all documentation of DPM with a pretty UI you can go to
+> [here](https://dpmland.github.io)
 
-To uninstall all dependencies at `dpm_imports.json` you need to run:
+- **[about || me](https://dpmland.github.io/commands/about/)**: Here you can
+  found the information and some tools for learn more about dpm.
 
-```sh
-$ dpm uninstall -A
-```
+- **[docs || doc](https://dpmland.github.io/commands/docs/)**: Here you can get
+  the documentation and download, clean and update the docs.
 
-For uninstall just one specific dependency you need to run:
+- **init || create**: Here you can generate some files for work with dpm and
+  tools for a better development with Deno.
 
-```sh
-$ dpm uninstall draco dlog2
-```
+- **uninstall || clean**: Here you can uninstall the dependencies from the
+  _dpm_imports.json_ file and if you want remove one or many of this deps can
+  you do it!
 
-## Automate commands with [Deno tasks](https://deno.land/manual/tools/task_runner) :robot:
+- **install || add**: If you want use external packages and dependencies can you
+  use this tool!
 
-Many apps need some commands, and you do not like write this many times this
-command and here are the amazing and incredible **Deno tasks** well with this
-you can automate many things and are integrated with Deno but how can make this
-amazing tool better here are the _task command_ on Dpm.
+- **[tools](https://dpmland.github.io/commands/tools/)**: Here you can install
+  tools for a better development with deno and for complement the dpm cli.
 
-To add a task to the files well you only need to run:
+- **[task || run](https://dpmland.github.io/commands/task/)**: With this command
+  you can run scripts like `npm scripts` you can define this in the `dpm.json`
+  file.
 
-```sh
-$ dpm task -n
-```
+- **update**: Here you can check if the file are updated `dpm_imports.json`
+  dependencies and the new version available
 
-And this adds the task at `deno.json` and `dpm.json`, well but if I add a new
-task at `dpm.json` How can update this? You only need to run this command:
+- **upgrade**: Upgrade dpm executable to latest or given version.
 
-```sh
-$ dpm task -u
-```
+- **exec || x**: With this tool you can run Deno X modules without installation.
 
-You want to see what commands you have, and this files here are the list in a
-beautiful table.
+- **template || tmpl**: Well you need a start a project and need a template here
+  are all templates!!
 
-```sh
-$ dpm task -l deno # To see the deno.json file
-$ dpm task -l dpm # To see the dpm.json file
-$ dpm task -l all # To see the dpm and deno.json files
-```
+- **publish**: For publish your package to the world you can run this!
 
-> Here are all basic features of Dpm if you want to :warning: but exists more
-> features you can check Dpm doc help :white_check_mark:
+- **[completions](https://dpmland.github.io/commands/completions)**: Generate
+  shell completions
 
 ## Contribution Guides :books:
 

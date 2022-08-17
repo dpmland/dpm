@@ -44,7 +44,7 @@ export class DocsCommand extends Command {
         }
         if (options.online == true) {
           LOGGER.info('Opening the Official Online Documentation site of DPM!');
-          await open('https://dpmland-docs.netlify.app/');
+          await open('https://dpmland.github.io/');
           LOGGER.done('Opened successfully the Documentation Site!');
           Deno.exit();
         }
