@@ -63,23 +63,23 @@ be accessibly with this command `notepad $PROFILE` on Powershell!
 # Basic usage :nerd_face:
 
 Well is very very simple make a project with DPM help and here we are going to
-make a simple http server with the DPM tool.
+make a basic http server with DPM.
 
-1. You need start the DPM files and you can make this with:
+1. For start the DPM files you can run this:
 
 ```sh
 # Here exists maaaaaany ways but here explain the ways very simple
 
 # -A or --all -> Write all files what support DPM printing the content with  ** many colors out :) **
 # -y or --yes -> Write only the DPM File, DPM Imports and the Deno file only basic setup
-# -M or --minimalist Write all files what support DPM but without print the content ** no colors out :( **
+# -M or --minimalist -> Write all files what support DPM but without print the content ** no colors out :( **
 
 # We start only with the necessary files..
 dpm init -y
 ```
 
-2. After this we need install the dependencies we make 2 servers with third
-   party dependencies and with std dependencies
+2. After this is necessary install the dependencies for make 2 servers with
+   third party dependencies and with the std dependencies
 
 ```sh
 # For the third party server we are going to use oak for install this you need run:
@@ -136,7 +136,7 @@ in the next step you see many errors in your editor but this is easy to solve.
 # Many editors are supported with the auto config generator with this command
 dpm init -f editor
 # If your editor is not found you can run
-dpm init -f editor-cfg 
+dpm init -f editor-cfg
 # This is the content of the file you only need copy the content to the deno-lsp config in your editor :)
 ```
 
