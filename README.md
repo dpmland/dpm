@@ -62,8 +62,8 @@ be accessibly with this command `notepad $PROFILE` on Powershell!
 
 # Basic usage :nerd_face:
 
-Well is very very simple make a project with DPM help and here we are going to
-make a basic http server with DPM.
+Well is very very simple make a project with DPM help and for this example can
+make a basic http server with the DPM Help.
 
 1. For start the DPM files you can run this:
 
