@@ -5,6 +5,16 @@ import { colors, Input, join } from 'mods/deps.ts';
 import { writeFileFormatted } from 'dpm/util.ts';
 import { LOGGER } from 'mods/logger.ts';
 
+export const JSON_LSP = {
+  deno: {
+    enable: true,
+    lint: true,
+    unstable: true,
+    importMap: `./${NAME_DIRECTORIES.IMPORT_MAPS}`,
+    config: `./${NAME_DIRECTORIES.DENO_JSON_FILE}`,
+  },
+};
+
 export async function EditorJSONConfig() {
   const SUPPORTED_EDITORS = ['vscode', 'nvim', 'vim'];
 
@@ -12,16 +22,6 @@ export async function EditorJSONConfig() {
     message: 'Editor to write the config',
     suggestions: SUPPORTED_EDITORS,
   });
-
-  const JSON_LSP = {
-    deno: {
-      enable: true,
-      lint: true,
-      unstable: true,
-      importMap: `./${NAME_DIRECTORIES.IMPORT_MAPS}`,
-      config: `./${NAME_DIRECTORIES.DENO_JSON_FILE}`,
-    },
-  };
 
   if (editor == '') {
     LOGGER.error('Not valid type of the editor please enter a valid editor');
@@ -55,7 +55,9 @@ export async function EditorJSONConfig() {
 
       LOGGER.info(
         `For use this settings you need the plugin: ${
-          colors.dim('https://github.com/tamago324/nlsp-settings.nvim')
+          colors.dim(
+            'https://github.com/tamago324/nlsp-settings.nvim',
+          )
         }`,
       );
       break;
@@ -74,7 +76,9 @@ export async function EditorJSONConfig() {
 
       LOGGER.info(
         `For use this settings you need the plugin: ${
-          colors.dim('https://github.com/neoclide/coc.nvim')
+          colors.dim(
+            'https://github.com/neoclide/coc.nvim',
+          )
         }`,
       );
       break;
@@ -83,12 +87,16 @@ export async function EditorJSONConfig() {
     default: {
       LOGGER.info(
         `Only supported this editors: ${
-          colors.dim(SUPPORTED_EDITORS.join(', '))
+          colors.dim(
+            SUPPORTED_EDITORS.join(', '),
+          )
         }`,
       );
       LOGGER.error(
         `The ${
-          colors.dim(editor.toUpperCase()!)
+          colors.dim(
+            editor.toUpperCase()!,
+          )
         } editor not have support with DPM if you want add support for this please send a PR to the GitHub repo thanks :p`,
       );
       Deno.exit(2);

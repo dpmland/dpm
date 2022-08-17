@@ -27,17 +27,17 @@ export async function writeFileFormatted(
   await ensureFile(options.path).catch((e) => {
     LOGGER.error(
       `Error at ensure file for the directories.\nCaused by:\n${
-        colors.bold(e)
+        colors.bold(e.message)
       }`,
     );
     Deno.exit(2);
   });
 
-  await Deno.writeTextFile(options.content, options.path).catch((e) => {
+  await Deno.writeTextFile(options.path, options.content).catch((e) => {
     LOGGER.error(
       `Error at write text file in the ${
         colors.dim(options.path)
-      }.\nCaused by:\n${colors.bold(e)}`,
+      }.\nCaused by:\n${colors.bold(e.message)}`,
     );
     Deno.exit(2);
   });
