@@ -12,7 +12,7 @@ export class UninstallCommand extends Command {
 
     return this.description(
       `Uninstall dependencies from the dpm file and the import file! ${
-        emoji.get('broom')
+        emoji('mag')
       }`,
     )
       .alias('remove')

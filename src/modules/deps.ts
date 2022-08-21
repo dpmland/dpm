@@ -70,6 +70,3 @@ export { open } from 'https://deno.land/x/open@v0.0.5/index.ts';
 
 // Http Client
 export { soxa } from 'https://deno.land/x/soxa@1.4/mod.ts';
-
-// Emoji!
-export * as emoji from 'https://deno.land/x/emoji@0.2.1/mod.ts';

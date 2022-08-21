@@ -11,7 +11,7 @@ export class UpdateCommand extends Command {
     this.#cmd = cmd;
 
     return this.description(
-      `Update the dependencies from the dpm files! ${emoji.get('mega')}`,
+      `Update the dependencies from the dpm files! ${emoji('mega')}`,
     )
       .arguments('[action:string]')
       .stopEarly()

@@ -13,7 +13,7 @@ export class ToolsCommand extends Command {
 
     return this.description(
       `You need some tools for develop with Deno well here are all tools! ${
-        emoji.get('ok_hand')
+        emoji('ok_hand')
       }`,
     )
       .arguments('[action:string]')

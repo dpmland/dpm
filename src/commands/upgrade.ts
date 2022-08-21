@@ -14,7 +14,7 @@ export class UpgradeCommand extends Command {
 
     return this.description(
       `Upgrade the dpm executable to the canary and the stable version! ${
-        emoji.get('guardsman')
+        emoji('guardsman')
       }`,
     )
       .arguments('[version:string]')

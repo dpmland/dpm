@@ -1,9 +1,9 @@
 import { emoji } from 'mods/deps.ts';
 
-export const VERSION = 'v0.1.2-dev';
+export const VERSION = 'v0.2.0-dev';
 
 export const DESCRIPTION = `Dpm <Deno Package Manager> ${
-  emoji.get('sauropod')
-}\nThe NPM | YARN package manager style for Deno ${emoji.get('alien')} + ${
-  emoji.get('fire')
-}\n\nGitHub: https://github.com/dpmland/dpm ${emoji.get('book')}`;
+  emoji('sauropod')
+}\nThe NPM | YARN package manager style for Deno ${emoji('alien')} + ${
+  emoji('fire')
+}\n\nGitHub: https://github.com/dpmland/dpm ${emoji('book')}`;
