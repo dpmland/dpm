@@ -1,6 +1,15 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
+import { colors, Command, CompletionsCommand } from 'mods/deps.ts';
 
-import { Command, CompletionsCommand } from 'mods/deps.ts';
+console.log(
+  `${
+    colors.bgBrightRed(
+      'This is a not working version please install and use only the stable',
+    )
+  }`,
+);
+Deno.exit(2);
+
 import { DESCRIPTION, VERSION } from 'mods/info.ts';
 import { AboutCommand } from 'cmd/about.ts';
 import { DocsCommand } from 'cmd/docs.ts';
