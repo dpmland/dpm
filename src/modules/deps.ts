@@ -16,7 +16,7 @@ export {
   dirname,
   extname,
   join,
-} from 'https://deno.land/std@0.151.0/path/mod.ts';
+} from 'https://deno.land/std@0.152.0/path/mod.ts';
 
 // FS Operation supports
 export {
@@ -24,19 +24,19 @@ export {
   ensureDir,
   ensureFile,
   walk,
-} from 'https://deno.land/std@0.151.0/fs/mod.ts';
+} from 'https://deno.land/std@0.152.0/fs/mod.ts';
 
 // Parse flags for the DPX
-export { parse } from 'https://deno.land/std@0.151.0/flags/mod.ts';
+export { parse } from 'https://deno.land/std@0.152.0/flags/mod.ts';
 
 // Node Process support
-export * as node from 'https://deno.land/std@0.151.0/node/process.ts';
+export * as node from 'https://deno.land/std@0.152.0/node/process.ts';
 
 // FMT for generate the command!
-export * as fmt from 'https://deno.land/std@0.151.0/fmt/printf.ts';
+export * as fmt from 'https://deno.land/std@0.152.0/fmt/printf.ts';
 
 // Colors for the prints out
-export * as colors from 'https://deno.land/std@0.151.0/fmt/colors.ts';
+export * as colors from 'https://deno.land/std@0.152.0/fmt/colors.ts';
 
 /**
  * This is all CLIFFY Dependencies thanks for make this amazing module!
@@ -50,11 +50,10 @@ export {
   prompt,
 } from 'https://deno.land/x/cliffy@v0.24.3/prompt/mod.ts';
 
-// BUG: Dont change this version because have very bad breaking changes in the new CLI version!
 export {
   Command,
   CompletionsCommand,
-} from 'https://deno.land/x/cliffy@v0.22.2/command/mod.ts';
+} from 'https://deno.land/x/cliffy@v0.24.3/command/mod.ts';
 
 // Tables for help!
 export { Table } from 'https://deno.land/x/cliffy@v0.24.3/mod.ts';
@@ -73,4 +72,4 @@ export { open } from 'https://deno.land/x/open@v0.0.5/index.ts';
 export { soxa } from 'https://deno.land/x/soxa@1.4/mod.ts';
 
 // Emoji!
-export * as emoji from 'https://deno.land/x/emoji@0.1.2/mod.ts';
+export * as emoji from 'https://deno.land/x/emoji@0.2.1/mod.ts';
