@@ -29,7 +29,6 @@ export const InstallCommand = new Command()
     'Add a dependency from the https://esm.sh register',
     { separator: ' ' },
   )
-  .stopEarly()
   .action(
     async (
       { host, std, esm },

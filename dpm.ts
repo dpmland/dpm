@@ -1,15 +1,5 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
-import { colors, Command, CompletionsCommand } from 'mods/deps.ts';
-
-console.log(
-  `${
-    colors.bgBrightRed(
-      'This is a not working version please install and use only the stable',
-    )
-  }`,
-);
-Deno.exit(2);
-
+import { Command, CompletionsCommand } from 'mods/deps.ts';
 import { DESCRIPTION, VERSION } from 'mods/info.ts';
 import { AboutCommand } from 'cmd/about.ts';
 import { DocsCommand } from 'cmd/docs.ts';
@@ -39,13 +29,13 @@ await new Command()
   .command('docs', DocsCommand)
   .command('init', InitCommand)
   .command('publish', PublishCommand)
-  .command('uninstall', new UninstallCommand())
+  .command('uninstall', UninstallCommand)
   .command('install', InstallCommand)
-  .command('tools', new ToolsCommand())
+  .command('tools', ToolsCommand)
   .command('task', TaskCommand)
-  .command('update', new UpdateCommand())
+  .command('update', UpdateCommand)
   .command('template', TemplateCommand)
-  .command('upgrade', new UpgradeCommand())
+  .command('upgrade', UpgradeCommand)
   .command('exec', ExecCommand)
   .command('completions', new CompletionsCommand())
   .parse(Deno.args);

@@ -42,7 +42,6 @@ export const ExecCommand = new Command()
       )
     } or can use: ${colors.bold('dpx')} for example`,
   )
-  .stopEarly()
   .action(async ({ alias, defaults }, cmd: string[]) => {
     if (alias == true) {
       if (dracoInfo.platform() == 'windows') {

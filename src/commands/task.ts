@@ -27,7 +27,6 @@ export const TaskCommand = new Command()
       )
     }`,
   )
-  .stopEarly()
   .action(async ({ update, add, list }) => {
     // Update the tasks in the deno.json file from the dpm.json
     if (update == true) {
@@ -57,14 +56,15 @@ export const TaskCommand = new Command()
         }
 
         case 'help': {
-          const COMMANDS_AVALIABLES = {
-            deno: `Here you can see all tasks avaliable in the deno.json file!`,
-            dpm: `Here you can see all tasks avaliable in the dpm.json file!`,
+          const AVAILABLE_COMMANDS = {
+            deno:
+              `Here you can see all tasks  available in the deno.json file!`,
+            dpm: `Here you can see all tasks  available in the dpm.json file!`,
           };
 
           const table: Table = Table.from([]);
 
-          for (const i of Object.entries(COMMANDS_AVALIABLES)) {
+          for (const i of Object.entries(AVAILABLE_COMMANDS)) {
             table.push(i);
           }
           table.header(['Action', 'Description']);

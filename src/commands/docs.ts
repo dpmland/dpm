@@ -24,7 +24,6 @@ export const DocsCommand = new Command()
     '-D, --discord <discord:boolean>',
     'Open the discord server if you want ask or propose something',
   )
-  .stopEarly()
   .action(async ({ download, update, online, discord }, action: string) => {
     if (action) {
       await getDocumentation(action);

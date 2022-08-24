@@ -93,7 +93,7 @@ export async function ListAllLicenses() {
     Deno.exit(2);
   }
 
-  LOGGER.info(`Licenses avaliable in the LICENSE_DIR:`);
+  LOGGER.info(`Licenses  available in the LICENSE_DIR:`);
 
   for await (const e of walk(`${BASE_DIRECTORIES.LICENSE_DIR}/`)) {
     if (e.isFile) {
@@ -101,6 +101,6 @@ export async function ListAllLicenses() {
     }
   }
   LOGGER.done(
-    `This is all licenses avaliable in the directory and can used in the DPM file`,
+    `This is all licenses  available in the directory and can used in the DPM file`,
   );
 }

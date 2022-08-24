@@ -18,7 +18,6 @@ export const AboutCommand = new Command()
     'You can check all commands available with << dpm about help >>',
   )
   .arguments('<action:string>')
-  .stopEarly()
   .action(async (_, action: string) => {
     switch (action.toLowerCase()) {
       case 'deno': {
@@ -98,20 +97,20 @@ export const AboutCommand = new Command()
       }
 
       case 'help': {
-        const COMMANDS_AVALIABLES = {
+        const AVAILABLE_COMMANDS = {
           deno:
             `Here you can get the Deno Information and the DPM License, Issue and other important information`,
           dirs:
             `Here you can find the DPM directories that are used for its operation.`,
           dpm: `Here you can find the content of the DPM file!`,
           authors: `Here you can get the authors of DPM and his credits!`,
-          deps: `Here you can get the dependencies avaliable on the DPM File!`,
-          license: `Here you can get all licenses avaliable for the DPM file!`,
-          help: `This command. You can get all avaliable commands!`,
+          deps: `Here you can get the dependencies  available on the DPM File!`,
+          license: `Here you can get all licenses  available for the DPM file!`,
+          help: `This command. You can get all  available commands!`,
         };
         const table: Table = Table.from([]);
 
-        for (const i of Object.entries(COMMANDS_AVALIABLES)) {
+        for (const i of Object.entries(AVAILABLE_COMMANDS)) {
           table.push(i);
         }
         table.header(['Action', 'Description']);

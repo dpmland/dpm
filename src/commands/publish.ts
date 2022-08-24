@@ -25,7 +25,6 @@ export const PublishCommand = new Command()
       )
     }`,
   )
-  .stopEarly()
   .action(async (_) => {
     await Publish();
   });

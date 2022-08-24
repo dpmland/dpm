@@ -16,7 +16,7 @@ export async function ListAllTemplates() {
     Deno.exit(2);
   }
 
-  LOGGER.info(`Templates avaliable in the TEMPLATE_DIR:`);
+  LOGGER.info(`Templates  available in the TEMPLATE_DIR:`);
 
   for await (const e of Deno.readDir(`${BASE_DIRECTORIES.TEMPLATE_DIR}/`)) {
     if (e.isDirectory) {

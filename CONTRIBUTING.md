@@ -67,7 +67,7 @@ For remote usage run:
 deno install -A -f -n ddpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/dev.ts
 ```
 
-Commands avaliable:
+Commands available:
 
 - Clean: Remove the unused files and clean after the upload!
 - Upload: Check the lint and the format on the current directory!

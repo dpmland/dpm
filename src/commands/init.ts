@@ -33,7 +33,6 @@ export const InitCommand = new Command()
     '-D --download-license <downloadLicense:boolean>',
     'Download the license file from the dpm.json file!',
   )
-  .stopEarly()
   // Manage the actions!
   .action(async ({ all, yes, file, minimalist, downloadLicense }) => {
     if (minimalist == true) {
@@ -125,7 +124,7 @@ export const InitCommand = new Command()
         }
 
         case 'help': {
-          const COMMANDS_AVALIABLES = {
+          const AVAILABLE_COMMANDS = {
             readme:
               `Generate only the README file! Note: << Necessary the dpm.json file! >>`,
             eggs:
@@ -141,7 +140,7 @@ export const InitCommand = new Command()
 
           const table: Table = Table.from([]);
 
-          for (const i of Object.entries(COMMANDS_AVALIABLES)) {
+          for (const i of Object.entries(AVAILABLE_COMMANDS)) {
             table.push(i);
           }
           table.header(['Action', 'Description']);

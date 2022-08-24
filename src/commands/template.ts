@@ -28,9 +28,8 @@ export const TemplateCommand = new Command()
   .alias('tmpl')
   .example(
     'Help',
-    'You can check all commands avaliables with << dpm template help >>',
+    'You can check all available commands with << dpm template help >>',
   )
-  .stopEarly()
   .action(async ({ install, search, use, list }) => {
     if (install != undefined) {
       await DownloadRepo(install);
