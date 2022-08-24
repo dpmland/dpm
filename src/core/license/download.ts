@@ -1,8 +1,9 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { dracoFiles, ensureDir, join, soxa, walk } from 'mods/deps.ts';
+import { dracoFiles, ensureDir, join, walk } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
+import { httpClient } from 'mods/http.ts';
 import { ReadDpmFile } from 'dpm/read.ts';
 
 export async function DownloadTemplate() {
@@ -10,9 +11,7 @@ export async function DownloadTemplate() {
     'https://api.github.com/repos/nishanths/license/contents/.templates';
 
   // Get the version url
-  const response = await soxa.get(URL).catch((error) => {
-    LOGGER.error(`Error getting the url to download the LICENSE ${error}`);
-  });
+  const response = await httpClient(URL);
 
   for await (const file of response.data) {
     const res = await fetch(file.download_url);

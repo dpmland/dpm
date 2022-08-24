@@ -2,7 +2,7 @@
 
 import { dirname } from 'mods/deps.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { soxa } from 'mods/deps.ts';
+import { httpClient } from 'mods/http.ts';
 
 // Types
 export interface appendOptions {
@@ -59,15 +59,12 @@ export async function appendStdToFile(
   depName: string[],
 ) {
   // Get the latest version of
-  const version = await soxa.get(url)
-    .catch((error) => {
-      LOGGER.error(`Error getting the latest dependency ${error}`);
-    });
+  const version = await httpClient(url);
   // Helper Variable
   let latest;
   const std = [];
-  if (version.data) {
-    latest = version.data.latest;
+  if (version.latest) {
+    latest = version.latest;
   } else {
     latest = '';
   }
@@ -87,23 +84,14 @@ export async function esmGetVersion(depName: string[]) {
   const urls = [];
   for (const i of depName) {
     const url = `${urlESM}/${i}`;
-    const dependency = await soxa.get(url)
-      .catch((error) => {
-        LOGGER.error(`Error getting the latest dependency ${error}`);
-      });
-
-    if (dependency.status != 200) {
-      LOGGER.error(
-        `Error getting the dependency status code: ${dependency.status} status text: ${dependency.statusText}`,
+    const response = await httpClient(url).then((data) => {
+      return data.split('\n', 1)[0].substring(12).replace(
+        '*/',
+        '',
       );
-      Deno.exit(2);
-    }
+    });
 
-    const version = dependency.data.split('\n', 1)[0].substring(12).replace(
-      '*/',
-      '',
-    );
-    urls.push(`${urlESM}/${version}`);
+    urls.push(`${urlESM}/${response}`);
   }
   return urls;
 }

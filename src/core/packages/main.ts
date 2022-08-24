@@ -3,7 +3,8 @@
 import { WriteDpmFileJson, WriteImportMapJson } from 'dpm/init.ts';
 import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
 import { dracoFiles } from 'mods/deps.ts';
-import { colors, soxa } from 'mods/deps.ts';
+import { colors } from 'mods/deps.ts';
+import { httpClient } from 'mods/http.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import {
@@ -88,11 +89,9 @@ export async function getTheVersionOfDep(
       return ``;
     }
     const url = `https://cdn.deno.land/${dep}/meta/versions.json`;
-    const versionList = await soxa.get(url).catch((err) => {
-      LOGGER.error(`ERROR Getting the version from deno.land host: ${err}`);
-    });
-    if (versionList.data) {
-      return versionList.data.latest;
+    const versionList = await httpClient(url);
+    if (versionList.latest) {
+      return versionList.latest;
     }
   }
   return '';

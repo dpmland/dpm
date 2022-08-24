@@ -67,6 +67,3 @@ export { renderMarkdown } from 'https://deno.land/x/charmd@v0.0.2/mod.ts';
 
 // Open the URLS!
 export { open } from 'https://deno.land/x/open@v0.0.5/index.ts';
-
-// Http Client
-export { soxa } from 'https://deno.land/x/soxa@1.4/mod.ts';

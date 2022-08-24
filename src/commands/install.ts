@@ -32,7 +32,7 @@ export const InstallCommand = new Command()
   .action(
     async (
       { host, std, esm },
-      dependency: string[],
+      dependency,
     ) => {
       if (typeof dependency == 'string') {
         LOGGER.info(`Dependency to install: ${dependency}`);
