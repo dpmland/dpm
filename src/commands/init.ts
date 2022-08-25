@@ -19,18 +19,18 @@ export const InitCommand = new Command()
     `Start and create the files necessary for a better development with DPM! 📦.`,
   )
   .alias('create')
-  .option('-A, --all <all:boolean>', 'Write all necessary files!')
+  .option('-A, --all [all:boolean]', 'Write all necessary files!')
   .option(
-    '-y, --yes <yes:boolean>',
+    '-y, --yes [yes:boolean]',
     'Write only the dpm file and the imports not more! The necessary files!',
   )
   .option('-f, --file <file:string>', 'Only the file to create!')
   .option(
-    '-M --minimalist <minimalist:boolean>',
+    '-M --minimalist [minimalist:boolean]',
     'Write all files but without print the content!',
   )
   .option(
-    '-D --download-license <downloadLicense:boolean>',
+    '-D --download-license [downloadLicense:boolean]',
     'Download the license file from the dpm.json file!',
   )
   // Manage the actions!

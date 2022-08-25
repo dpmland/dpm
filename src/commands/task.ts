@@ -8,11 +8,11 @@ export const TaskCommand = new Command()
   .description(`If you need automate some commands tasks is here! 🤖`)
   .alias('run')
   .option(
-    '-u --update <update:boolean>',
+    '-u --update [update:boolean]',
     'Update the deno.json file for the new tasks of the dpm.json file!',
   )
   .option(
-    '-a --add <add:boolean>',
+    '-a --add [add:boolean]',
     'Add a new task to the dpm.json file and the deno.json file!',
   )
   .option(

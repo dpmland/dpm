@@ -14,7 +14,7 @@ export const TemplateCommand = new Command()
     'The install the templates for offline usage',
   )
   .option(
-    '-l --list <list:boolean>',
+    '-l --list [list:boolean]',
     'List all installed templates in the directory!',
   )
   .option(
