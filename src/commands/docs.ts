@@ -7,24 +7,24 @@ import { getDocumentation } from 'docs/main.ts';
 export const DocsCommand = new Command()
   .description(`Do you want know more about one command? 🤔.`)
   .alias('doc')
-  .arguments('<action:string>')
+  .arguments('[action:string]')
   .option(
-    '-d, --download <download:boolean>',
+    '-d, --download [download:boolean]',
     'Download the documentation for make this offline from the DPM Official Repo!',
   )
   .option(
-    '-u --update <update:boolean>',
+    '-u --update [update:boolean]',
     'Update the documentation and clean the old documentation!',
   )
   .option(
-    '-o --online <docs:boolean>',
+    '-o --online [docs:boolean]',
     'Open the online documentation if you want a complete experience',
   )
   .option(
-    '-D, --discord <discord:boolean>',
+    '-D, --discord [discord:boolean]',
     'Open the discord server if you want ask or propose something',
   )
-  .action(async ({ download, update, online, discord }, action: string) => {
+  .action(async ({ download, update, online, discord }, action) => {
     if (action) {
       await getDocumentation(action);
       Deno.exit();

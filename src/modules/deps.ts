@@ -67,3 +67,6 @@ export { renderMarkdown } from 'https://deno.land/x/charmd@v0.0.2/mod.ts';
 
 // Open the URLS!
 export { open } from 'https://deno.land/x/open@v0.0.5/index.ts';
+
+// Unknown util
+export * as UtilUnknown from 'https://deno.land/x/unknownutil@v2.0.0/mod.ts';

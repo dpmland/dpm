@@ -8,6 +8,7 @@ import {
   join,
   node,
   Table,
+  UtilUnknown,
 } from 'mods/deps.ts';
 import {
   denoPermissionFlags,
@@ -25,13 +26,13 @@ export const ExecCommand = new Command()
       Thanks to Ije for make this amazing tool 😎.`,
   )
   .alias('x')
-  .arguments('<cmd:string[]>')
+  .arguments('[cmd:...string]')
   .option(
-    '-d --defaults <defaults:boolean>',
+    '-d --defaults [defaults:boolean]',
     'Show a table with the default values used in the DPX CLI!',
   )
   .option(
-    '-a --alias <alias:boolean>',
+    '-a --alias [alias:boolean]',
     'Setup the alias to the app in the profile!',
   )
   .example(
@@ -42,7 +43,7 @@ export const ExecCommand = new Command()
       )
     } or can use: ${colors.bold('dpx')} for example`,
   )
-  .action(async ({ alias, defaults }, cmd: string[]) => {
+  .action(async ({ alias, defaults }, cmd) => {
     if (alias == true) {
       if (dracoInfo.platform() == 'windows') {
         LOGGER.info(`Unsupported platform working in this...`);
@@ -141,9 +142,10 @@ export const ExecCommand = new Command()
       importMap = undefined;
       app = typeof cmd != 'undefined' || cmd != null ? cmd : app;
     }
-
-    await RunDPX(app, {
-      filenameNames: filename,
-      importMapNames: importMap,
-    });
+    if (UtilUnknown.isArray(app, UtilUnknown.isString)) {
+      await RunDPX(app, {
+        filenameNames: filename,
+        importMapNames: importMap,
+      });
+    }
   });
