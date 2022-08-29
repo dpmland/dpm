@@ -1,7 +1,7 @@
 // @generated file from wasmbuild -- do not edit
 // deno-lint-ignore-file
 // deno-fmt-ignore-file
-// source-hash: 95cec7c47f46d258ac90db0e651eeaacfeebc067
+// source-hash: c9afb06fb949578051081089f809ba36ef453bc5
 let wasm;
 
 let WASM_VECTOR_LEN = 0;
