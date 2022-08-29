@@ -6,18 +6,33 @@
       "useTabs": false,
       "indentWidth": 2,
       "singleQuote": true
+    },
+    "files": {
+      "exclude": [
+        "./src/core/bundler/minify/target/"
+      ]
+    }
+  },
+  "lint": {
+    "files": {
+      "exclude": [
+        "./src/core/bundler/minify/target/"
+      ]
     }
   },
   "tasks": {
-    "check": "deno fmt -c deno.json --check && deno lint -c deno.json",
-    "update": "deno run -A https://deno.land/x/udd/main.ts ./src/modules/deps.ts ./src/modules/logger.ts ./src/modules/ask.ts",
-    "fmt": "deno fmt -c deno.json ; deno lint -c deno.json",
-    "fmt:check": "deno fmt -c deno.json --check ; deno lint -c deno.json",
+    "cargo:build": "cd ./src/core/bundler/minify/ ; deno run -A https://deno.land/x/wasmbuild/main.ts ; cd ../../../../",
+    "cargo:check": "cd ./src/core/bundler/minify/ ; cargo fmt --check ; cargo clippy ; cd ../../../../",
+    "cargo:fmt": "cd ./src/core/bundler/minify/ ; cargo fmt ; cd ../../../../",
+    "check": "deno task deno:check ; deno task cargo:check",
     "clean": "deno run -A --unstable ./dev.ts clean",
-    "compile:windows": "deno compile -A --unstable --target x86_64-pc-windows-msvc --import-map=./import_map.json ./dpm.ts",
     "compile:linux": "deno compile -A --unstable --target x86_64-unknown-linux-gnu  --import-map=./import_map.json ./dpm.ts",
-    "compile:macOSx64": "deno compile -A --unstable --target x86_64-apple-darwin --import-map=./import_map.json ./dpm.ts",
     "compile:macOSarch64": "deno compile -A --unstable --target aarch64-apple-darwin --import-map=./import_map.json ./dpm.ts",
+    "compile:macOSx64": "deno compile -A --unstable --target x86_64-apple-darwin --import-map=./import_map.json ./dpm.ts",
+    "compile:windows": "deno compile -A --unstable --target x86_64-pc-windows-msvc --import-map=./import_map.json ./dpm.ts",
+    "deno:check": "deno fmt -c deno.json --check ; deno lint -c deno.json",
+    "deno:fmt": "deno fmt -c deno.json ; deno lint -c deno.json",
+    "fmt": "deno task deno:fmt ; deno task cargo:fmt",
     "install": "deno run -A ./install.ts",
     "install:canary": "deno run -A ./install.ts canary",
     "install:stable": "deno run -A ./install.ts stable"
