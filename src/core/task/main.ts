@@ -1,9 +1,9 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { ReadDenoConfigFile, ReadDpmFile } from 'dpm/read.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { dracoFiles, Input, prompt, Table } from 'mods/deps.ts';
+import { readDenoFile, readDpmFile } from 'json/reader.ts';
 
 // Utils
 function checkFiles() {
@@ -60,11 +60,14 @@ export async function listDenoTasks() {
     Deno.exit(2);
   }
 
-  const deno = await ReadDenoConfigFile();
+  const deno = await readDenoFile();
   // Helpers!
-  const tasks = deno.tasks;
+  if (typeof deno.tasks == 'undefined') {
+    LOGGER.error(`Not found any task in the file!!`);
+    Deno.exit(2);
+  }
   const table: Table = Table.from([]);
-  for (const i of Object.entries(tasks)) {
+  for (const i of Object.entries(deno.tasks)) {
     const it = i as [string, string];
     table.push(it);
   }
@@ -82,7 +85,7 @@ export async function listDpmTasks() {
     Deno.exit(2);
   }
 
-  const dpm = await ReadDpmFile();
+  const dpm = await readDpmFile();
   // Helpers
   const tasks = dpm.scripts;
   const table: Table = Table.from([]);
@@ -116,7 +119,7 @@ export async function addDpmTask() {
   checkFiles();
   // Get the file content
   const [dpm, data] = await Promise.all([
-    ReadDpmFile(),
+    readDpmFile(),
     generateThePrompt(),
   ]);
   const scripts = dpm.scripts;

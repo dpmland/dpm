@@ -8,7 +8,7 @@ import {
   installDepsToImports,
   installStdToImports,
 } from 'packages/main.ts';
-import { WriteDpmFileJson } from 'dpm/init.ts';
+import { writeDpmFile } from 'json/writer.ts';
 
 export const InstallCommand = new Command()
   .description(
@@ -40,7 +40,7 @@ export const InstallCommand = new Command()
         LOGGER.info(`Dependencies to install: ${dependency.join(' ,')}`);
       }
       if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE) == false) {
-        await WriteDpmFileJson({});
+        await writeDpmFile({});
         LOGGER.warn('Writing the default dpm file because not exists!');
       }
       if (std != undefined) {

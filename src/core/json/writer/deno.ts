@@ -1,8 +1,9 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { Confirm, Number, prompt } from 'mods/deps.ts';
-import { writeFileFormatted } from 'dpm/util.ts';
+import { basename, Confirm, Number, prompt } from 'mods/deps.ts';
+import { writeFileFormatted } from 'json/utils/magicPrint.ts';
+import { DenoConfigurationInterface } from 'json/files.types.ts';
 
 async function getPromptForDeno() {
   return await prompt([
@@ -28,7 +29,7 @@ async function getPromptForDeno() {
 export async function writeDenoConfigFile(_print?: boolean) {
   const fmt = await getPromptForDeno();
 
-  const data = {
+  const data: DenoConfigurationInterface = {
     $schema: 'https://deno.land/x/deno/cli/schemas/config-file.v1.json',
     fmt: {
       options: {
@@ -37,7 +38,7 @@ export async function writeDenoConfigFile(_print?: boolean) {
         singleQuote: fmt.quote,
       },
     },
-    importMap: './dpm_imports.json',
+    importMap: `./${basename(BASE_DIRECTORIES.IMPORT_MAPS)}`,
     tasks: {
       test: 'deno test -A --unstable',
       fmt: 'deno fmt -c deno.json',

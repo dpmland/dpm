@@ -1,4 +1,4 @@
-// Util for the Print and more beautifull out!
+// Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { colors, ensureFile, jsonColorize, renderMarkdown } from 'mods/deps.ts';
 import { LOGGER } from 'mods/logger.ts';

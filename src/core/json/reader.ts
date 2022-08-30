@@ -1,10 +1,15 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
-
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
+import {
+  DenoConfigurationInterface,
+  DpmFileInterface,
+  EggsConfigInterface,
+  ImportMapInterface,
+} from 'json/files.types.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { colors } from 'mods/deps.ts';
 
-export async function ReadDpmFile() {
+export async function readDpmFile(): Promise<DpmFileInterface> {
   const file = await Deno.readTextFile(BASE_DIRECTORIES.DPM_FILE).catch((e) => {
     LOGGER.error(
       `Error at reading the ${
@@ -22,10 +27,10 @@ export async function ReadDpmFile() {
     Deno.exit(2);
   }
 
-  return JSON.parse(file);
+  return JSON.parse(file) as DpmFileInterface;
 }
 
-export async function ReadImportMapFile() {
+export async function readImportMapFile(): Promise<ImportMapInterface> {
   const file = await Deno.readTextFile(BASE_DIRECTORIES.IMPORT_MAPS).catch(
     (e) => {
       LOGGER.error(
@@ -45,10 +50,10 @@ export async function ReadImportMapFile() {
     Deno.exit(2);
   }
 
-  return JSON.parse(file);
+  return JSON.parse(file) as ImportMapInterface;
 }
 
-export async function ReadDenoConfigFile() {
+export async function readDenoFile(): Promise<DenoConfigurationInterface> {
   const file = await Deno.readTextFile(BASE_DIRECTORIES.DENO_JSON_FILE).catch(
     (e) => {
       LOGGER.error(
@@ -68,5 +73,28 @@ export async function ReadDenoConfigFile() {
     Deno.exit(2);
   }
 
-  return JSON.parse(file);
+  return JSON.parse(file) as DenoConfigurationInterface;
+}
+
+export async function readEggsFile(): Promise<EggsConfigInterface> {
+  const file = await Deno.readTextFile(BASE_DIRECTORIES.EGGS_FILE).catch(
+    (e) => {
+      LOGGER.error(
+        `Error at reading the ${
+          colors.dim(NAME_DIRECTORIES.DENO_JSON_FILE)
+        }.\nCaused by:\n${colors.bold(e)}`,
+      );
+    },
+  );
+
+  if (typeof file != 'string') {
+    LOGGER.error(
+      `Error at the type for parse the JSON file.\n${
+        colors.bold('Please report this at github')
+      }`,
+    );
+    Deno.exit(2);
+  }
+
+  return JSON.parse(file) as EggsConfigInterface;
 }

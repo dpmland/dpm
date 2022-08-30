@@ -1,17 +1,17 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { dracoFiles } from 'mods/deps.ts';
+import { colors, dracoFiles } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
+import { readDpmFile, readImportMapFile } from 'json/reader.ts';
 
 // Delete all dependencies from the files!
 // The import map file and the dpm dependencies file!
 export async function cleanAllDeps() {
   if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
     const [file, imports] = await Promise.all([
-      ReadDpmFile(),
-      ReadImportMapFile(),
+      readDpmFile(),
+      readImportMapFile(),
     ]);
     // Delete the imports data
     if (!('imports' in imports)) {
@@ -58,8 +58,8 @@ export async function cleanAnyDependency(deps: string[]) {
   if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
     // Read the files!
     const [file, imports] = await Promise.all([
-      ReadDpmFile(),
-      ReadImportMapFile(),
+      readDpmFile(),
+      readImportMapFile(),
     ]);
 
     // Check if exists imports and if exists dependencies
@@ -112,7 +112,7 @@ export async function cleanAnyDependency(deps: string[]) {
 
     LOGGER.info(
       `Cleanned successfully! ${
-        deps.join(' ')
+        colors.bold(deps.join(' '))
       } -> On ${NAME_DIRECTORIES.DPM_FILE} ${NAME_DIRECTORIES.IMPORT_MAPS}`,
     );
     Deno.exit();

@@ -1,3 +1,5 @@
+// Copyright © 2022 Dpm Land. All Rights Reserved.
+
 use css_minify::optimizations::{Level, Minifier};
 use minify::json;
 use minify_html::{minify as mini_html, Cfg};

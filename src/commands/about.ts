@@ -1,11 +1,11 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { Command, dracoInfo, Table } from 'mods/deps.ts';
+import { Command, dracoInfo, jsonColorize, Table } from 'mods/deps.ts';
 import { GetAuthors } from 'mods/authors.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { VERSION } from 'mods/info.ts';
-import { ReadDpmFile } from 'dpm/read.ts';
+import { readDpmFile } from 'json/reader.ts';
 import { ListAllLicenses } from 'core/license/download.ts';
 
 export const AboutCommand = new Command()
@@ -75,8 +75,8 @@ export const AboutCommand = new Command()
 
       case 'dpm': {
         console.log('Dpm File content');
-        const data = await ReadDpmFile();
-        console.log(data);
+        const data = await readDpmFile();
+        jsonColorize.colorize(JSON.stringify(data));
         break;
       }
 
@@ -86,8 +86,9 @@ export const AboutCommand = new Command()
       }
 
       case 'deps': {
-        const data = await ReadDpmFile();
-        console.log(data.dependencies);
+        const data = await readDpmFile();
+        console.log(`Printing the dependencies in the ${data.name} project`);
+        jsonColorize.colorize(JSON.stringify(data.dependencies));
         break;
       }
 

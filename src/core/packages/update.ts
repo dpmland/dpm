@@ -8,7 +8,7 @@ import {
 import { dracoFiles } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
+import { readDpmFile, readImportMapFile } from 'json/reader.ts';
 
 export async function checkUpdates() {
   LOGGER.info(`Checking updates from ${NAME_DIRECTORIES.IMPORT_MAPS} file...`);
@@ -29,7 +29,7 @@ export async function writeUpdates() {
   ) {
     const [content, importMap] = await Promise.all([
       writeNewVersions(BASE_DIRECTORIES.IMPORT_MAPS),
-      ReadImportMapFile(),
+      readImportMapFile(),
     ]);
 
     importMap.imports = content;
@@ -59,8 +59,8 @@ export async function updateDPMFiles() {
     dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)
   ) {
     const [imports, dpm] = await Promise.all([
-      ReadImportMapFile(),
-      ReadDpmFile(),
+      readImportMapFile(),
+      readDpmFile(),
     ]);
 
     const obj: NewObject = {};

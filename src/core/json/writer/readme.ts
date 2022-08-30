@@ -1,13 +1,13 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { ReadDpmFile } from 'dpm/read.ts';
+import { readDpmFile } from 'json/reader.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { writeFileFormatted } from 'dpm/util.ts';
+import { writeFileFormatted } from 'json/utils/magicPrint.ts';
 
-export async function generateReadme(print?: boolean) {
-  const data = await ReadDpmFile();
+export async function writeReadmeFile(print?: boolean) {
+  const data = await readDpmFile();
   const file = `
-# ${data.name}
+# ${data.name} :mage:
 
 ---
 
@@ -21,7 +21,7 @@ ${data.description}
 
 ---
 
-Made by [dpm](https://github.com/dpmland/dpm) :sauropod:
+Made with the [Deno Package Manager](https://github.com/dpmland/dpm) Help :sauropod: :alien:
 `;
   await writeFileFormatted({
     content: file,

@@ -1,18 +1,19 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { Command, jsonColorize, Table } from 'mods/deps.ts';
-import { writeDenoConfigFile } from 'dpm/deno.ts';
-import { generateReadme } from 'dpm/readme.ts';
-import { generateEggsFile } from 'dpm/eggs.ts';
 import {
-  GetTheOptionsPrompt,
-  WriteDpmFileJson,
-  WriteImportMapJson,
-} from 'dpm/init.ts';
+  getTheOptionsPrompt,
+  JSON_LSP,
+  writeDenoConfigFile,
+  writeDpmFile,
+  writeEditorJSONConfig,
+  writeEggFile,
+  writeImportMapFile,
+  writeReadmeFile,
+} from 'json/writer.ts';
 import { FormatInternalJSON } from 'runner/format.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { DownloadTemplate, GetLicense } from 'core/license/download.ts';
-import { EditorJSONConfig, JSON_LSP } from 'dpm/editor_gen.ts';
 
 export const InitCommand = new Command()
   .description(
@@ -36,32 +37,32 @@ export const InitCommand = new Command()
   // Manage the actions!
   .action(async ({ all, yes, file, minimalist, downloadLicense }) => {
     if (minimalist == true) {
-      const app = await GetTheOptionsPrompt();
-      await WriteDpmFileJson(app);
-      await WriteImportMapJson();
+      const app = await getTheOptionsPrompt();
+      await writeDpmFile(app);
+      await writeImportMapFile();
       await writeDenoConfigFile();
-      await generateReadme();
-      await generateEggsFile();
+      await writeReadmeFile();
+      await writeEggFile();
       await GetLicense();
       Deno.exit();
     }
 
     if (all == true) {
-      const app = await GetTheOptionsPrompt();
-      await WriteDpmFileJson(app, true);
-      await WriteImportMapJson(true);
+      const app = await getTheOptionsPrompt();
+      await writeDpmFile(app, true);
+      await writeImportMapFile(true);
       await writeDenoConfigFile(true);
-      await generateReadme(true);
-      await generateEggsFile(true);
+      await writeReadmeFile(true);
+      await writeEggFile(true);
       await GetLicense();
-      await EditorJSONConfig();
+      await writeEditorJSONConfig();
       await FormatInternalJSON();
       Deno.exit();
     }
 
     if (yes == true) {
-      await WriteDpmFileJson({});
-      await WriteImportMapJson();
+      await writeDpmFile({});
+      await writeImportMapFile();
       await writeDenoConfigFile();
       Deno.exit();
     }
@@ -74,13 +75,13 @@ export const InitCommand = new Command()
     if (typeof file == 'string') {
       switch (file.toLowerCase()) {
         case 'readme': {
-          await generateReadme();
+          await writeReadmeFile();
           Deno.exit();
           break;
         }
 
         case 'eggs': {
-          await generateEggsFile();
+          await writeEggFile();
           Deno.exit();
           break;
         }
@@ -92,13 +93,13 @@ export const InitCommand = new Command()
         }
 
         case 'dpmImports': {
-          await WriteImportMapJson();
+          await writeImportMapFile();
           Deno.exit();
           break;
         }
 
         case 'dpm': {
-          await WriteDpmFileJson({});
+          await writeDpmFile({});
           Deno.exit();
           break;
         }
@@ -110,7 +111,7 @@ export const InitCommand = new Command()
         }
 
         case 'editor': {
-          await EditorJSONConfig();
+          await writeEditorJSONConfig();
           Deno.exit();
           break;
         }
@@ -159,7 +160,7 @@ export const InitCommand = new Command()
         }
       }
     }
-    const app = await GetTheOptionsPrompt();
-    await WriteDpmFileJson(app);
-    await WriteImportMapJson();
+    const app = await getTheOptionsPrompt();
+    await writeDpmFile(app);
+    await writeImportMapFile();
   });

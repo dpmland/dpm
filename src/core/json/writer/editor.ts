@@ -2,7 +2,7 @@
 
 import { NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { colors, Input, join } from 'mods/deps.ts';
-import { writeFileFormatted } from 'dpm/util.ts';
+import { writeFileFormatted } from 'json/utils/magicPrint.ts';
 import { LOGGER } from 'mods/logger.ts';
 
 export const JSON_LSP = {
@@ -15,7 +15,7 @@ export const JSON_LSP = {
   },
 };
 
-export async function EditorJSONConfig() {
+export async function writeEditorJSONConfig() {
   const SUPPORTED_EDITORS = ['vscode', 'nvim', 'vim'];
 
   const editor: string = await Input.prompt({

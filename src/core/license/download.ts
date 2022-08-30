@@ -4,7 +4,7 @@ import { dracoFiles, ensureDir, join, walk } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { httpClient } from 'mods/http.ts';
-import { ReadDpmFile } from 'dpm/read.ts';
+import { readDpmFile } from 'json/reader.ts';
 
 export async function DownloadTemplate() {
   const URL =
@@ -47,7 +47,7 @@ function checkFiles() {
 
 export async function GetLicense() {
   checkFiles();
-  const DPM = await ReadDpmFile();
+  const DPM = await readDpmFile();
   const LICENSE_PATH = join(
     BASE_DIRECTORIES.LICENSE_DIR,
     DPM.license.toUpperCase(),

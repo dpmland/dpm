@@ -1,10 +1,10 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
-
 import { basename, Input, prompt } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { writeFileFormatted } from 'dpm/util.ts';
+import { writeFileFormatted } from 'json/utils/magicPrint.ts';
+import { DpmFileInterface } from 'json/files.types.ts';
 
-export async function GetTheOptionsPrompt() {
+export async function getTheOptionsPrompt() {
   return await prompt([
     {
       name: 'name',
@@ -78,9 +78,9 @@ export async function GetTheOptionsPrompt() {
   ]);
 }
 
-function generateJSONObject(
-  input: Record<string, unknown>,
-): Record<string, unknown> {
+export function generateJSONObject(
+  input: Record<string, string>,
+): DpmFileInterface {
   return {
     $schema: `https://dpmland.deno.dev/schema`,
     name: input.name || basename(Deno.cwd()),
@@ -98,8 +98,8 @@ function generateJSONObject(
   };
 }
 
-export async function WriteDpmFileJson(
-  input_prompt: Record<string, unknown>,
+export async function writeDpmFile(
+  input_prompt: Record<string, string>,
   print?: boolean,
 ) {
   // Magic Print
@@ -107,23 +107,6 @@ export async function WriteDpmFileJson(
     content: JSON.stringify(generateJSONObject(input_prompt), null, ' '),
     path: BASE_DIRECTORIES.DPM_FILE,
     name: NAME_DIRECTORIES.DPM_FILE,
-    type: 'json',
-    print: print,
-  });
-}
-
-export async function WriteImportMapJson(print?: boolean) {
-  // Magic Print
-  await writeFileFormatted({
-    content: JSON.stringify(
-      {
-        imports: {},
-      },
-      null,
-      '  ',
-    ),
-    path: BASE_DIRECTORIES.IMPORT_MAPS,
-    name: NAME_DIRECTORIES.IMPORT_MAPS,
     type: 'json',
     print: print,
   });

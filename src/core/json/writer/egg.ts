@@ -1,11 +1,14 @@
-import { ReadDpmFile } from 'dpm/read.ts';
+// Copyright © 2022 Dpm Land. All Rights Reserved.
+import { readDpmFile } from 'json/reader.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { writeFileFormatted } from 'dpm/util.ts';
+import { writeFileFormatted } from 'json/utils/magicPrint.ts';
+import { EggsConfigInterface } from 'json/files.types.ts';
 
-export async function generateEggsFile(print?: boolean) {
-  const data = await ReadDpmFile();
+export async function writeEggFile(print?: boolean) {
+  const data = await readDpmFile();
 
-  const file = {
+  const file: EggsConfigInterface = {
+    $schema: 'https://x.nest.land/eggs@0.3.10/src/schema.json',
     name: data.name,
     entry: data.main,
     description: data.description,
@@ -20,8 +23,7 @@ export async function generateEggsFile(print?: boolean) {
     ],
     ignore: ['.git'],
     checkFormat: 'deno task fmt:check',
-    checkInstallation: 'deno test',
-    check: false,
+    checkInstallation: true,
   };
 
   // Magic Print

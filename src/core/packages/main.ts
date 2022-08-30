@@ -1,7 +1,7 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { WriteDpmFileJson, WriteImportMapJson } from 'dpm/init.ts';
-import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
+import { writeDpmFile, writeImportMapFile } from 'json/writer.ts';
+import { readDpmFile, readImportMapFile } from 'json/reader.ts';
 import { dracoFiles } from 'mods/deps.ts';
 import { colors } from 'mods/deps.ts';
 import { httpClient } from 'mods/http.ts';
@@ -21,14 +21,14 @@ export async function installDepsToImports(
   if (
     !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))
   ) {
-    await WriteImportMapJson();
+    await writeImportMapFile();
   }
   if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
-    await WriteDpmFileJson({});
+    await writeDpmFile({});
   }
   const [data, dpm] = await Promise.all([
-    ReadImportMapFile(),
-    ReadDpmFile(),
+    readImportMapFile(),
+    readDpmFile(),
   ]);
   const mods = appendModuleToDpm(depName, options);
   if (!('dependencies' in dpm)) {
@@ -104,15 +104,15 @@ export async function installStdToImports(
   if (
     !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))
   ) {
-    await WriteImportMapJson();
+    await writeImportMapFile();
   }
   if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
-    await WriteDpmFileJson({});
+    await writeDpmFile({});
   }
   // Read the files!
   const [data, dpm] = await Promise.all([
-    ReadImportMapFile(),
-    ReadDpmFile(),
+    readImportMapFile(),
+    readDpmFile(),
   ]);
   if (!('dependencies' in dpm)) {
     LOGGER.error(
@@ -161,15 +161,15 @@ export async function esmInstallation(depName: string[]) {
   if (
     !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))
   ) {
-    await WriteImportMapJson();
+    await writeImportMapFile();
   }
   if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
-    await WriteDpmFileJson({});
+    await writeDpmFile({});
   }
   // Read the files!
   const [data, dpm] = await Promise.all([
-    ReadImportMapFile(),
-    ReadDpmFile(),
+    readImportMapFile(),
+    readDpmFile(),
   ]);
   if (!('dependencies' in dpm)) {
     LOGGER.error(
