@@ -50,7 +50,7 @@ export const BASE_DIRECTORIES: directories = {
   TEMPLATE_DIR: join(dracoFiles.cacheDir('DPM')!, 'templates'),
   DPM_FILE: join(dracoFiles.currentDir(), 'dpm.json'),
   DENO_JSON_FILE: join(dracoFiles.currentDir(), 'deno.json'),
-  IMPORT_MAPS: join(dracoFiles.currentDir(), 'dpm_imports.json'),
+  IMPORT_MAPS: join(dracoFiles.currentDir(), 'import_map.json'),
   EGGS_FILE: join(dracoFiles.currentDir(), 'eggs.json'),
   README: join(dracoFiles.currentDir(), 'README.md'),
   TEMP: join(dracoFiles.cacheDir('DPM')!, 'bin'),
@@ -60,7 +60,7 @@ export const BASE_DIRECTORIES: directories = {
 export const NAME_DIRECTORIES: names = {
   DPM_FILE: 'dpm.json',
   DENO_JSON_FILE: 'deno.json',
-  IMPORT_MAPS: 'dpm_imports.json',
+  IMPORT_MAPS: 'import_map.json',
   EGGS_FILE: 'eggs.json',
   README: 'README.md',
   TEMP: join('SYSTEM_TEMP_FOLDER', 'DPM'),

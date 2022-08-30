@@ -55,7 +55,7 @@ export async function RunDPX(
       'import-map.json',
       'importMap.json',
       'importmap.json',
-      'dpm_imports.json',
+      'import_map.json',
     ]
     : Options.importMapNames;
 
@@ -268,7 +268,7 @@ export async function GeneratePromptDPX() {
         'import-map.json',
         'importMap.json',
         'importmap.json',
-        'dpm_imports.json',
+        'import_map.json',
       ],
     },
   ]);

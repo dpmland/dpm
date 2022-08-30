@@ -184,7 +184,7 @@ and done the setup with DPM is very simple and fast :smiley:
   tools for a better development with Deno.
 
 - **uninstall || clean**: Here you can uninstall the dependencies from the
-  _dpm_imports.json_ file and if you want remove one or many of this deps can
+  _import_map.json_ file and if you want remove one or many of this deps can
   you do it!
 
 - **install || add**: If you want use external packages and dependencies can you
@@ -197,7 +197,7 @@ and done the setup with DPM is very simple and fast :smiley:
   you can run scripts like `npm scripts` you can define this in the `dpm.json`
   file.
 
-- **update**: Here you can check if the file are updated `dpm_imports.json`
+- **update**: Here you can check if the file are updated `import_map.json`
   dependencies and the new version available
 
 - **upgrade**: Upgrade dpm executable to latest or given version.

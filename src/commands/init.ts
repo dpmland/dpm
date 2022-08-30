@@ -131,7 +131,7 @@ export const InitCommand = new Command()
             eggs:
               `Generate only the eggs file! Note: << Necessary the dpm.json file! >>`,
             deno: `Generate the deno.json file with the default configs!`,
-            importMap: `Generate the dpm_imports.json with a empty content!`,
+            importMap: `Generate the import_map.json with a empty content!`,
             dpm: `Generate the dpm.json file with the default content!`,
             license:
               `Generate the LICENSE from the template using the LICENSE in the dpm.json file! Note: << Necessary the dpm.json file! >>`,
