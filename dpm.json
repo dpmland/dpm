@@ -1,0 +1,15 @@
+{
+  "$schema": "https://dpmland.deno.dev/schema",
+  "name": "dpm",
+  "version": "0.1.0",
+  "description": "A example dpm package",
+  "author": "A cool coder human",
+  "license": "ISC",
+  "main": "mod.ts",
+  "scripts": {
+    "test": "deno test -A --unstable",
+    "fmt": "deno fmt -c deno.json",
+    "lint": "deno lint -c deno.json"
+  },
+  "dependencies": {}
+}

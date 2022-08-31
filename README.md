@@ -184,8 +184,8 @@ and done the setup with DPM is very simple and fast :smiley:
   tools for a better development with Deno.
 
 - **uninstall || clean**: Here you can uninstall the dependencies from the
-  _import_map.json_ file and if you want remove one or many of this deps can
-  you do it!
+  _import_map.json_ file and if you want remove one or many of this deps can you
+  do it!
 
 - **install || add**: If you want use external packages and dependencies can you
   use this tool!

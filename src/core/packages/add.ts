@@ -18,7 +18,7 @@ const denoRegister = 'https://deno.land/x';
 export function appendModuleToDpm(
   depName: string[],
   options: appendOptions = {},
-) {
+): string[] {
   const url = [];
   if (typeof options.host == 'boolean') {
     LOGGER.error('Host is necessary a value!');
@@ -57,7 +57,7 @@ export function appendModuleToDpm(
 
 export async function appendStdToFile(
   depName: string[],
-) {
+): Promise<string[]> {
   // Get the latest version of
   const version = await httpClient(url);
   // Helper Variable
@@ -80,7 +80,7 @@ export async function appendStdToFile(
   return std;
 }
 
-export async function esmGetVersion(depName: string[]) {
+export async function esmGetVersion(depName: string[]): Promise<string[]> {
   const urls = [];
   for (const i of depName) {
     const url = `${urlESM}/${i}`;
@@ -94,4 +94,21 @@ export async function esmGetVersion(depName: string[]) {
     urls.push(`${urlESM}/${response}`);
   }
   return urls;
+}
+
+export async function getTheVersionOfDep(
+  dep: string,
+  host: string,
+): Promise<string> {
+  if (host == 'https://deno.land/x') {
+    if (dep.includes('@')) {
+      return ``;
+    }
+    const url = `https://cdn.deno.land/${dep}/meta/versions.json`;
+    const versionList = await httpClient(url);
+    if (versionList.latest) {
+      return versionList.latest;
+    }
+  }
+  return '';
 }

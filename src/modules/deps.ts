@@ -44,10 +44,13 @@ export * as colors from 'https://deno.land/std@0.152.0/fmt/colors.ts';
 
 // Input module!
 export {
+  Checkbox,
   Confirm,
   Input,
+  List,
   Number,
   prompt,
+  Select,
 } from 'https://deno.land/x/cliffy@v0.24.3/prompt/mod.ts';
 
 export {

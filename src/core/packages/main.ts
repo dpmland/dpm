@@ -4,7 +4,6 @@ import { writeDpmFile, writeImportMapFile } from 'json/writer.ts';
 import { readDpmFile, readImportMapFile } from 'json/reader.ts';
 import { dracoFiles } from 'mods/deps.ts';
 import { colors } from 'mods/deps.ts';
-import { httpClient } from 'mods/http.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import {
@@ -12,6 +11,7 @@ import {
   appendOptions,
   appendStdToFile,
   esmGetVersion,
+  getTheVersionOfDep,
 } from 'packages/add.ts';
 
 export async function installDepsToImports(
@@ -49,8 +49,7 @@ export async function installDepsToImports(
     ? 'https://deno.land/x'
     : options.host;
   for (const i of mods) {
-    const splited = i.replace(options.host, ' ');
-    const pkg = splited.split('/');
+    const pkg = i.replace(options.host, '').split('/');
     const version = await getTheVersionOfDep(pkg[1], options.host);
     if (version == '') {
       imports[`${pkg[1]}/`] = i;
@@ -78,23 +77,6 @@ export async function installDepsToImports(
     } into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
   );
   Deno.exit();
-}
-
-export async function getTheVersionOfDep(
-  dep: string,
-  host: string,
-): Promise<string> {
-  if (host == 'https://deno.land/x') {
-    if (dep.includes('@')) {
-      return ``;
-    }
-    const url = `https://cdn.deno.land/${dep}/meta/versions.json`;
-    const versionList = await httpClient(url);
-    if (versionList.latest) {
-      return versionList.latest;
-    }
-  }
-  return '';
 }
 
 export async function installStdToImports(
