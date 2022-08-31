@@ -14,24 +14,6 @@ export interface DpmFileInterface {
   main: string;
   scripts: Record<string, string>;
   dependencies: Record<string, string>;
-  config?: DpmConfigInterface;
-}
-
-/**
- * DpmConfigInterface.
- * @description The Config Interface
- * TODO: Integrate this interface for the new configs! -> TeoDev1611
- */
-export interface DpmConfigInterface {
-  dependencies?: {
-    prefix: string;
-    suffix: string;
-  };
-  files?: {
-    importMap: string;
-    denoConfig: string;
-    dependencyBundled: string;
-  };
 }
 
 /**
