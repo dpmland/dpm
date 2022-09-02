@@ -13,6 +13,7 @@ import { UpgradeCommand } from 'cmd/upgrade.ts';
 import { ExecCommand } from 'cmd/exec.ts';
 import { TemplateCommand } from 'cmd/template.ts';
 import { PublishCommand } from 'cmd/publish.ts';
+import { BundlerCommand } from 'cmd/bundler.ts';
 
 // Make the CLI!
 await new Command()
@@ -37,5 +38,6 @@ await new Command()
   .command('template', TemplateCommand)
   .command('upgrade', UpgradeCommand)
   .command('exec', ExecCommand)
+  .command('bundle', BundlerCommand)
   .command('completions', new CompletionsCommand())
   .parse(Deno.args);
