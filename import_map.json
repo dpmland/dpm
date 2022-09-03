@@ -1,5 +1,6 @@
 {
   "imports": {
+    "bundler/": "./src/core/bundler/",
     "checker/": "./src/core/checker/",
     "cmd/": "./src/commands/",
     "core/": "./src/core/",
