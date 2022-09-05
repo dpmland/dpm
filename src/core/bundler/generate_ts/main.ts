@@ -1,6 +1,7 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { readImportMapFile } from 'json/reader.ts';
+import { generateHeader } from 'bundler/generate_ts/magic.ts';
 
 // TODO: Add the dependencies organized in groups by url from imports!
 export async function generateTypescriptDep() {
@@ -12,6 +13,7 @@ export async function generateTypescriptDep() {
     txt += `export * as ${i.replaceAll(/[^A-Za-z0-9]/g, '')} from "${
       imports.imports[i]
     }";\n`;
+    console.log(`\n${generateHeader(imports.imports[i])}`);
   }
   console.log(txt);
 }
