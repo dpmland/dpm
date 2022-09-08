@@ -1,7 +1,7 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-export const sideCharacters = '*';
-export const edgeCharacters = '*';
+export const sideCharacters = '//';
+export const edgeCharacters = '/*';
 export const centerCharacter = '*';
 
 const fullLine = (l: number) => {
@@ -9,7 +9,7 @@ const fullLine = (l: number) => {
   line += centerCharacter.repeat(
     l - edgeCharacters.length * 2,
   );
-  line += `${edgeCharacters}/\n`;
+  line += `//\n`;
   return line;
 };
 

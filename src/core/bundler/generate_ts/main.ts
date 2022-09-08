@@ -13,7 +13,7 @@ export async function generateTypescriptDep() {
     txt += `export * as ${i.replaceAll(/[^A-Za-z0-9]/g, '')} from "${
       imports.imports[i]
     }";\n`;
-    console.log(`\n${generateHeader(imports.imports[i])}`);
+    console.log(generateHeader(imports.imports[i]));
   }
   console.log(txt);
 }
