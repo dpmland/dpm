@@ -1,7 +1,7 @@
 // @generated file from wasmbuild -- do not edit
 // deno-lint-ignore-file
 // deno-fmt-ignore-file
-// source-hash: c9afb06fb949578051081089f809ba36ef453bc5
+// source-hash: 1c54ad667d5d144ff19b58af6b1675e041dd1b9d
 let wasm;
 
 let WASM_VECTOR_LEN = 0;
@@ -171,7 +171,7 @@ const imports = {
   __wbindgen_placeholder__: {},
 };
 
-const wasm_url = new URL('rs_lib_bg.wasm', import.meta.url);
+const wasm_url = new URL('minify_dpm_bg.wasm', import.meta.url);
 
 /**
  * Decompression callback

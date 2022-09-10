@@ -2,6 +2,7 @@
 
 import { Command } from 'mods/deps.ts';
 import { generateTypescriptDep } from 'bundler/generate_ts/main.ts';
+import { minifyFiles } from 'bundler/minify/cmd/main.ts';
 
 export const BundlerCommand = new Command()
   .description(
@@ -9,6 +10,27 @@ export const BundlerCommand = new Command()
   )
   .arguments('[action:string]')
   .action(async (_, action) => {
-    console.log(action);
-    await generateTypescriptDep();
+    switch (action) {
+      case 'minify': {
+        await minifyFiles();
+        break;
+      }
+      case 'mini': {
+        await minifyFiles();
+        break;
+      }
+
+      case 'typescript': {
+        await generateTypescriptDep();
+        break;
+      }
+
+      case 'ts': {
+        await generateTypescriptDep();
+        break;
+      }
+
+      default:
+        break;
+    }
   });
