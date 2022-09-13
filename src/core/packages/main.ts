@@ -117,8 +117,8 @@ export async function installStdToImports(
   await appendStdToFile(depName).then((f) => {
     for (const i of f) {
       const pkg = i.split('/');
-      imports[`${pkg[5]}/`] = i;
-      deps[`${pkg[5]}/`] = i.split('@')[1].replace(/[^\d.-]/g, '');
+      imports[`${pkg[4]}/`] = i;
+      deps[`${pkg[4]}/`] = i.split('@')[1].replace(/[^\d.-]/g, '');
     }
   });
 

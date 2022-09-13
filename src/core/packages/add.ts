@@ -13,7 +13,6 @@ export interface appendOptions {
 // URLS
 const url = 'https://cdn.deno.land/std/meta/versions.json';
 const urlESM = 'https://esm.sh';
-const denoRegister = 'https://deno.land/x';
 
 export function appendModuleToDpm(
   depName: string[],
@@ -74,7 +73,7 @@ export async function appendStdToFile(
       LOGGER.error(`Not found the latest version of the std!`);
       Deno.exit(2);
     }
-    URL_COMPLETE += `${denoRegister}/std@${latest}/${i}/`;
+    URL_COMPLETE += `https://deno.land/std@${latest}/${i}/`;
     std.push(URL_COMPLETE);
   }
   return std;

@@ -8,7 +8,7 @@ export const UninstallCommand = new Command()
     `Uninstall dependencies from the dpm file and the import file! 🧙`,
   )
   .alias('remove')
-  .arguments('[dependency:...string]')
+  .arguments('[dependency...:string]')
   .option('-A, --all [all:boolean]', 'Remove all dependencies from the files!')
   .action(async ({ all }, dependency) => {
     if (typeof all == 'boolean') {

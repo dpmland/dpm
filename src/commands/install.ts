@@ -61,6 +61,8 @@ export const InstallCommand = new Command()
           await installDepsToImports(dependency, { host: host! });
           Deno.exit();
         }
+        await installDepsToImports(dependency);
+        Deno.exit();
       }
     },
   );
