@@ -177,6 +177,9 @@ and done the setup with DPM is very simple and fast :smiley:
 - **[about || me](https://dpmland.github.io/commands/about/)**: Here you can
   found the information and some tools for learn more about dpm.
 
+- **bundle**: Here you can merge all dependencies from the `import_map.json`
+  file into a `TypeScript Dependency` file!
+
 - **[docs || doc](https://dpmland.github.io/commands/docs/)**: Here you can get
   the documentation and download, clean and update the docs.
 
