@@ -1,7 +1,7 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { readImportMapFile } from 'json/reader.ts';
-import { colors, Confirm } from 'mods/deps.ts';
+import { colors, Confirm, Input } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 
@@ -73,10 +73,17 @@ export async function generateTypescriptDep() {
 
   printTypescript(txt);
   const write: boolean = await Confirm.prompt('Do you want write this file?');
+  const path: string = await Input.prompt({
+    message: 'Path to write the file?',
+    suggestions: [
+      BASE_DIRECTORIES.DEPS_BUNDLE,
+      './deps.ts',
+    ],
+  });
 
   if (write) {
     try {
-      await Deno.writeTextFile(BASE_DIRECTORIES.DEPS_BUNDLE, txt);
+      await Deno.writeTextFile(path, txt);
     } catch (error) {
       LOGGER.error(
         `Cannot Write successfully the file ${NAME_DIRECTORIES.DEPS_BUNDLE.toUpperCase()}\nCaused by: ${
