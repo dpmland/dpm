@@ -73,16 +73,17 @@ export async function generateTypescriptDep() {
 
   printTypescript(txt);
   const write: boolean = await Confirm.prompt('Do you want write this file?');
-  const path: string = await Input.prompt({
-    message: 'Path to write the file?',
-    suggestions: [
-      BASE_DIRECTORIES.DEPS_BUNDLE,
-      './deps.ts',
-    ],
-  });
 
   if (write) {
     try {
+      const path: string = await Input.prompt({
+        message: 'Path to write the file?',
+        suggestions: [
+          BASE_DIRECTORIES.DEPS_BUNDLE,
+          './deps.ts',
+        ],
+      });
+
       await Deno.writeTextFile(path, txt);
     } catch (error) {
       LOGGER.error(
