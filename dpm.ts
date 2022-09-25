@@ -1,5 +1,5 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
-import { Command, CompletionsCommand } from 'mods/deps.ts';
+import { Command, CompletionsCommand, HelpCommand } from 'mods/deps.ts';
 import { DESCRIPTION, VERSION } from 'mods/info.ts';
 import { AboutCommand } from 'cmd/about.ts';
 import { DocsCommand } from 'cmd/docs.ts';
@@ -40,4 +40,5 @@ await new Command()
   .command('exec', ExecCommand)
   .command('bundle', BundlerCommand)
   .command('completions', new CompletionsCommand())
+  .command('help', new HelpCommand().global())
   .parse(Deno.args);
