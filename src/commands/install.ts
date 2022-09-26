@@ -13,7 +13,7 @@ import { writeDpmFile } from 'json/writer.ts';
 
 export const InstallCommand = new Command()
   .description(
-    `If you want use external packages and dependencies can you use this tool! 🦅`,
+    `If you want to use external packages and dependencies you could look this tool! 🦅`,
   )
   .alias('add')
   .arguments('[dependency...:string]')

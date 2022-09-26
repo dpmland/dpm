@@ -11,7 +11,7 @@ import { ListAllLicenses } from 'core/license/download.ts';
 export const AboutCommand = new Command()
   .alias('me')
   .description(
-    `Do you known some information or commands of dpm can you check more here! 📕`,
+    `Don't you know about DPM? You can stay updated here!📕`,
   )
   .example(
     'Help',
