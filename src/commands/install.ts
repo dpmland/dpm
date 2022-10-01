@@ -52,16 +52,16 @@ export const InstallCommand = new Command()
         Deno.exit();
       }
       if (typeof dependency != 'undefined') {
-        if (dependency.length > 0) {
+        if (Array.isArray(dependency)) {
           LOGGER.info(`Dependencies to install: ${dependency.join(' ,')}`);
         } else {
           LOGGER.info(`Dependency to install: ${dependency}`);
         }
         if (typeof host == 'string') {
-          await installDepsToImports(dependency, { host: host! });
+          await installDepsToImports(dependency.split(' '), { host: host! });
           Deno.exit();
         }
-        await installDepsToImports(dependency);
+        await installDepsToImports(dependency.split(' '));
         Deno.exit();
       }
     },

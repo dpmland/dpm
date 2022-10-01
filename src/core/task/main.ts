@@ -29,8 +29,8 @@ export async function UpdateTasks() {
 
   // Read the files
   const [dpm, deno] = await Promise.all([
-    ReadDpmFile(),
-    ReadDenoConfigFile(),
+    readDpmFile(),
+    readDenoFile(),
   ]);
 
   // Copy the deno to dpm and dpm to deno

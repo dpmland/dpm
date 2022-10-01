@@ -12,7 +12,7 @@ export interface DpmFileInterface {
   author: string;
   license: string;
   main: string;
-  scripts: Record<string, string>;
+  scripts: Record<string, unknown>;
   dependencies: Record<string, string>;
 }
 
@@ -221,7 +221,7 @@ export interface DenoConfigurationInterface {
   /**
    * Configuration for deno task
    */
-  tasks?: Record<string, string>;
+  tasks: Record<string, unknown>;
   /**
    * Configuration for deno test
    */
