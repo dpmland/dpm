@@ -219,7 +219,9 @@ export async function RunDPX(
     ...denoFlags,
     ...permissionFlags,
     `https://deno.land/x/${moduleName}@${version}/${command}`,
-    ...args.map((a: string) => a.toString()),
+    ...args.map((a: string | number, _: number, _a: (string | number)[]) =>
+      a.toString()
+    ),
     ...appFlags,
   ];
 
