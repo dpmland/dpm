@@ -18,13 +18,25 @@ function findRegisters(url: string, name: string): string[] {
 
   const answer: string[] = [];
 
-  registers.forEach((i) => {
+  registers.forEach(async (i) => {
     if (url.includes(i)) {
       answer.push(
         `// REGISTER: ${i.toUpperCase().split('/')[0]} -> URL: ${url}\n`,
       );
+      const file: string = await Input.prompt(
+        `What file do you want use from ${
+          colors.bold(name.replaceAll(/[^A-Za-z0-9]/g, ''))
+        }?`,
+      );
+
+      if (!file.endsWith('.ts') || !file.endsWith('.js')) {
+        LOGGER.warn(`Not .js or .ts file found!`);
+      }
+
       answer.push(
-        `export * as ${name.replaceAll(/[^A-Za-z0-9]/g, '')} from "${url}";\n`,
+        `export * as ${
+          name.replaceAll(/[^A-Za-z0-9]/g, '')
+        } from "${url}/${file}";\n`,
       );
     }
   });
