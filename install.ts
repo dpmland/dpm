@@ -1,8 +1,8 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import * as colors from 'https://deno.land/std@0.149.0/fmt/colors.ts';
-import { join } from 'https://deno.land/std@0.149.0/path/mod.ts';
-import { copy } from 'https://deno.land/std@0.149.0/fs/copy.ts';
+import * as colors from 'https://deno.land/std@0.158.0/fmt/colors.ts';
+import { join } from 'https://deno.land/std@0.158.0/path/mod.ts';
+import { copy } from 'https://deno.land/std@0.158.0/fs/copy.ts';
 import { dracoFiles, dracoInfo } from 'https://deno.land/x/draco@0.1.3/mod.ts';
 import Ask from 'https://deno.land/x/ask@1.0.6/mod.ts';
 import figlet from 'https://x.nest.land/deno-figlet@0.0.5/mod.js';
