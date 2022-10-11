@@ -13,7 +13,7 @@ export async function DownloadTemplate() {
   // Get the version url
   const response = await httpClient(URL);
 
-  for await (const file of response.data) {
+  for await (const file of response) {
     const res = await fetch(file.download_url);
 
     const data = await res.text();
