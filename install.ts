@@ -101,8 +101,10 @@ if (answers2.allTools) {
     if (dracoFiles.exists(join(BIN, 'dpm.exe'))) {
       await Run(`${join(BIN, 'dpm.exe')} docs -u`);
       console.log(colors.yellow('Installed the documentation!'));
-      await Run(`${join(BIN, 'dpm.exe')} init -D`);
-      console.log(colors.yellow('Installed the license templates!'));
+      if (installation == 'canary') {
+        await Run(`${join(BIN, 'dpm')} init -D`);
+        console.log(colors.yellow('Installed the license templates!'));
+      }
     } else {
       console.log(
         colors.red(
@@ -116,8 +118,10 @@ if (answers2.allTools) {
     if (dracoFiles.exists(join(BIN, 'dpm'))) {
       await Run(`${join(BIN, 'dpm')} docs -u`);
       console.log(colors.yellow('Installed the documentation!'));
-      await Run(`${join(BIN, 'dpm')} init -D`);
-      console.log(colors.yellow('Installed the license templates!'));
+      if (installation == 'canary') {
+        await Run(`${join(BIN, 'dpm')} init -D`);
+        console.log(colors.yellow('Installed the license templates!'));
+      }
     } else {
       console.log(
         colors.red(
