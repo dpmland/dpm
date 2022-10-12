@@ -30,6 +30,9 @@ modules and in general any TypeScript or JavaScript code
 Stable Version:
 
 ```sh
+deno task install stable
+
+# or
 deno run -A --unstable https://deno.land/x/dpm/install.ts stable
 ```
 
@@ -37,6 +40,9 @@ Development Version can check the features roadmap
 [here](https://github.com/dpmland/dpm/pull/7):
 
 ```sh
+deno task install canary
+
+# or
 deno run -A --unstable https://deno.land/x/dpm/install.ts canary
 ```
 
