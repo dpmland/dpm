@@ -24,6 +24,7 @@ export interface directories {
   DPM_FILE: string;
   DENO_JSON_FILE: string;
   IMPORT_MAPS: string;
+  INSTALLER: string;
   EGGS_FILE: string;
   README: string;
   TEMP: string;
@@ -37,6 +38,7 @@ export interface names {
   DPM_FILE: string;
   DENO_JSON_FILE: string;
   IMPORT_MAPS: string;
+  INSTALLER: string;
   EGGS_FILE: string;
   README: string;
   TEMP: string;
@@ -58,6 +60,7 @@ export const BASE_DIRECTORIES: directories = {
   TEMP: join(dracoFiles.cacheDir('DPM')!, 'bin'),
   DENO_EXEC: join(dracoFiles.homeDir()!, '.deno', 'bin', denoName),
   DEPS_BUNDLE: join(dracoFiles.currentDir(), 'deps.ts'),
+  INSTALLER: join(dracoFiles.currentDir(), 'installer.ts'),
 };
 
 export const NAME_DIRECTORIES: names = {
@@ -66,6 +69,7 @@ export const NAME_DIRECTORIES: names = {
   IMPORT_MAPS: 'import_map.json',
   DEPS_BUNDLE: 'deps.ts',
   EGGS_FILE: 'eggs.json',
+  INSTALLER: 'installer.ts',
   README: 'README.md',
   TEMP: join('SYSTEM_TEMP_FOLDER', 'DPM'),
   DENO_EXEC: join('.deno', 'bin', denoName),

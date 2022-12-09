@@ -3,6 +3,7 @@
 import { Command } from 'mods/deps.ts';
 import { generateTypescriptDep } from 'bundler/generate_ts/main.ts';
 import { minifyFiles } from 'bundler/minify/cmd/main.ts';
+import { generateInstaller } from 'bundler/monk/main.ts';
 
 export const BundlerCommand = new Command()
   .description(
@@ -17,6 +18,16 @@ export const BundlerCommand = new Command()
       }
       case 'mini': {
         await minifyFiles();
+        break;
+      }
+
+      case 'installer': {
+        await generateInstaller();
+        break;
+      }
+
+      case 'monk': {
+        await generateInstaller();
         break;
       }
 
