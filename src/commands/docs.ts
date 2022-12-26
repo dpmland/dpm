@@ -9,12 +9,8 @@ export const DocsCommand = new Command()
   .alias('doc')
   .arguments('[action:string]')
   .option(
-    '-d, --download [download:boolean]',
-    'Download the documentation for make this offline from the DPM Official Repo!',
-  )
-  .option(
-    '-u --update [update:boolean]',
-    'Update the documentation and clean the old documentation!',
+    '-I, --install [install:boolean]',
+    'Install the documentation for make this offline from the DPM Official Repo!',
   )
   .option(
     '-o --online [docs:boolean]',
@@ -24,13 +20,13 @@ export const DocsCommand = new Command()
     '-D, --discord [discord:boolean]',
     'Open the discord server if you want ask or propose something',
   )
-  .action(async ({ download, update, online, discord }, action) => {
+  .action(async ({ install, online, discord }, action) => {
     if (action) {
       await getDocumentation(action);
       Deno.exit();
     }
-    if (download == true) {
-      await docs.downloadDocumentation();
+    if (install == true) {
+      await docs.DownloadDocs();
       Deno.exit();
     }
     if (online == true) {
@@ -43,10 +39,6 @@ export const DocsCommand = new Command()
       LOGGER.info('Opening the Official Discord Server of DPM!');
       await open('https://discord.gg/Um27YPJKud');
       LOGGER.done('Opened successfully the Discord Server Invitation!');
-      Deno.exit();
-    }
-    if (update == true) {
-      await docs.updateDocumentation();
       Deno.exit();
     }
   });
