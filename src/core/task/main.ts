@@ -34,7 +34,7 @@ export async function UpdateTasks() {
   ]);
 
   // Copy the deno to dpm and dpm to deno
-  Object.assign(deno.tasks, dpm.scripts);
+  Object.assign(deno.tasks!, dpm.scripts);
   Object.assign(dpm.scripts, deno.tasks);
 
   // Update the files!

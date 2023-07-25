@@ -313,15 +313,7 @@ export interface DenoConfigurationFileSchema {
   /**
    * Configuration for deno task
    */
-  tasks?: {
-    /**
-     * Command to execute for this task name.
-     *
-     * This interface was referenced by `undefined`'s JSON-Schema definition
-     * via the `patternProperty` "^[A-Za-z][A-Za-z0-9_\-:]*$".
-     */
-    [k: string]: string;
-  };
+  tasks?: Record<string, unknown>;
   /**
    * Configuration for deno test
    */
