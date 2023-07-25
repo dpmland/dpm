@@ -53,7 +53,7 @@ export async function readImportMapFile(): Promise<ImportMapInterface> {
   return JSON.parse(file) as ImportMapInterface;
 }
 
-export async function readDenoFile(): Promise<DenoConfigurationInterface> {
+export async function readDenoFile(): Promise<DenoConfigurationFileSchema> {
   const file = await Deno.readTextFile(BASE_DIRECTORIES.DENO_JSON_FILE).catch(
     (e) => {
       LOGGER.error(
