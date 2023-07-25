@@ -25,7 +25,7 @@ export interface ImportMapInterface {
 }
 
 /**
- * DenoConfigurationInterface.
+ * DenoConfigurationFileSchema.
  * @description A JSON representation of a Deno configuration file.
  */
 export interface DenoConfigurationFileSchema {
@@ -376,5 +376,65 @@ export interface DenoConfigurationFileSchema {
    * Whether to use a lock file or the path to use for the lock file. Can be overridden by CLI arguments.
    */
   lock?: string | boolean;
+  [k: string]: unknown;
+}
+
+export interface EggsConfigInterface {
+  /**
+   * The name of your module/repository.
+   */
+  name?: string;
+  /**
+   * Your module/repository description.
+   */
+  description?: string;
+  /**
+   * Current version of your module. Must follow semver.
+   */
+  version?: string;
+  /**
+   * Increment the version by release type. See https://docs.nest.land/eggs/configuration.html#field-information.
+   */
+  bump?: string;
+  /**
+   * The index file of your project. This is what users will see when they try to import your module from our registry! Defaults to ./mod.ts.
+   */
+  entry?: string;
+  /**
+   * Is this version unstable?. Default value is determined by Semantic Versioning rules.
+   */
+  unstable?: boolean;
+  /**
+   * Should people be able to find this module/version on the gallery?. Defaults to false.
+   */
+  unlisted?: boolean;
+  /**
+   * A link to your repository. Defaults to null.
+   */
+  repository?: string;
+  /**
+   * All the files that should be uploaded to nest.land. Supports file globbing. Do not use ./** /* for the files field! This has been known to cause errors in the publishing process.
+   */
+  files?: string[];
+  /**
+   * All the files that should be ignored when uploading to nest.land. Supports file globbing.
+   */
+  ignore?: string[];
+  /**
+   * Automatically format your code before publishing to the blockchain. Defaults to false
+   */
+  checkFormat?: boolean | string;
+  /**
+   * Run deno test. Defaults to false.
+   */
+  checkTests?: boolean | string;
+  /**
+   * Simulates a dummy installation and check for missing files in the dependency tree. Defaults to false.
+   */
+  checkInstallation?: boolean;
+  /**
+   * Performs all checks. Defaults to true.
+   */
+  checkAll?: boolean;
   [k: string]: unknown;
 }

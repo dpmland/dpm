@@ -1,7 +1,7 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import {
-  DenoConfigurationInterface,
+  DenoConfigurationFileSchema,
   DpmFileInterface,
   EggsConfigInterface,
   ImportMapInterface,
@@ -73,7 +73,7 @@ export async function readDenoFile(): Promise<DenoConfigurationInterface> {
     Deno.exit(2);
   }
 
-  return JSON.parse(file) as DenoConfigurationInterface;
+  return JSON.parse(file) as DenoConfigurationFileSchema;
 }
 
 export async function readEggsFile(): Promise<EggsConfigInterface> {
