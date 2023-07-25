@@ -6,7 +6,7 @@ import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 
 // Try find register
-function findRegisters(url: string, name: string): string[] {
+async function findRegisters(url: string, name: string): Promise<string[]> {
   const registers = [
     'deno.land/x/',
     'deno.land/std',
@@ -18,7 +18,7 @@ function findRegisters(url: string, name: string): string[] {
 
   const answer: string[] = [];
 
-  registers.forEach(async (i) => {
+  for await (const i of registers) {
     if (url.includes(i)) {
       answer.push(
         `// REGISTER: ${i.toUpperCase().split('/')[0]} -> URL: ${url}\n`,
@@ -29,17 +29,23 @@ function findRegisters(url: string, name: string): string[] {
         }?`,
       );
 
-      if (!file.endsWith('.ts') || !file.endsWith('.js')) {
-        LOGGER.warn(`Not .js or .ts file found!`);
+      switch (file.split('.').slice(1)[0]) {
+        case 'js':
+          break;
+        case 'ts':
+          break;
+        default:
+          LOGGER.warn('Not found .js or .ts extension!!');
+          break;
       }
 
       answer.push(
         `export * as ${
           name.replaceAll(/[^A-Za-z0-9]/g, '')
-        } from "${url}/${file}";\n`,
+        } from "${url}${file}";\n`,
       );
     }
-  });
+  }
 
   return answer;
 }
@@ -77,8 +83,9 @@ export function printTypescript(txt: string) {
 export async function generateTypescriptDep() {
   const imports = await readImportMapFile();
   let txt = `// Generated with DPM Please no modify!\n\n`;
-  for (const i of Object.keys(imports.imports)) {
-    findRegisters(imports.imports[i], i).forEach((i) => {
+  for await (const i of Object.keys(imports.imports)) {
+    const r = await findRegisters(imports.imports[i], i);
+    r.forEach((i) => {
       txt += i;
     });
   }
@@ -108,6 +115,6 @@ export async function generateTypescriptDep() {
   }
 
   LOGGER.done(
-    `Successfully wroted the file ${NAME_DIRECTORIES.DEPS_BUNDLE.toUpperCase()}`,
+    `Successfully written the file ${NAME_DIRECTORIES.DEPS_BUNDLE.toUpperCase()}`,
   );
 }
