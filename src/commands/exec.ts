@@ -6,7 +6,6 @@ import {
   directory,
   dracoInfo,
   join,
-  node,
   Table,
   UtilUnknown,
 } from 'mods/deps.ts';
@@ -54,12 +53,12 @@ export const ExecCommand = new Command()
         console.log(
           `Append this command\n${colors.bold(colors.cyan(stringToAdd))}\n`,
         );
-        switch (basename(node.env.SHELL)) {
+        switch (basename(Deno.env.get('SHELL')!)) {
           case 'zsh': {
             console.log(
               `To the path of your shell in this case ${
                 basename(
-                  node.env.SHELL,
+                  Deno.env.get('SHELL')!,
                 )
               }:\n${colors.bold(join(directory.default('home')!, '.zshrc'))}\n`,
             );
@@ -70,7 +69,7 @@ export const ExecCommand = new Command()
             console.log(
               `To the path of your shell in this case ${
                 basename(
-                  node.env.SHELL,
+                  Deno.env.get('SHELL')!,
                 )
               }:\n${
                 colors.bold(
@@ -90,7 +89,7 @@ export const ExecCommand = new Command()
             console.log(
               `To the path of your shell in this case ${
                 basename(
-                  node.env.SHELL,
+                  Deno.env.get('SHELL')!,
                 )
               }:\n${
                 colors.bold(join(directory.default('home')!, '.bashrc'))

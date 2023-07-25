@@ -93,10 +93,10 @@ if (answers2.allTools) {
   );
   if (dracoInfo.platform() == 'windows') {
     if (dracoFiles.exists(join(BIN, 'dpm.exe'))) {
-      await Run(`${join(BIN, 'dpm.exe')} docs -u`);
+      await Run(`${join(BIN, 'dpm.exe')} docs -I`);
       console.log(colors.yellow('Installed the documentation!'));
       if (installation == 'canary') {
-        await Run(`${join(BIN, 'dpm')} init -I`);
+        await Run(`${join(BIN, 'dpm')} init -D`);
         console.log(colors.yellow('Installed the license templates!'));
       }
     } else {
@@ -110,10 +110,10 @@ if (answers2.allTools) {
     dracoInfo.platform() == 'linux' || dracoInfo.platform() == 'darwin'
   ) {
     if (dracoFiles.exists(join(BIN, 'dpm'))) {
-      await Run(`${join(BIN, 'dpm')} tools install`);
+      await Run(`${join(BIN, 'dpm')} docs -I`);
       console.log(colors.yellow('Installed the documentation!'));
       if (installation == 'canary') {
-        await Run(`${join(BIN, 'dpm')} init -D`);
+        await Run(`${join(BIN, 'dpm')} init -I`);
         console.log(colors.yellow('Installed the license templates!'));
       }
     } else {

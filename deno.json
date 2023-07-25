@@ -1,24 +1,18 @@
 {
-  "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+  "$schema": "https://deno.land/x/deno@v1.35.2/cli/schemas/config-file.v1.json",
   "importMap": "./import_map.json",
   "fmt": {
-    "options": {
-      "useTabs": false,
-      "indentWidth": 2,
-      "singleQuote": true
-    },
-    "files": {
-      "exclude": [
-        "./src/core/bundler/minify/target/"
-      ]
-    }
+    "useTabs": false,
+    "indentWidth": 2,
+    "singleQuote": true,
+    "exclude": [
+      "./src/core/bundler/minify/target/"
+    ]
   },
   "lint": {
-    "files": {
-      "exclude": [
-        "./src/core/bundler/minify/target/"
-      ]
-    }
+    "exclude": [
+      "./src/core/bundler/minify/target/"
+    ]
   },
   "tasks": {
     "cargo:build": "cd ./src/core/bundler/minify/ ; deno run -A https://deno.land/x/wasmbuild/main.ts ; cd ../../../../",

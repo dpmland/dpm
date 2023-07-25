@@ -33,9 +33,6 @@ export {
 // Parse flags for the DPX
 export { parse } from 'https://deno.land/std@0.195.0/flags/mod.ts';
 
-// Node Process support
-export * as node from 'https://deno.land/std@0.158.0/node/process.ts';
-
 // FMT for generate the command!
 export * as fmt from 'https://deno.land/std@0.195.0/fmt/printf.ts';
 

@@ -3,7 +3,7 @@
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { basename, Confirm, Number, prompt } from 'mods/deps.ts';
 import { writeFileFormatted } from 'json/utils/magicPrint.ts';
-import { DenoConfigurationInterface } from 'json/files.types.ts';
+import { DenoConfigurationFileSchema } from 'json/files.types.ts';
 
 async function getPromptForDeno() {
   return await prompt([
@@ -29,14 +29,12 @@ async function getPromptForDeno() {
 export async function writeDenoConfigFile(_print?: boolean) {
   const fmt = await getPromptForDeno();
 
-  const data: DenoConfigurationInterface = {
-    $schema: 'https://deno.land/x/deno/cli/schemas/config-file.v1.json',
+  const data: DenoConfigurationFileSchema = {
+    $schema: 'https://deno.land/x/deno@v1.35.2/cli/schemas/config-file.v1.json',
     fmt: {
-      options: {
-        useTabs: !fmt.spaces,
-        indentWidth: fmt.indent,
-        singleQuote: fmt.quote,
-      },
+      useTabs: !fmt.spaces,
+      indentWidth: fmt.indent,
+      singleQuote: fmt.quote,
     },
     importMap: `./${basename(BASE_DIRECTORIES.IMPORT_MAPS)}`,
     tasks: {
