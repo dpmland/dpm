@@ -11,10 +11,20 @@ jobs:
 
       - name: Install Deno
         uses: denoland/setup-deno@v1
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
         with:
-          deno-version: 1.20.3
+          components: clippy,rustfmt
+          toolchain: stable
+
+      - name: Version output
+        run: |
+          rustc --version
+          cargo --version
+          deno --version
 
       - name: Check the lint and the formatting tools
-        run: deno task fmt:check
+        run: deno task check
         env:
           NO_COLOR: true

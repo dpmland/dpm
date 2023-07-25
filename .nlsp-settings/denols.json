@@ -1,12 +1,9 @@
 {
-  "deno.enable": true,
-  "deno.lint": true,
-  "deno.unstable": true,
-  "deno.config": "./deno.json",
-  "deno.suggest.imports.hosts": {
-    "https://deno.land": true,
-    "https://cdn.nest.land": true,
-    "https://crux.land": true
-  },
-  "deno.importMap": "./import_map.json"
+  "deno": {
+    "enable": true,
+    "lint": true,
+    "unstable": true,
+    "config": "./deno.json",
+    "importMap": "./import_map.json"
+  }
 }

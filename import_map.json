@@ -1,14 +1,18 @@
 {
   "imports": {
-    "mods/": "./src/modules/",
+    "bundler/": "./src/core/bundler/",
+    "checker/": "./src/core/checker/",
+    "cmd/": "./src/commands/",
     "core/": "./src/core/",
-    "dpm/": "./src/core/dpm_files/",
+    "docs/": "./src/core/docs/",
+    "dpx/": "./src/core/dpx/",
+    "json/": "./src/core/json/",
+    "mods/": "./src/modules/",
     "packages/": "./src/core/packages/",
+    "publish/": "./src/core/publish/",
     "runner/": "./src/core/runner/",
     "tasks/": "./src/core/task/",
-    "tools/": "./src/core/tools/",
-    "docs/": "./src/core/docs/",
-    "checker/": "./src/core/checker/",
-    "cmd/": "./src/commands/"
+    "templates/": "./src/core/templates/",
+    "tools/": "./src/core/tools/"
   }
 }

@@ -16,7 +16,7 @@ if (Deno.args[0] == 'upload') {
 
 if (Deno.args[0] == 'help') {
   console.log(
-    'With this tool you can check the requirements and develop more easy and fast dpm!\nMore info on https://github.com/dpmland/dpm/blob/dev/CONTRIBUTING.md\nAvaliable Commands:\n CLEAN, UPLOAD!',
+    'With this tool you can check the requirements and develop more easy and fast dpm!\nMore info on https://github.com/dpmland/dpm/blob/dev/CONTRIBUTING.md\n available Commands:\n CLEAN, UPLOAD!',
   );
   Deno.exit();
 }

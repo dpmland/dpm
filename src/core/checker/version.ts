@@ -1,8 +1,7 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
 import { dependencyType } from 'checker/types/dependencyType.ts';
-import { soxa } from 'mods/deps.ts';
-import { LOGGER } from 'mods/logger.ts';
+import { httpClient } from 'mods/http.ts';
 
 export async function addLatestVersions(
   dependencies: dependencyType[],
@@ -20,13 +19,10 @@ async function getVersionFromUrl(
   dependency: dependencyType,
   url: string,
 ): Promise<dependencyType> {
-  const versionsList = await soxa.get(url)
-    .catch((error) => {
-      LOGGER.error(`Error getting the latest dependency ${error}`);
-    });
-  if (versionsList.data) {
-    dependency.latest = versionsList.data.latest;
-    dependency.upToDate = versionsList.data.latest === dependency.version;
+  const versionsList = await httpClient(url);
+  if (versionsList) {
+    dependency.latest = versionsList.latest;
+    dependency.upToDate = versionsList.latest === dependency.version;
   } else {
     dependency.latest = 'not found';
   }
