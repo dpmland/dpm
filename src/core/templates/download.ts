@@ -28,7 +28,7 @@ export async function DownloadRepo(repos: string[], opts: RepoParams = {}) {
 
   // Format the command to execute
   for (const i of repos) {
-    const valid = ((i.split('/').length == 2) ? true : false);
+    const valid = (i.split('/').length == 2) ? true : false;
     if (valid) {
       await Run(
         fmt.sprintf(

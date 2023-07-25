@@ -3,7 +3,7 @@ import {
   basename,
   colors,
   Command,
-  dracoFiles,
+  directory,
   dracoInfo,
   join,
   node,
@@ -61,7 +61,7 @@ export const ExecCommand = new Command()
                 basename(
                   node.env.SHELL,
                 )
-              }:\n${colors.bold(join(dracoFiles.homeDir()!, '.zshrc'))}\n`,
+              }:\n${colors.bold(join(directory.default('home')!, '.zshrc'))}\n`,
             );
             break;
           }
@@ -74,7 +74,12 @@ export const ExecCommand = new Command()
                 )
               }:\n${
                 colors.bold(
-                  join(dracoFiles.homeDir()!, '.config', 'fish', 'config.fish'),
+                  join(
+                    directory.default('home')!,
+                    '.config',
+                    'fish',
+                    'config.fish',
+                  ),
                 )
               }\n`,
             );
@@ -87,7 +92,9 @@ export const ExecCommand = new Command()
                 basename(
                   node.env.SHELL,
                 )
-              }:\n${colors.bold(join(dracoFiles.homeDir()!, '.bashrc'))}\n`,
+              }:\n${
+                colors.bold(join(directory.default('home')!, '.bashrc'))
+              }\n`,
             );
             break;
           }

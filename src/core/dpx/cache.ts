@@ -89,14 +89,13 @@ function toHex(buffer: ArrayBuffer) {
 
 /** get the deno cache dir. */
 async function getDenoDir() {
-  const p = Deno.run({
-    cmd: [Deno.execPath(), 'info', '--json'],
-    stdout: 'piped',
+  const cmd = new Deno.Command(Deno.execPath(), {
+    args: ['info', '--json'],
     stderr: 'null',
+    stdout: 'piped',
   });
-  const output = new TextDecoder().decode(await p.output());
+  const output = new TextDecoder().decode((await cmd.output()).stdout);
   const { denoDir } = JSON.parse(output);
-  p.close();
   if (denoDir === undefined || !await existsDir(denoDir)) {
     throw new Error(`can"t find the deno dir`);
   }

@@ -262,12 +262,10 @@ export interface EggsConfigInterface {
    */
   bump?: string;
   /*
-  * The home page or repo for the nest registry
-  */
-  homepage?: string;
-  /*
-   *
+   * The home page or repo for the nest registry
    */
+  homepage?: string;
+  /* */
   releaseType?:
     | 'patch'
     | 'minor'

@@ -2,7 +2,15 @@
 
 import { OtherRunner, Run, RunOut } from 'runner/main.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { colors, Confirm, dracoFiles, Input, join, prompt } from 'mods/deps.ts';
+import {
+  colors,
+  Confirm,
+  directory,
+  dracoFiles,
+  Input,
+  join,
+  prompt,
+} from 'mods/deps.ts';
 
 export async function Publish() {
   LOGGER.info('Opening the prompt for make the release...');
@@ -56,7 +64,9 @@ export async function Publish() {
   }
   if (ans.eggs == true) {
     if (
-      !dracoFiles.exists(join(dracoFiles.homeDir()!, '.deno', 'bin', 'eggs'))
+      !dracoFiles.exists(
+        join(directory.default('home')!, '.deno', 'bin', 'eggs'),
+      )
     ) {
       LOGGER.error(
         'Not found the eggs cli for the eggs publish :( please install this with << dpm tools install >>',

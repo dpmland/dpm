@@ -3,39 +3,33 @@
 import * as colors from 'https://deno.land/std@0.158.0/fmt/colors.ts';
 import { join } from 'https://deno.land/std@0.158.0/path/mod.ts';
 import { dracoFiles, dracoInfo } from 'https://deno.land/x/draco@0.1.3/mod.ts';
+import dir from 'https://deno.land/x/dir@1.5.1/mod.ts';
 import Ask from 'https://deno.land/x/ask@1.0.6/mod.ts';
-import { Monk } from 'https://deno.land/x/monk@0.1.0/mod.ts';
+import { Monk } from 'https://deno.land/x/monk@0.1.2/mod.ts';
 
 // Utilities
 // Runner function
 async function Run(command: string) {
   console.log(`${colors.dim('$')} ${colors.bold(command)}`);
   const cmd = command.split(' ');
-  const run = Deno.run({
-    cmd: cmd,
-    stdout: 'piped',
-    stderr: 'piped',
-  });
+  const run = new Deno.Command(cmd[0], { args: cmd.slice(1) });
 
-  const { code } = await run.status();
+  const result = await run.output();
 
-  // Piped outs
-  const rawErr = await run.stderrOutput();
-
-  if (code !== 0) {
+  if (result.code !== 0) {
     console.error(
       `The command was not executed correctly:\n${
         colors.dim(command)
       }\n - Error Detailed:\n${
-        colors.red(colors.bold(new TextDecoder().decode(rawErr)))
+        colors.red(colors.bold(new TextDecoder().decode(result.stderr)))
       }`,
     );
-    Deno.exit(code);
+    Deno.exit(result.code);
   }
 }
 
 // Bin path for the executable
-const BIN = join(dracoFiles.homeDir()!, '.deno', 'bin');
+const BIN = join(dir('home')!, '.deno', 'bin');
 
 // Prompt
 const ask = new Ask({
@@ -102,7 +96,7 @@ if (answers2.allTools) {
       await Run(`${join(BIN, 'dpm.exe')} docs -u`);
       console.log(colors.yellow('Installed the documentation!'));
       if (installation == 'canary') {
-        await Run(`${join(BIN, 'dpm')} init -D`);
+        await Run(`${join(BIN, 'dpm')} init -I`);
         console.log(colors.yellow('Installed the license templates!'));
       }
     } else {
@@ -116,7 +110,7 @@ if (answers2.allTools) {
     dracoInfo.platform() == 'linux' || dracoInfo.platform() == 'darwin'
   ) {
     if (dracoFiles.exists(join(BIN, 'dpm'))) {
-      await Run(`${join(BIN, 'dpm')} docs -u`);
+      await Run(`${join(BIN, 'dpm')} tools install`);
       console.log(colors.yellow('Installed the documentation!'));
       if (installation == 'canary') {
         await Run(`${join(BIN, 'dpm')} init -D`);

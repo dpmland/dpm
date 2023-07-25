@@ -1,6 +1,6 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
-import { dracoFiles, dracoInfo, join } from 'mods/deps.ts';
+import { directory, dracoInfo, join } from 'mods/deps.ts';
 
 // Os Deno Name
 let denoName;
@@ -47,20 +47,20 @@ export interface names {
 }
 
 export const BASE_DIRECTORIES: directories = {
-  LOGS: join(dracoFiles.cacheDir('DPM')!, 'logs'),
-  CONFIG: join(dracoFiles.cacheDir('DPM')!, 'config'),
-  DOCS: join(dracoFiles.cacheDir('DPM')!, 'docs'),
-  LICENSE_DIR: join(dracoFiles.cacheDir('DPM')!, 'licenses'),
-  TEMPLATE_DIR: join(dracoFiles.cacheDir('DPM')!, 'templates'),
-  DPM_FILE: join(dracoFiles.currentDir(), 'dpm.json'),
-  DENO_JSON_FILE: join(dracoFiles.currentDir(), 'deno.json'),
-  IMPORT_MAPS: join(dracoFiles.currentDir(), 'import_map.json'),
-  EGGS_FILE: join(dracoFiles.currentDir(), 'eggs.json'),
-  README: join(dracoFiles.currentDir(), 'README.md'),
-  TEMP: join(dracoFiles.cacheDir('DPM')!, 'bin'),
-  DENO_EXEC: join(dracoFiles.homeDir()!, '.deno', 'bin', denoName),
-  DEPS_BUNDLE: join(dracoFiles.currentDir(), 'deps.ts'),
-  INSTALLER: join(dracoFiles.currentDir(), 'installer.ts'),
+  LOGS: join(directory.default('cache')!, 'DPM', 'logs'),
+  CONFIG: join(directory.default('cache')!, 'DPM', 'config'),
+  DOCS: join(directory.default('cache')!, 'DPM', 'docs'),
+  LICENSE_DIR: join(directory.default('cache')!, 'DPM', 'licenses'),
+  TEMPLATE_DIR: join(directory.default('cache')!, 'DPM', 'templates'),
+  DPM_FILE: join(Deno.cwd(), 'dpm.json'),
+  DENO_JSON_FILE: join(Deno.cwd(), 'deno.json'),
+  IMPORT_MAPS: join(Deno.cwd(), 'import_map.json'),
+  EGGS_FILE: join(Deno.cwd(), 'eggs.json'),
+  README: join(Deno.cwd(), 'README.md'),
+  TEMP: join(directory.default('cache')!, 'DPM', 'bin'),
+  DENO_EXEC: join(directory.default('home')!, '.deno', 'bin', denoName),
+  DEPS_BUNDLE: join(Deno.cwd(), 'deps.ts'),
+  INSTALLER: join(Deno.cwd(), 'installer.ts'),
 };
 
 export const NAME_DIRECTORIES: names = {

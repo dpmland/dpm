@@ -2,6 +2,7 @@ import { colors, Input, parse, prompt } from 'mods/deps.ts';
 import { cache } from 'dpx/cache.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
+import { Run } from 'mods/run.ts';
 
 type DirEntry = { type: string; path: string };
 
@@ -227,15 +228,7 @@ export async function RunDPX(
 
   console.log(`${colors.dim('$')} ${colors.bold(cmd.join(' '))}`);
 
-  const run = Deno.run({
-    cmd: cmd,
-    stdin: 'inherit',
-    stdout: 'inherit',
-    stderr: 'inherit',
-  });
-
-  await run.status();
-  run.close();
+  await Run(cmd.join(' '));
 }
 
 export async function GeneratePromptDPX() {
