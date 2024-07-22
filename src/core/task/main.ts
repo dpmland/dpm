@@ -125,7 +125,7 @@ export async function addDpmTask() {
   const scripts = dpm.scripts;
 
   scripts[`${data.commandName || 'notValid'}`] = `${
-    data.commandValue || 'echo \'error\''
+    data.commandValue || "echo 'error'"
   }`;
 
   await Deno.writeTextFile(
