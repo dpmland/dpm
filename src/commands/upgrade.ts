@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { Command, Table } from 'mods/deps.ts';
 import { Run } from 'runner/main.ts';

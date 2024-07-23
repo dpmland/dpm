@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { colors, Confirm, copy, Input, join } from 'mods/deps.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';

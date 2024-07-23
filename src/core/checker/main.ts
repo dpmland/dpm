@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { readDependencies } from 'core/checker/file.ts';
 import { addLatestVersions } from 'core/checker/version.ts';

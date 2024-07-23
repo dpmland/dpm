@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { Command, UtilUnknown } from 'mods/deps.ts';
 import * as uninstall from 'packages/clean.ts';

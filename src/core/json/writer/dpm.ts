@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 import { basename, Input, prompt } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { writeFileFormatted } from 'json/utils/magicPrint.ts';

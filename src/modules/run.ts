@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 import { colors } from 'mods/deps.ts';
 
 export async function Run(command: string) {

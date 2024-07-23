@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 // @ts-types="../lib/minify_dpm.generated.d.ts"
 import { instantiate } from 'bundler/minify/lib/minify_dpm.generated.js';

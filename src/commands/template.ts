@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 import { Command } from 'mods/deps.ts';
 import { DownloadRepo } from 'templates/download.ts';
 import { ListAllTemplates } from 'templates/list.ts';

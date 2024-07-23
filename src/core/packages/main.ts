@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { writeDpmFile, writeImportMapFile } from 'json/writer.ts';
 import { readDpmFile, readImportMapFile } from 'json/reader.ts';

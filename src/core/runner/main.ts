@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { LOGGER } from 'mods/logger.ts';
 import { colors } from 'mods/deps.ts';

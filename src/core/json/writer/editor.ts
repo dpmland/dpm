@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { colors, Input, join } from 'mods/deps.ts';

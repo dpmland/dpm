@@ -18,7 +18,7 @@ Before the contribution you need check the file structure on the
   [Readme Source File](./src/README.md) and add this con the header on the file:
 
 ```
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 ```
 
 - Ensure check the lint and the format before the commit with this command:

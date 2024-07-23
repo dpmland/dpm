@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { basename, Confirm, Number, prompt } from 'mods/deps.ts';
@@ -42,6 +42,7 @@ export async function writeDenoConfigFile(_print?: boolean) {
       fmt: 'deno fmt -c deno.json',
       [`fmt:check`]: 'deno fmt -c deno.json --check && deno lint -c deno.json',
       lint: 'deno lint -c deno.json',
+      dev: 'deno run --watch main.ts',
     },
   };
   // Magic Print

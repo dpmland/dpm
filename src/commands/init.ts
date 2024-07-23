@@ -1,8 +1,9 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { Command, jsonColorize, Table } from 'mods/deps.ts';
 import {
   getTheOptionsPrompt,
+  initBasicDenoApp,
   JSON_LSP,
   writeDenoConfigFile,
   writeDpmFile,
@@ -50,6 +51,7 @@ export const InitCommand = new Command()
     if (all == true) {
       const app = await getTheOptionsPrompt();
       await writeDpmFile(app, true);
+      await initBasicDenoApp(true);
       await writeImportMapFile(true);
       await writeDenoConfigFile(true);
       await writeReadmeFile(true);
@@ -63,6 +65,7 @@ export const InitCommand = new Command()
     if (yes == true) {
       await writeDpmFile({});
       await writeImportMapFile();
+      await initBasicDenoApp(true);
       await writeDenoConfigFile();
       Deno.exit();
     }
@@ -92,7 +95,7 @@ export const InitCommand = new Command()
           break;
         }
 
-        case 'dpmImports': {
+        case 'importMap': {
           await writeImportMapFile();
           Deno.exit();
           break;
@@ -124,6 +127,12 @@ export const InitCommand = new Command()
           break;
         }
 
+        case 'denoProject': {
+          await initBasicDenoApp(false);
+          Deno.exit();
+          break;
+        }
+
         case 'help': {
           const AVAILABLE_COMMANDS = {
             readme:
@@ -137,6 +146,7 @@ export const InitCommand = new Command()
               `Generate the LICENSE from the template using the LICENSE in the dpm.json file! Note: << Necessary the dpm.json file! >>`,
             editor:
               `Generate a config file for an editor de default config for the dpm files! Note: << If you want know the editor supported run ** dpm docs init.files ** >>`,
+            denoProject: `Generate a deno basic project of example.`,
           };
 
           const table: Table = Table.from([]);

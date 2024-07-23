@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 use minifier::css::minify as mini_css;
 use minifier::js::minify as mini_js;
