@@ -1,5 +1,6 @@
 // Copyright © 2022 Dpm Land. All Rights Reserved.
 
+// @ts-types="../lib/minify_dpm.generated.d.ts"
 import { instantiate } from 'bundler/minify/lib/minify_dpm.generated.js';
 import {
   colors,
@@ -7,9 +8,24 @@ import {
   extname,
   jsonColorize,
   List,
+  MinifyHtml,
   Select,
 } from 'mods/deps.ts';
 import { LOGGER } from 'mods/logger.ts';
+
+function minify_html(text: string) {
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
+
+  MinifyHtml.initSync();
+
+  return decoder.decode(
+    MinifyHtml.minify(encoder.encode(text), {
+      keep_spaces_between_attributes: true,
+      keep_comments: true,
+    }),
+  );
+}
 
 export async function minifyFiles() {
   const ext: string = await Select.prompt({
@@ -27,8 +43,7 @@ export async function minifyFiles() {
     info: true,
   });
 
-  const { minify_js, minify_css, minify_html, minify_json } =
-    await instantiate();
+  const { minify_js, minify_css, minify_json } = await instantiate();
 
   for (const i of files) {
     if (

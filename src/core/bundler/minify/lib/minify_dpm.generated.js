@@ -1,20 +1,30 @@
 // @generated file from wasmbuild -- do not edit
+// @ts-nocheck: generated
 // deno-lint-ignore-file
 // deno-fmt-ignore-file
-// source-hash: 1c54ad667d5d144ff19b58af6b1675e041dd1b9d
+/// <reference types="./minify_dpm.generated.d.ts" />
+
+// source-hash: cc0b3eef8aeb5bc76cac588995267666287edb9d
 let wasm;
 
 let WASM_VECTOR_LEN = 0;
 
-let cachedUint8Memory0;
+let cachedUint8Memory0 = null;
+
 function getUint8Memory0() {
-  if (cachedUint8Memory0.byteLength === 0) {
+  if (cachedUint8Memory0 === null || cachedUint8Memory0.byteLength === 0) {
     cachedUint8Memory0 = new Uint8Array(wasm.memory.buffer);
   }
   return cachedUint8Memory0;
 }
 
-const cachedTextEncoder = new TextEncoder('utf-8');
+const cachedTextEncoder = typeof TextEncoder !== 'undefined'
+  ? new TextEncoder('utf-8')
+  : {
+    encode: () => {
+      throw Error('TextEncoder not available');
+    },
+  };
 
 const encodeString = function (arg, view) {
   return cachedTextEncoder.encodeInto(arg, view);
@@ -23,14 +33,14 @@ const encodeString = function (arg, view) {
 function passStringToWasm0(arg, malloc, realloc) {
   if (realloc === undefined) {
     const buf = cachedTextEncoder.encode(arg);
-    const ptr = malloc(buf.length);
+    const ptr = malloc(buf.length, 1) >>> 0;
     getUint8Memory0().subarray(ptr, ptr + buf.length).set(buf);
     WASM_VECTOR_LEN = buf.length;
     return ptr;
   }
 
   let len = arg.length;
-  let ptr = malloc(len);
+  let ptr = malloc(len, 1) >>> 0;
 
   const mem = getUint8Memory0();
 
@@ -46,33 +56,39 @@ function passStringToWasm0(arg, malloc, realloc) {
     if (offset !== 0) {
       arg = arg.slice(offset);
     }
-    ptr = realloc(ptr, len, len = offset + arg.length * 3);
+    ptr = realloc(ptr, len, len = offset + arg.length * 3, 1) >>> 0;
     const view = getUint8Memory0().subarray(ptr + offset, ptr + len);
     const ret = encodeString(arg, view);
 
     offset += ret.written;
+    ptr = realloc(ptr, len, offset, 1) >>> 0;
   }
 
   WASM_VECTOR_LEN = offset;
   return ptr;
 }
 
-let cachedInt32Memory0;
+let cachedInt32Memory0 = null;
+
 function getInt32Memory0() {
-  if (cachedInt32Memory0.byteLength === 0) {
+  if (cachedInt32Memory0 === null || cachedInt32Memory0.byteLength === 0) {
     cachedInt32Memory0 = new Int32Array(wasm.memory.buffer);
   }
   return cachedInt32Memory0;
 }
 
-const cachedTextDecoder = new TextDecoder('utf-8', {
-  ignoreBOM: true,
-  fatal: true,
-});
+const cachedTextDecoder = typeof TextDecoder !== 'undefined'
+  ? new TextDecoder('utf-8', { ignoreBOM: true, fatal: true })
+  : {
+    decode: () => {
+      throw Error('TextDecoder not available');
+    },
+  };
 
-cachedTextDecoder.decode();
+if (typeof TextDecoder !== 'undefined') cachedTextDecoder.decode();
 
 function getStringFromWasm0(ptr, len) {
+  ptr = ptr >>> 0;
   return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
 }
 /**
@@ -80,6 +96,8 @@ function getStringFromWasm0(ptr, len) {
  * @returns {string}
  */
 export function minify_js(content) {
+  let deferred2_0;
+  let deferred2_1;
   try {
     const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
     const ptr0 = passStringToWasm0(
@@ -91,33 +109,12 @@ export function minify_js(content) {
     wasm.minify_js(retptr, ptr0, len0);
     var r0 = getInt32Memory0()[retptr / 4 + 0];
     var r1 = getInt32Memory0()[retptr / 4 + 1];
+    deferred2_0 = r0;
+    deferred2_1 = r1;
     return getStringFromWasm0(r0, r1);
   } finally {
     wasm.__wbindgen_add_to_stack_pointer(16);
-    wasm.__wbindgen_free(r0, r1);
-  }
-}
-
-/**
- * @param {string} content
- * @returns {string}
- */
-export function minify_html(content) {
-  try {
-    const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-    const ptr0 = passStringToWasm0(
-      content,
-      wasm.__wbindgen_malloc,
-      wasm.__wbindgen_realloc,
-    );
-    const len0 = WASM_VECTOR_LEN;
-    wasm.minify_html(retptr, ptr0, len0);
-    var r0 = getInt32Memory0()[retptr / 4 + 0];
-    var r1 = getInt32Memory0()[retptr / 4 + 1];
-    return getStringFromWasm0(r0, r1);
-  } finally {
-    wasm.__wbindgen_add_to_stack_pointer(16);
-    wasm.__wbindgen_free(r0, r1);
+    wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
   }
 }
 
@@ -126,6 +123,8 @@ export function minify_html(content) {
  * @returns {string}
  */
 export function minify_css(content) {
+  let deferred2_0;
+  let deferred2_1;
   try {
     const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
     const ptr0 = passStringToWasm0(
@@ -137,10 +136,12 @@ export function minify_css(content) {
     wasm.minify_css(retptr, ptr0, len0);
     var r0 = getInt32Memory0()[retptr / 4 + 0];
     var r1 = getInt32Memory0()[retptr / 4 + 1];
+    deferred2_0 = r0;
+    deferred2_1 = r1;
     return getStringFromWasm0(r0, r1);
   } finally {
     wasm.__wbindgen_add_to_stack_pointer(16);
-    wasm.__wbindgen_free(r0, r1);
+    wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
   }
 }
 
@@ -149,6 +150,8 @@ export function minify_css(content) {
  * @returns {string}
  */
 export function minify_json(content) {
+  let deferred2_0;
+  let deferred2_1;
   try {
     const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
     const ptr0 = passStringToWasm0(
@@ -160,10 +163,12 @@ export function minify_json(content) {
     wasm.minify_json(retptr, ptr0, len0);
     var r0 = getInt32Memory0()[retptr / 4 + 0];
     var r1 = getInt32Memory0()[retptr / 4 + 1];
+    deferred2_0 = r0;
+    deferred2_1 = r1;
     return getStringFromWasm0(r0, r1);
   } finally {
     wasm.__wbindgen_add_to_stack_pointer(16);
-    wasm.__wbindgen_free(r0, r1);
+    wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
   }
 }
 
@@ -171,110 +176,302 @@ const imports = {
   __wbindgen_placeholder__: {},
 };
 
-const wasm_url = new URL('minify_dpm_bg.wasm', import.meta.url);
+class WasmBuildLoader {
+  #options;
+  #lastLoadPromise;
+  #instantiated;
 
-/**
- * Decompression callback
- *
- * @callback decompressCallback
- * @param {Uint8Array} compressed
- * @return {Uint8Array} decompressed
- */
-
-/** Instantiates an instance of the Wasm module returning its functions.
- * @remarks It is safe to call this multiple times and once successfully
- * loaded it will always return a reference to the same object.
- * @param {decompressCallback=} transform
- */
-export async function instantiate(transform) {
-  return (await instantiateWithInstance(transform)).exports;
-}
-
-let instanceWithExports;
-let lastLoadPromise;
-
-/** Instantiates an instance of the Wasm module along with its exports.
- * @remarks It is safe to call this multiple times and once successfully
- * loaded it will always return a reference to the same object.
- * @param {decompressCallback=} transform
- * @returns {Promise<{
- *   instance: WebAssembly.Instance;
- *   exports: { minify_js: typeof minify_js; minify_html: typeof minify_html; minify_css: typeof minify_css; minify_json: typeof minify_json }
- * }>}
- */
-export function instantiateWithInstance(transform) {
-  if (instanceWithExports != null) {
-    return Promise.resolve(instanceWithExports);
+  constructor(options) {
+    this.#options = options;
   }
-  if (lastLoadPromise == null) {
-    lastLoadPromise = (async () => {
+
+  get instance() {
+    return this.#instantiated?.instance;
+  }
+
+  get module() {
+    return this.#instantiated?.module;
+  }
+
+  load(
+    url,
+    decompress,
+  ) {
+    if (this.#instantiated) {
+      return Promise.resolve(this.#instantiated);
+    } else if (this.#lastLoadPromise == null) {
+      this.#lastLoadPromise = (async () => {
+        try {
+          this.#instantiated = await this.#instantiate(url, decompress);
+          return this.#instantiated;
+        } finally {
+          this.#lastLoadPromise = undefined;
+        }
+      })();
+    }
+    return this.#lastLoadPromise;
+  }
+
+  async #instantiate(url, decompress) {
+    const imports = this.#options.imports;
+    if (this.#options.cache != null && url.protocol !== 'file:') {
       try {
-        const instance = (await instantiateModule(transform)).instance;
-        wasm = instance.exports;
-        cachedInt32Memory0 = new Int32Array(wasm.memory.buffer);
-        cachedUint8Memory0 = new Uint8Array(wasm.memory.buffer);
-        instanceWithExports = {
-          instance,
-          exports: getWasmInstanceExports(),
-        };
-        return instanceWithExports;
-      } finally {
-        lastLoadPromise = null;
+        const result = await this.#options.cache(
+          url,
+          decompress ?? ((bytes) => bytes),
+        );
+        if (result instanceof URL) {
+          url = result;
+          decompress = undefined; // already decompressed
+        } else if (result != null) {
+          return WebAssembly.instantiate(result, imports);
+        }
+      } catch {
+        // ignore if caching ever fails (ex. when on deploy)
       }
-    })();
-  }
-  return lastLoadPromise;
-}
+    }
 
-function getWasmInstanceExports() {
-  return { minify_js, minify_html, minify_css, minify_json };
-}
+    const isFile = url.protocol === 'file:';
 
-/** Gets if the Wasm module has been instantiated. */
-export function isInstantiated() {
-  return instanceWithExports != null;
-}
-
-async function instantiateModule(transform) {
-  switch (wasm_url.protocol) {
-    case 'file:': {
-      if (typeof Deno !== 'object') {
-        throw new Error('file urls are not supported in this environment');
-      }
-
-      if ('permissions' in Deno) {
-        await Deno.permissions.request({ name: 'read', path: wasm_url });
-      }
-      const wasmCode = await Deno.readFile(wasm_url);
+    // make file urls work in Node via dnt
+    const isNode = globalThis.process?.versions?.node != null;
+    if (isFile && typeof Deno !== 'object') {
+      throw new Error(
+        'Loading local files are not supported in this environment',
+      );
+    }
+    if (isNode && isFile) {
+      // the deno global will be shimmed by dnt
+      const wasmCode = await Deno.readFile(url);
       return WebAssembly.instantiate(
-        !transform ? wasmCode : transform(wasmCode),
+        decompress ? decompress(wasmCode) : wasmCode,
         imports,
       );
     }
-    case 'https:':
-    case 'http:': {
-      if (typeof Deno === 'object' && 'permissions' in Deno) {
-        await Deno.permissions.request({ name: 'net', host: wasm_url.host });
+
+    switch (url.protocol) {
+      case 'file:':
+      case 'https:':
+      case 'http:': {
+        const wasmResponse = await fetchWithRetries(url);
+        if (decompress) {
+          const wasmCode = new Uint8Array(await wasmResponse.arrayBuffer());
+          return WebAssembly.instantiate(decompress(wasmCode), imports);
+        }
+        if (
+          isFile ||
+          wasmResponse.headers.get('content-type')?.toLowerCase()
+            .startsWith('application/wasm')
+        ) {
+          return WebAssembly.instantiateStreaming(wasmResponse, imports);
+        } else {
+          return WebAssembly.instantiate(
+            await wasmResponse.arrayBuffer(),
+            imports,
+          );
+        }
       }
-      const wasmResponse = await fetch(wasm_url);
-      if (transform) {
-        const wasmCode = new Uint8Array(await wasmResponse.arrayBuffer());
-        return WebAssembly.instantiate(transform(wasmCode), imports);
+      default:
+        throw new Error(`Unsupported protocol: ${url.protocol}`);
+    }
+  }
+}
+const isNodeOrDeno = typeof Deno === 'object' ||
+  (typeof process !== 'undefined' && process.versions != null &&
+    process.versions.node != null);
+
+const loader = new WasmBuildLoader({
+  imports,
+  cache: isNodeOrDeno ? cacheToLocalDir : undefined,
+});
+
+export async function instantiate(opts) {
+  return (await instantiateWithInstance(opts)).exports;
+}
+
+export async function instantiateWithInstance(opts) {
+  const { instance } = await loader.load(
+    opts?.url ?? new URL('minify_dpm_bg.wasm', import.meta.url),
+    opts?.decompress,
+  );
+  wasm = wasm ?? instance.exports;
+  cachedInt32Memory0 = cachedInt32Memory0 ?? new Int32Array(wasm.memory.buffer);
+  cachedUint8Memory0 = cachedUint8Memory0 ?? new Uint8Array(wasm.memory.buffer);
+  return {
+    instance,
+    exports: getWasmInstanceExports(),
+  };
+}
+
+function getWasmInstanceExports() {
+  return { minify_js, minify_css, minify_json };
+}
+
+export function isInstantiated() {
+  return loader.instance != null;
+}
+export async function cacheToLocalDir(url, decompress) {
+  const localPath = await getUrlLocalPath(url);
+  if (localPath == null) {
+    return undefined;
+  }
+  if (!await exists(localPath)) {
+    const fileBytes = decompress(new Uint8Array(await getUrlBytes(url)));
+    try {
+      await Deno.writeFile(localPath, fileBytes);
+    } catch {
+      // ignore and return the wasm bytes
+      return fileBytes;
+    }
+  }
+  return toFileUrl(localPath);
+}
+async function getUrlLocalPath(url) {
+  try {
+    const dataDirPath = await getInitializedLocalDataDirPath();
+    const hash = await getUrlHash(url);
+    return `${dataDirPath}/${hash}.wasm`;
+  } catch {
+    return undefined;
+  }
+}
+async function getInitializedLocalDataDirPath() {
+  const dataDir = localDataDir();
+  if (dataDir == null) {
+    throw new Error(`Could not find local data directory.`);
+  }
+  const dirPath = `${dataDir}/deno-wasmbuild`;
+  await ensureDir(dirPath);
+  return dirPath;
+}
+async function exists(filePath) {
+  try {
+    await Deno.lstat(filePath);
+    return true;
+  } catch (error) {
+    if (error instanceof Deno.errors.NotFound) {
+      return false;
+    }
+    throw error;
+  }
+}
+async function ensureDir(dir) {
+  try {
+    const fileInfo = await Deno.lstat(dir);
+    if (!fileInfo.isDirectory) {
+      throw new Error(`Path was not a directory '${dir}'`);
+    }
+  } catch (err) {
+    if (err instanceof Deno.errors.NotFound) {
+      // if dir not exists. then create it.
+      await Deno.mkdir(dir, { recursive: true });
+      return;
+    }
+    throw err;
+  }
+}
+async function getUrlHash(url) {
+  // Taken from MDN: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
+  const hashBuffer = await crypto.subtle.digest(
+    'SHA-256',
+    new TextEncoder().encode(url.href),
+  );
+  // convert buffer to byte array
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  // convert bytes to hex string
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+  return hashHex;
+}
+async function getUrlBytes(url) {
+  const response = await fetchWithRetries(url);
+  return await response.arrayBuffer();
+}
+// the below is extracted from deno_std/path
+const WHITESPACE_ENCODINGS = {
+  '\u0009': '%09',
+  '\u000A': '%0A',
+  '\u000B': '%0B',
+  '\u000C': '%0C',
+  '\u000D': '%0D',
+  '\u0020': '%20',
+};
+function encodeWhitespace(string) {
+  return string.replaceAll(/[\s]/g, (c) => {
+    return WHITESPACE_ENCODINGS[c] ?? c;
+  });
+}
+function toFileUrl(path) {
+  return Deno.build.os === 'windows'
+    ? windowsToFileUrl(path)
+    : posixToFileUrl(path);
+}
+function posixToFileUrl(path) {
+  const url = new URL('file:///');
+  url.pathname = encodeWhitespace(
+    path.replace(/%/g, '%25').replace(/\\/g, '%5C'),
+  );
+  return url;
+}
+function windowsToFileUrl(path) {
+  const [, hostname, pathname] = path.match(
+    /^(?:[/\\]{2}([^/\\]+)(?=[/\\](?:[^/\\]|$)))?(.*)/,
+  );
+  const url = new URL('file:///');
+  url.pathname = encodeWhitespace(pathname.replace(/%/g, '%25'));
+  if (hostname != null && hostname != 'localhost') {
+    url.hostname = hostname;
+    if (!url.hostname) {
+      throw new TypeError('Invalid hostname.');
+    }
+  }
+  return url;
+}
+export async function fetchWithRetries(url, maxRetries = 5) {
+  let sleepMs = 250;
+  let iterationCount = 0;
+  while (true) {
+    iterationCount++;
+    try {
+      const res = await fetch(url);
+      if (res.ok || iterationCount > maxRetries) {
+        return res;
       }
-      if (
-        wasmResponse.headers.get('content-type')?.toLowerCase().startsWith(
-          'application/wasm',
-        )
-      ) {
-        return WebAssembly.instantiateStreaming(wasmResponse, imports);
-      } else {
-        return WebAssembly.instantiate(
-          await wasmResponse.arrayBuffer(),
-          imports,
-        );
+    } catch (err) {
+      if (iterationCount > maxRetries) {
+        throw err;
       }
     }
-    default:
-      throw new Error(`Unsupported protocol: ${wasm_url.protocol}`);
+    console.warn(`Failed fetching. Retrying in ${sleepMs}ms...`);
+    await new Promise((resolve) => setTimeout(resolve, sleepMs));
+    sleepMs = Math.min(sleepMs * 2, 10000);
   }
+}
+// MIT License - Copyright (c) justjavac.
+// https://github.com/justjavac/deno_dirs/blob/e8c001bbef558f08fd486d444af391729b0b8068/data_local_dir/mod.ts
+function localDataDir() {
+  switch (Deno.build.os) {
+    case 'linux': {
+      const xdg = Deno.env.get('XDG_DATA_HOME');
+      if (xdg) {
+        return xdg;
+      }
+      const home = Deno.env.get('HOME');
+      if (home) {
+        return `${home}/.local/share`;
+      }
+      break;
+    }
+    case 'darwin': {
+      const home = Deno.env.get('HOME');
+      if (home) {
+        return `${home}/Library/Application Support`;
+      }
+      break;
+    }
+    case 'windows':
+      return Deno.env.get('LOCALAPPDATA') ?? undefined;
+  }
+  return undefined;
 }

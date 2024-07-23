@@ -75,3 +75,6 @@ export { open } from 'https://deno.land/x/open@v0.0.6/index.ts';
 
 // Unknown util
 export * as UtilUnknown from 'https://deno.land/x/unknownutil@v3.18.1/mod.ts';
+
+// Minify HTML
+export * as MinifyHtml from 'https://wilsonl.in/minify-html/deno/0.15.0/index.js';

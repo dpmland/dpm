@@ -15,7 +15,7 @@
     ]
   },
   "tasks": {
-    "cargo:build": "cd ./src/core/bundler/minify/ ; deno run -A https://deno.land/x/wasmbuild/main.ts ; cd ../../../../",
+    "cargo:build": "cd ./src/core/bundler/minify/ ; deno run -A jsr:@deno/wasmbuild ; cd ../../../../",
     "cargo:check": "cd ./src/core/bundler/minify/ ; cargo fmt --check ; cargo clippy ; cd ../../../../",
     "cargo:fmt": "cd ./src/core/bundler/minify/ ; cargo fmt ; cd ../../../../",
     "check": "deno task deno:check ; deno task cargo:check",
