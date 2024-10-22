@@ -31,35 +31,7 @@
     },
     "scripts": {
       "description": "The scripts for automate the commands!",
-      "type": "object",
-      "properties": {
-        "build_in": {
-          "description": "The included scripts generated for DPM for a better development with the included tasks!",
-          "type": "object",
-          "properties": {
-            "test": {
-              "description": "The test command generated from DPM",
-              "type": "string"
-            },
-            "fmt": {
-              "description": "The fmt command generated from DPM",
-              "type": "string"
-            },
-            "lint": {
-              "description": "The lint command generated from DPM",
-              "type": "string"
-            }
-          },
-          "required": [
-            "test",
-            "fmt",
-            "lint"
-          ]
-        }
-      },
-      "required": [
-        "build_in"
-      ]
+      "type": "object"
     },
     "dependencies": {
       "description": "The dependencies to use in the DPM Project!",

@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { Run } from 'runner/main.ts';
 import { BASE_DIRECTORIES } from 'mods/dirs.ts';
@@ -16,17 +16,6 @@ const TOOLS_TO_INSTALL = [
     name: 'eggs',
     description: 'Upload the package to the nest.land register',
     url: 'https://x.nest.land/eggs@0.3.10/eggs.ts',
-  },
-  {
-    name: 'land',
-    description: 'Run Deno X module without installation.',
-    url: 'https://deno.land/x/land/cli.ts',
-  },
-  {
-    name: 'vr',
-    description:
-      `Velociraptor is a script runner for Deno, inspired by npm's package.json scripts.`,
-    url: 'https://deno.land/x/velociraptor/cli.ts',
   },
 ];
 

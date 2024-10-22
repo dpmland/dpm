@@ -1,16 +1,18 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
-import { dracoFiles } from 'mods/deps.ts';
+import { colors, dracoFiles } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
+import { readDpmFile, readImportMapFile } from 'json/reader.ts';
 
 // Delete all dependencies from the files!
 // The import map file and the dpm dependencies file!
 export async function cleanAllDeps() {
   if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
-    const file = await ReadDpmFile();
-    const imports = await ReadImportMapFile();
+    const [file, imports] = await Promise.all([
+      readDpmFile(),
+      readImportMapFile(),
+    ]);
     // Delete the imports data
     if (!('imports' in imports)) {
       LOGGER.error(
@@ -55,8 +57,10 @@ export async function cleanAllDeps() {
 export async function cleanAnyDependency(deps: string[]) {
   if (dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE)) {
     // Read the files!
-    const file = await ReadDpmFile();
-    const imports = await ReadImportMapFile();
+    const [file, imports] = await Promise.all([
+      readDpmFile(),
+      readImportMapFile(),
+    ]);
 
     // Check if exists imports and if exists dependencies
     if (!('imports' in imports)) {
@@ -79,8 +83,8 @@ export async function cleanAnyDependency(deps: string[]) {
 
     console.info('Cleanning the dependencies.... ');
     for (const i of deps) {
-      if (Object.hasOwn(f, i)) {
-        Object.keys(f).forEach((_k) => delete f[i]);
+      if (Object.hasOwn(f, `${i}/`)) {
+        Object.keys(f).forEach((_k) => delete f[`${i}/`]);
       } else {
         LOGGER.warn(
           `Not found the ${i} dependency in the ${NAME_DIRECTORIES.DPM_FILE}`,
@@ -108,7 +112,7 @@ export async function cleanAnyDependency(deps: string[]) {
 
     LOGGER.info(
       `Cleanned successfully! ${
-        deps.join(' ')
+        colors.bold(deps.join(' '))
       } -> On ${NAME_DIRECTORIES.DPM_FILE} ${NAME_DIRECTORIES.IMPORT_MAPS}`,
     );
     Deno.exit();

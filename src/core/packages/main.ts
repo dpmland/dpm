@@ -1,31 +1,35 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
-import { WriteDpmFileJson, WriteImportMapJson } from 'dpm/init.ts';
-import { ReadDpmFile, ReadImportMapFile } from 'dpm/read.ts';
+import { writeDpmFile, writeImportMapFile } from 'json/writer.ts';
+import { readDpmFile, readImportMapFile } from 'json/reader.ts';
 import { dracoFiles } from 'mods/deps.ts';
-import { soxa } from 'mods/deps.ts';
+import { colors } from 'mods/deps.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
 import { LOGGER } from 'mods/logger.ts';
 import {
   appendModuleToDpm,
   appendOptions,
   appendStdToFile,
+  esmGetVersion,
+  getTheVersionOfDep,
 } from 'packages/add.ts';
 
 export async function installDepsToImports(
-  depName: Array<string>,
+  depName: string[],
   options: appendOptions = {},
 ) {
   if (
     !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))
   ) {
-    await WriteImportMapJson();
+    await writeImportMapFile();
   }
   if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
-    await WriteDpmFileJson({});
+    await writeDpmFile({});
   }
-  const data = await ReadImportMapFile();
-  const dpm = await ReadDpmFile();
+  const [data, dpm] = await Promise.all([
+    readImportMapFile(),
+    readDpmFile(),
+  ]);
   const mods = appendModuleToDpm(depName, options);
   if (!('dependencies' in dpm)) {
     LOGGER.error(
@@ -45,8 +49,7 @@ export async function installDepsToImports(
     ? 'https://deno.land/x'
     : options.host;
   for (const i of mods) {
-    const splited = i.replace(options.host, ' ');
-    const pkg = splited.split('/');
+    const pkg = i.replace(options.host, '').split('/');
     const version = await getTheVersionOfDep(pkg[1], options.host);
     if (version == '') {
       imports[`${pkg[1]}/`] = i;
@@ -54,9 +57,9 @@ export async function installDepsToImports(
       imports[`${pkg[1]}/`] = `${options.host}/${pkg[1]}@${version}/`;
     }
     if (version == '') {
-      deps[`${pkg[1]}`] = 'No Provided';
+      deps[`${pkg[1]}/`] = 'none';
     } else {
-      deps[`${pkg[1]}`] = `${version}`;
+      deps[`${pkg[1]}/`] = `${version}`;
     }
   }
 
@@ -69,45 +72,30 @@ export async function installDepsToImports(
     JSON.stringify(dpm, null, '  '),
   );
   LOGGER.info(
-    `Successfully installed the dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
+    `Successfully installed ${
+      colors.bold(depName.join(', '))
+    } into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
   );
   Deno.exit();
 }
 
-export async function getTheVersionOfDep(
-  dep: string,
-  host: string,
-): Promise<string> {
-  if (host == 'https://deno.land/x') {
-    if (dep.includes('@')) {
-      return ``;
-    }
-    const url = `https://cdn.deno.land/${dep}/meta/versions.json`;
-    const versionList = await soxa.get(url).catch((err) => {
-      LOGGER.error(`ERROR Getting the version from deno.land host: ${err}`);
-    });
-    if (versionList.data) {
-      return versionList.data.latest;
-    }
-  }
-  return '';
-}
-
 export async function installStdToImports(
-  depName: Array<string>,
+  depName: string[],
 ) {
   // Check if exists files!
   if (
     !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))
   ) {
-    await WriteImportMapJson();
+    await writeImportMapFile();
   }
   if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
-    await WriteDpmFileJson({});
+    await writeDpmFile({});
   }
   // Read the files!
-  const data = await ReadImportMapFile();
-  const dpm = await ReadDpmFile();
+  const [data, dpm] = await Promise.all([
+    readImportMapFile(),
+    readDpmFile(),
+  ]);
   if (!('dependencies' in dpm)) {
     LOGGER.error(
       'Dependency key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm for restart the dpm file >>',
@@ -129,8 +117,8 @@ export async function installStdToImports(
   await appendStdToFile(depName).then((f) => {
     for (const i of f) {
       const pkg = i.split('/');
-      imports[`${pkg[5]}/`] = i;
-      deps[`${pkg[5]}`] = i;
+      imports[`${pkg[4]}/`] = i;
+      deps[`${pkg[4]}/`] = i.split('@')[1].replace(/[^\d.-]/g, '');
     }
   });
 
@@ -143,7 +131,64 @@ export async function installStdToImports(
     JSON.stringify(dpm, null, '  '),
   );
   LOGGER.info(
-    `Successfully installed the std dependencies into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
+    `Successfully installed ${
+      colors.bold(depName.join(', '))
+    } into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
+  );
+  Deno.exit();
+}
+
+export async function esmInstallation(depName: string[]) {
+  // Check if exists files!
+  if (
+    !(dracoFiles.exists(BASE_DIRECTORIES.IMPORT_MAPS))
+  ) {
+    await writeImportMapFile();
+  }
+  if (!(dracoFiles.exists(BASE_DIRECTORIES.DPM_FILE))) {
+    await writeDpmFile({});
+  }
+  // Read the files!
+  const [data, dpm] = await Promise.all([
+    readImportMapFile(),
+    readDpmFile(),
+  ]);
+  if (!('dependencies' in dpm)) {
+    LOGGER.error(
+      'Dependency key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm for restart the dpm file >>',
+    );
+    Deno.exit(2);
+  }
+  if (!('imports' in data)) {
+    LOGGER.error(
+      'Imports key not found check the correct syntax of the file! More information on << dpm doc init.syntax >> or run << dpm init --dpm >> for restart the dpm file',
+    );
+    Deno.exit(2);
+  }
+  // Helper constants
+  const imports = data.imports;
+  const deps = dpm.dependencies;
+
+  await esmGetVersion(depName).then((f) => {
+    for (const i of f) {
+      const pkg = i.replace(' ', '').split('/');
+      imports[`${pkg[3].split('@')[0]}/`] = `${i.replace(' ', '')}/`;
+      deps[`${pkg[3].split('@')[0]}/`] = `${i.replace(' ', '').split('@')[1]}`;
+    }
+  });
+
+  await Deno.writeTextFile(
+    BASE_DIRECTORIES.IMPORT_MAPS,
+    JSON.stringify(data, null, '  '),
+  );
+  await Deno.writeTextFile(
+    BASE_DIRECTORIES.DPM_FILE,
+    JSON.stringify(dpm, null, '  '),
+  );
+  LOGGER.info(
+    `Successfully installed ${
+      colors.bold(depName.join(', '))
+    } into ${NAME_DIRECTORIES.IMPORT_MAPS} and in the ${NAME_DIRECTORIES.DPM_FILE}`,
   );
   Deno.exit();
 }

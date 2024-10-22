@@ -1,54 +1,80 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
-// Export the draco deps
+/**
+ * This is all DPM LAND Dependencies
+ */
 export { dracoFiles, dracoInfo } from 'https://deno.land/x/draco@0.1.3/mod.ts';
+export * as jsonColorize from 'https://deno.land/x/json_colorize@0.1.0/mod.ts';
 
-// Export the filePaths Utils util
+/**
+ * The new way to get home directory
+ */
+export * as directory from 'https://deno.land/x/dir@1.5.2/mod.ts';
+/**
+ * This is all STD Deno Dependencies
+ */
+
+// Filepaths operations supports
 export {
   basename,
   dirname,
   extname,
   join,
-} from 'https://deno.land/std@0.145.0/path/mod.ts';
+} from 'https://deno.land/std@0.224.0/path/mod.ts';
 
-// Ensure exists file for the folder support!
-export { ensureDir, ensureFile } from 'https://deno.land/std@0.145.0/fs/mod.ts';
+// FS Operation supports
+export {
+  copy,
+  ensureDir,
+  ensureFile,
+  walk,
+} from 'https://deno.land/std@0.224.0/fs/mod.ts';
 
-// Tables for help!
-export { Table } from 'https://deno.land/x/cliffy@v0.23.0/mod.ts';
+// Parse flags for the DPX
+export { parse } from 'https://deno.land/std@0.224.0/flags/mod.ts';
 
-// Charmd for the documentation
-export { renderMarkdown } from 'https://deno.land/x/charmd@v0.0.1/mod.ts';
+// FMT for generate the command!
+export * as fmt from 'https://deno.land/std@0.224.0/fmt/printf.ts';
 
-// Opener for the urls
-export { open } from 'https://deno.land/x/open@v0.0.5/index.ts';
+// Colors for the prints out
+export * as colors from 'https://deno.land/std@0.224.0/fmt/colors.ts';
 
-// Version Checker Tool
-export { soxa } from 'https://deno.land/x/soxa@1.4/mod.ts';
+/**
+ * This is all CLIFFY Dependencies thanks for make this amazing module!
+ */
 
-// Cliffy cli version!
+// Input module!
+export {
+  Checkbox,
+  Confirm,
+  Input,
+  List,
+  Number,
+  prompt,
+  Select,
+} from 'https://deno.land/x/cliffy@v1.0.0-rc.4/prompt/mod.ts';
+
 export {
   Command,
   CompletionsCommand,
-} from 'https://deno.land/x/cliffy@v0.22.2/command/mod.ts';
+  HelpCommand,
+} from 'https://deno.land/x/cliffy@v1.0.0-rc.4/command/mod.ts';
 
-// Update notifications!
-export {
-  DenoLandProvider,
-  GithubProvider,
-  UpgradeCommand,
-} from 'https://deno.land/x/cliffy@v0.22.2/command/upgrade/mod.ts';
+// Tables for help!
+export { Table } from 'https://deno.land/x/cliffy@v1.0.0-rc.4/table/mod.ts';
 
-export {
-  Github,
-  UpdateNotifier,
-} from 'https://x.nest.land/hatcher@0.10.2/mod.ts';
+/**
+ * This is all third party modules!
+ */
 
-// Emoji!
-export * as emoji from 'https://deno.land/x/emoji@0.1.2/mod.ts';
+// Print MD files to Term
+export { renderMarkdown } from 'https://deno.land/x/charmd@v0.1.2/mod.ts';
 
-// Colors!
-export * as colors from 'https://deno.land/std@0.145.0/fmt/colors.ts';
+// Open the URLS!
+export { open } from 'https://deno.land/x/open@v0.0.6/index.ts';
 
-// Add the JSON Colorizer for beautifull out!
-export * as jsonColorize from 'https://deno.land/x/json_colorize@0.1.0/mod.ts';
+// Unknown util
+export * as UtilUnknown from 'https://deno.land/x/unknownutil@v3.18.1/mod.ts';
+
+// Minify HTML
+export * as MinifyHtml from 'https://wilsonl.in/minify-html/deno/0.15.0/index.js';

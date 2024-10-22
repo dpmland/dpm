@@ -7,51 +7,69 @@ Here you found the source code of Dpm.
 ```
 .
 ├── commands
-│   ├── about.ts
-│   ├── docs.ts
-│   ├── init.ts
-│   ├── install.ts
-│   ├── task.ts
-│   ├── tools.ts
-│   ├── uninstall.ts
-│   └── update.ts
+│   ├── about.ts
+│   ├── docs.ts
+│   ├── exec.ts
+│   ├── init.ts
+│   ├── install.ts
+│   ├── publish.ts
+│   ├── task.ts
+│   ├── template.ts
+│   ├── tools.ts
+│   ├── uninstall.ts
+│   ├── update.ts
+│   └── upgrade.ts
 ├── core
-│   ├── checker
-│   │   ├── file.ts
-│   │   ├── main.ts
-│   │   ├── README.md
-│   │   ├── types
-│   │   │   ├── dependencyType.ts
-│   │   │   └── importType.ts
-│   │   └── version.ts
-│   ├── docs
-│   │   ├── download.ts
-│   │   └── main.ts
-│   ├── dpm_files
-│   │   ├── deno.ts
-│   │   ├── eggs.ts
-│   │   ├── init.ts
-│   │   ├── read.ts
-│   │   └── readme.ts
-│   ├── packages
-│   │   ├── add.ts
-│   │   ├── clean.ts
-│   │   ├── main.ts
-│   │   └── update.ts
-│   ├── runner
-│   │   ├── format.ts
-│   │   └── main.ts
-│   ├── task
-│   │   └── main.ts
-│   └── tools
-│       └── install.ts
+│   ├── checker
+│   │   ├── file.ts
+│   │   ├── main.ts
+│   │   ├── README.md
+│   │   ├── types
+│   │   │   ├── dependencyType.ts
+│   │   │   └── importType.ts
+│   │   └── version.ts
+│   ├── docs
+│   │   ├── download.ts
+│   │   └── main.ts
+│   ├── dpm_files
+│   │   ├── deno.ts
+│   │   ├── editor_gen.ts
+│   │   ├── eggs.ts
+│   │   ├── init.ts
+│   │   ├── readme.ts
+│   │   ├── read.ts
+│   │   └── util.ts
+│   ├── dpx
+│   │   ├── cache.ts
+│   │   ├── main.ts
+│   │   └── README.md
+│   ├── license
+│   │   └── download.ts
+│   ├── packages
+│   │   ├── add.ts
+│   │   ├── clean.ts
+│   │   ├── main.ts
+│   │   └── update.ts
+│   ├── publish
+│   │   └── main.ts
+│   ├── runner
+│   │   ├── format.ts
+│   │   └── main.ts
+│   ├── task
+│   │   └── main.ts
+│   ├── templates
+│   │   ├── download.ts
+│   │   ├── list.ts
+│   │   ├── search.ts
+│   │   └── usage.ts
+│   └── tools
+│       └── install.ts
 ├── modules
-│   ├── ask.ts
-│   ├── authors.ts
-│   ├── deps.ts
-│   ├── dirs.ts
-│   ├── info.ts
-│   └── logger.ts
+│   ├── authors.ts
+│   ├── deps.ts
+│   ├── dirs.ts
+│   ├── info.ts
+│   └── logger.ts
 └── README.md
 ```
 

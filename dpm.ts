@@ -1,11 +1,5 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
-
-import {
-  Command,
-  CompletionsCommand,
-  Github,
-  UpdateNotifier,
-} from 'mods/deps.ts';
+// Copyright © 2024 Dpm Land. All Rights Reserved.
+import { Command, CompletionsCommand } from 'mods/deps.ts';
 import { DESCRIPTION, VERSION } from 'mods/info.ts';
 import { AboutCommand } from 'cmd/about.ts';
 import { DocsCommand } from 'cmd/docs.ts';
@@ -16,17 +10,10 @@ import { UninstallCommand } from 'cmd/uninstall.ts';
 import { UpdateCommand } from 'cmd/update.ts';
 import { TaskCommand } from 'cmd/task.ts';
 import { UpgradeCommand } from 'cmd/upgrade.ts';
-
-const notifier = new UpdateNotifier({
-  name: 'dpm',
-  owner: 'dpmland',
-  registry: Github,
-  currentVersion: `${VERSION.substring(1)}`,
-});
-
-await notifier.checkForUpdates();
-
-notifier.notify('dpm upgrade --version latest');
+import { ExecCommand } from 'cmd/exec.ts';
+import { TemplateCommand } from 'cmd/template.ts';
+import { PublishCommand } from 'cmd/publish.ts';
+import { BundlerCommand } from 'cmd/bundler.ts';
 
 // Make the CLI!
 await new Command()
@@ -39,17 +26,18 @@ await new Command()
   .example('Uninstall a dependency', 'dpm uninstall draco dlog2')
   .version(`${VERSION.substring(1)}`)
   .description(DESCRIPTION)
-  .command('about', new AboutCommand())
-  .command('docs', new DocsCommand())
-  .command('init', new InitCommand())
-  .command('uninstall', new UninstallCommand())
-  .command('install', new InstallCommand())
-  .command('tools', new ToolsCommand())
-  .command('task', new TaskCommand())
-  .command('update', new UpdateCommand())
-  .command(
-    'upgrade',
-    new UpgradeCommand(),
-  )
+  .command('about', AboutCommand)
+  .command('docs', DocsCommand)
+  .command('init', InitCommand)
+  .command('publish', PublishCommand)
+  .command('uninstall', UninstallCommand)
+  .command('install', InstallCommand)
+  .command('tools', ToolsCommand)
+  .command('task', TaskCommand)
+  .command('update', UpdateCommand)
+  .command('template', TemplateCommand)
+  .command('upgrade', UpgradeCommand)
+  .command('exec', ExecCommand)
+  .command('bundle', BundlerCommand)
   .command('completions', new CompletionsCommand())
   .parse(Deno.args);

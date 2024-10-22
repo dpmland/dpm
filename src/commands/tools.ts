@@ -1,68 +1,57 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
-import { Command, emoji, Table } from 'mods/deps.ts';
+import { Command, Table } from 'mods/deps.ts';
 import * as tools from 'tools/install.ts';
 import { LOGGER } from 'mods/logger.ts';
 
-export class ToolsCommand extends Command {
-  #cmd?: Command;
+export const ToolsCommand = new Command()
+  .description(
+    `You need some tools for develop with Deno well here are all tools! 👌`,
+  )
+  .arguments('<action:string>')
+  .example(
+    'Help',
+    'You can check all available commands with << dpm tools help >>',
+  )
+  .action(async (_, action) => {
+    switch (action) {
+      case 'list': {
+        tools.getAllTools();
+        break;
+      }
 
-  public constructor(cmd?: Command) {
-    super();
-    this.#cmd = cmd;
+      case 'install': {
+        await tools.installTools();
+        break;
+      }
 
-    return this.description(
-      `You need some tools for develop with Deno well here are all tools! ${
-        emoji.get('ok_hand')
-      }`,
-    )
-      .arguments('[action:string]')
-      .example(
-        'Help',
-        'You can check all commands avaliables with << dpm tools help >>',
-      )
-      .stopEarly()
-      .action(async (_, action: string) => {
-        switch (action) {
-          case 'list': {
-            tools.getAllTools();
-            break;
-          }
+      case 'clean': {
+        await tools.cleanTools();
+        break;
+      }
 
-          case 'install': {
-            await tools.installTools();
-            break;
-          }
+      case 'help': {
+        const AVAILABLE_COMMANDS = {
+          list: `Here you can get all tools to install with DPM`,
+          install: `With this command you can install all tools!`,
+          clean: `With this command you can uninstall all tools!`,
+        };
 
-          case 'clean': {
-            await tools.cleanTools();
-            break;
-          }
+        const table: Table = Table.from([]);
 
-          case 'help': {
-            const COMMANDS_AVALIABLES = {
-              list: `Here you can get all tools to install with DPM`,
-              install: `With this command you can install all tools!`,
-              clean: `With this command you can uninstall all tools!`,
-            };
-
-            const table: Table = Table.from([]);
-
-            for (const i of Object.entries(COMMANDS_AVALIABLES)) {
-              table.push(i);
-            }
-            table.header(['Action', 'Description']);
-            table.sort();
-            table.border(true);
-            table.render();
-            break;
-          }
-
-          default: {
-            LOGGER.error('Action not found run << dpm doc tools >>');
-            break;
-          }
+        for (const i of Object.entries(AVAILABLE_COMMANDS)) {
+          table.push(i);
         }
-      });
-  }
-}
+        table.header(['Action', 'Description']);
+        table.sort();
+        table.border(true);
+        table.render();
+        break;
+      }
+
+      default: {
+        LOGGER.error('Action not found run << dpm doc tools >>');
+        break;
+      }
+    }
+  });

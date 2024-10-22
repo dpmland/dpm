@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { importsType } from 'checker/types/importType.ts';
 import { dependencyType } from 'checker/types/dependencyType.ts';

@@ -1,8 +1,8 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { dirname } from 'mods/deps.ts';
 import { LOGGER } from 'mods/logger.ts';
-import { soxa } from 'mods/deps.ts';
+import { httpClient } from 'mods/http.ts';
 
 // Types
 export interface appendOptions {
@@ -12,12 +12,12 @@ export interface appendOptions {
 
 // URLS
 const url = 'https://cdn.deno.land/std/meta/versions.json';
-const denoRegister = 'https://deno.land/x';
+const urlESM = 'https://esm.sh';
 
 export function appendModuleToDpm(
-  depName: Array<string>,
+  depName: string[],
   options: appendOptions = {},
-) {
+): string[] {
   const url = [];
   if (typeof options.host == 'boolean') {
     LOGGER.error('Host is necessary a value!');
@@ -26,6 +26,12 @@ export function appendModuleToDpm(
   options.host = (typeof options.host == 'undefined')
     ? 'https://deno.land/x'
     : options.host;
+
+  if (options.host == 'https://esm.sh' || options.host == 'esm.sh') {
+    LOGGER.warn(`Use dpm install --esm thePackage insead this!!!`);
+    Deno.exit();
+  }
+
   for (const i of depName) {
     const splited = i.split('/');
     if (splited.length > 2) {
@@ -49,18 +55,15 @@ export function appendModuleToDpm(
 }
 
 export async function appendStdToFile(
-  depName: Array<string>,
-) {
+  depName: string[],
+): Promise<string[]> {
   // Get the latest version of
-  const version = await soxa.get(url)
-    .catch((error) => {
-      LOGGER.error(`Error getting the latest dependency ${error}`);
-    });
+  const version = await httpClient(url);
   // Helper Variable
   let latest;
   const std = [];
-  if (version.data) {
-    latest = version.data.latest;
+  if (version.latest) {
+    latest = version.latest;
   } else {
     latest = '';
   }
@@ -70,8 +73,41 @@ export async function appendStdToFile(
       LOGGER.error(`Not found the latest version of the std!`);
       Deno.exit(2);
     }
-    URL_COMPLETE += `${denoRegister}/std@${latest}/${i}/`;
+    URL_COMPLETE += `https://deno.land/std@${latest}/${i}/`;
     std.push(URL_COMPLETE);
   }
   return std;
+}
+
+export async function esmGetVersion(depName: string[]): Promise<string[]> {
+  const urls = [];
+  for (const i of depName) {
+    const url = `${urlESM}/${i}`;
+    const response = await httpClient(url).then((data) => {
+      return data.split('\n', 1)[0].substring(12).replace(
+        '*/',
+        '',
+      );
+    });
+
+    urls.push(`${urlESM}/${response}`);
+  }
+  return urls;
+}
+
+export async function getTheVersionOfDep(
+  dep: string,
+  host: string,
+): Promise<string> {
+  if (host == 'https://deno.land/x') {
+    if (dep.includes('@')) {
+      return ``;
+    }
+    const url = `https://cdn.deno.land/${dep}/meta/versions.json`;
+    const versionList = await httpClient(url);
+    if (versionList.latest) {
+      return versionList.latest;
+    }
+  }
+  return '';
 }

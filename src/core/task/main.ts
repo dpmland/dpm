@@ -1,10 +1,9 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
-import { ReadDenoConfigFile, ReadDpmFile } from 'dpm/read.ts';
 import { LOGGER } from 'mods/logger.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
-import { dracoFiles, Table } from 'mods/deps.ts';
-import { ask } from 'mods/ask.ts';
+import { dracoFiles, Input, prompt, Table } from 'mods/deps.ts';
+import { readDenoFile, readDpmFile } from 'json/reader.ts';
 
 // Utils
 function checkFiles() {
@@ -27,22 +26,16 @@ function checkFiles() {
 export async function UpdateTasks() {
   // Valid if exists
   checkFiles();
+
   // Read the files
-  const dpm = await ReadDpmFile();
-  const deno = await ReadDenoConfigFile();
-
-  // Write a helper
-  const helper = {
-    build_in: {},
-  };
-  Object.assign(helper.build_in, dpm.scripts.build_in);
-
-  // Delete the build_in key
-  delete dpm.scripts['build_in'];
+  const [dpm, deno] = await Promise.all([
+    readDpmFile(),
+    readDenoFile(),
+  ]);
 
   // Copy the deno to dpm and dpm to deno
-  Object.assign(deno.tasks, dpm.scripts);
-  Object.assign(dpm.scripts, deno.tasks, helper);
+  Object.assign(deno.tasks!, dpm.scripts);
+  Object.assign(dpm.scripts, deno.tasks);
 
   // Update the files!
   await Deno.writeTextFile(
@@ -67,11 +60,14 @@ export async function listDenoTasks() {
     Deno.exit(2);
   }
 
-  const deno = await ReadDenoConfigFile();
+  const deno = await readDenoFile();
   // Helpers!
-  const tasks = deno.tasks;
+  if (typeof deno.tasks == 'undefined') {
+    LOGGER.error(`Not found any task in the file!!`);
+    Deno.exit(2);
+  }
   const table: Table = Table.from([]);
-  for (const i of Object.entries(tasks)) {
+  for (const i of Object.entries(deno.tasks)) {
     const it = i as [string, string];
     table.push(it);
   }
@@ -89,9 +85,8 @@ export async function listDpmTasks() {
     Deno.exit(2);
   }
 
-  const dpm = await ReadDpmFile();
+  const dpm = await readDpmFile();
   // Helpers
-  delete dpm.scripts['build_in'];
   const tasks = dpm.scripts;
   const table: Table = Table.from([]);
   for (const i of Object.entries(tasks)) {
@@ -105,32 +100,32 @@ export async function listDpmTasks() {
 }
 
 async function generateThePrompt() {
-  const answers = await ask.prompt([
+  return await prompt([
     {
       name: 'commandName',
       message: 'What is the command name',
-      type: 'input',
+      type: Input,
     },
     {
       name: 'commandValue',
       message: 'What is the value of the command. Example: echo "hi" ',
-      type: 'input',
+      type: Input,
     },
   ]);
-  return answers;
 }
 
 export async function addDpmTask() {
   // Valid if exists the necessary files
   checkFiles();
   // Get the file content
-  const dpm = await ReadDpmFile();
-  // Helpers
+  const [dpm, data] = await Promise.all([
+    readDpmFile(),
+    generateThePrompt(),
+  ]);
   const scripts = dpm.scripts;
-  const data = await generateThePrompt();
 
   scripts[`${data.commandName || 'notValid'}`] = `${
-    data.commandValue || 'echo \'error\''
+    data.commandValue || "echo 'error'"
   }`;
 
   await Deno.writeTextFile(

@@ -1,4 +1,4 @@
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 
 import { Run } from 'runner/main.ts';
 import { BASE_DIRECTORIES, NAME_DIRECTORIES } from 'mods/dirs.ts';
@@ -16,7 +16,7 @@ if (Deno.args[0] == 'upload') {
 
 if (Deno.args[0] == 'help') {
   console.log(
-    'With this tool you can check the requirements and develop more easy and fast dpm!\nMore info on https://github.com/dpmland/dpm/blob/dev/CONTRIBUTING.md\nAvaliable Commands:\n CLEAN, UPLOAD!',
+    'With this tool you can check the requirements and develop more easy and fast dpm!\nMore info on https://github.com/dpmland/dpm/blob/dev/CONTRIBUTING.md\n available Commands:\n CLEAN, UPLOAD!',
   );
   Deno.exit();
 }

@@ -18,7 +18,7 @@ Before the contribution you need check the file structure on the
   [Readme Source File](./src/README.md) and add this con the header on the file:
 
 ```
-// Copyright © 2022 Dpm Land. All Rights Reserved.
+// Copyright © 2024 Dpm Land. All Rights Reserved.
 ```
 
 - Ensure check the lint and the format before the commit with this command:
@@ -67,7 +67,7 @@ For remote usage run:
 deno install -A -f -n ddpm --unstable --import-map=https://denopkg.com/dpmland/dpm@dev/import_map.json https://denopkg.com/dpmland/dpm@dev/dev.ts
 ```
 
-Commands avaliable:
+Commands available:
 
 - Clean: Remove the unused files and clean after the upload!
 - Upload: Check the lint and the format on the current directory!
@@ -87,11 +87,24 @@ Commands avaliable:
 - [x] Create the `deno.json` config generator
 - [x] Add the import map generator
 - [x] Add the `eggs.json` file generator
-- [ ] Add the aliases for run a deno app
-- [ ] Template engine for use many starter kits more easy!
-- [ ] Documentation markdown complete!
+- [x] Add the aliases for run a deno app
+- [x] Template engine for use many starter kits more easy!
+- [x] Documentation markdown complete!
 - [x] Add the check upgrade and the upgrade command for dpm
 - [x] Add the `README.md` and data generator.
+- [x] Add the `npx` clone for Deno with [land](https://github.com/ije/land) #8
+- [x] Add the license generator file: add the automaticall license download from
+      the `dpm.json` file. #9
+- [x] Add the support for the [esm.sh](https://esm.sh) dependencies for a
+      automaticall installation like: `dpm install --esm react` #10
+- [x] Add the `dpm checkupgrade` for show the updates and `dpm upgrade` for
+      write the new versions! #13
+- [x] Add the template manager like: `npx create react-app` and replace with a
+      `dpm template fresh-app` #15
+- [x] Add the `dpm publish` for the dependencies! #12
+- [x] Add the editor config generator file: add the automaticall config
+      generator for editors `vscode, vim, neovim` #11
+- [x] Migrate to other prompt module for a more beautifull out 🖌️
 
 ---
 
