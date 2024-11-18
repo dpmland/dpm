@@ -52,16 +52,16 @@ export {
   Number,
   prompt,
   Select,
-} from 'https://deno.land/x/cliffy@v1.0.0-rc.4/prompt/mod.ts';
+} from 'https://deno.land/x/cliffy@v1.0.0-rc.7/prompt/mod.ts';
 
 export {
   Command,
   CompletionsCommand,
   HelpCommand,
-} from 'https://deno.land/x/cliffy@v1.0.0-rc.4/command/mod.ts';
+} from 'https://deno.land/x/cliffy@v1.0.0-rc.7/command/mod.ts';
 
 // Tables for help!
-export { Table } from 'https://deno.land/x/cliffy@v1.0.0-rc.4/table/mod.ts';
+export { Table } from 'https://deno.land/x/cliffy@v1.0.0-rc.7/table/mod.ts';
 
 /**
  * This is all third party modules!
@@ -71,7 +71,7 @@ export { Table } from 'https://deno.land/x/cliffy@v1.0.0-rc.4/table/mod.ts';
 export { renderMarkdown } from 'https://deno.land/x/charmd@v0.1.2/mod.ts';
 
 // Open the URLS!
-export { open } from 'https://deno.land/x/open@v0.0.6/index.ts';
+export { open } from 'https://deno.land/x/open@v1.0.0/index.ts';
 
 // Unknown util
 export * as UtilUnknown from 'https://deno.land/x/unknownutil@v3.18.1/mod.ts';
